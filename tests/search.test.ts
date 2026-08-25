@@ -57,11 +57,20 @@ test("跨页安装指南导航保留首页锚点且首页会切换激活标签",
   assert.match(siteHeaderSource, /<HomeGuideLink \/>/);
   assert.match(siteHeaderSource, /className="menu-button"/);
   assert.match(siteHeaderSource, /className="mobile-nav"/);
+  assert.match(siteHeaderSource, /BrowserNavigationLink/);
+  for (const href of ["/compare", "/tools", "/resources", "/questions"]) {
+    assert.match(siteHeaderSource, new RegExp(`href: "${href}"`));
+  }
   const guideLinkSource = readFileSync(join(process.cwd(), "components/HomeGuideLink.tsx"), "utf8");
   assert.match(guideLinkSource, /window\.location\.assign\("\/#guides"\)/);
   const homeSource = readFileSync(join(process.cwd(), "app/page.tsx"), "utf8");
   assert.match(homeSource, /id="guides"/);
   assert.match(homeSource, /activeHomeSection === "guides"/);
+  for (const [href, label] of [["/compare", "工具对比"], ["/tools", "工具导航"], ["/resources", "资源导航"], ["/questions", "常见问题"]]) {
+    assert.match(homeSource, new RegExp(`<BrowserNavigationLink href="${href}">${label}<\\/BrowserNavigationLink>`), `首页顶部导航应通过浏览器完整跳转到 ${href}`);
+  }
+  const browserNavigationSource = readFileSync(join(process.cwd(), "components/BrowserNavigationLink.tsx"), "utf8");
+  assert.match(browserNavigationSource, /window\.location\.assign\(href\)/);
 });
 
 test("全局流场背景不会拦截操作并尊重减少动态效果偏好", () => {

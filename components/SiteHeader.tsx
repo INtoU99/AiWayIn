@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 
+import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
 import { HomeGuideLink } from "@/components/HomeGuideLink";
 
 type SitePage = "compare" | "tools" | "resources" | "questions";
@@ -54,17 +54,17 @@ export function SiteHeader({ activePage }: { activePage: SitePage }) {
 
   return (
     <header className="simple-topbar" aria-label="网站顶部导航" ref={headerRef}>
-      <Link className="brand" href="/"><span className="brand-mark" aria-hidden="true">✣</span><span>开启使用 AI 的第一步</span></Link>
+      <BrowserNavigationLink className="brand" href="/"><span className="brand-mark" aria-hidden="true">✣</span><span>开启使用 AI 的第一步</span></BrowserNavigationLink>
       <nav className="simple-desktop-nav" aria-label="主要导航">
-        <Link href="/">首页</Link>
+        <BrowserNavigationLink href="/">首页</BrowserNavigationLink>
         <HomeGuideLink />
-        {pageLinks.map((item) => <Link className={activePage === item.id ? "active" : undefined} href={item.href} aria-current={activePage === item.id ? "page" : undefined} key={item.id}>{item.label}</Link>)}
+        {pageLinks.map((item) => <BrowserNavigationLink className={activePage === item.id ? "active" : undefined} href={item.href} aria-current={activePage === item.id ? "page" : undefined} key={item.id}>{item.label}</BrowserNavigationLink>)}
       </nav>
       <button ref={menuButtonRef} className="menu-button" type="button" aria-label={menuOpen ? "关闭导航菜单" : "打开导航菜单"} aria-controls={mobileNavigationId} aria-expanded={menuOpen} onClick={() => setMenuOpen((current) => !current)}>{menuOpen ? "关闭" : "菜单"}</button>
       {menuOpen && <nav className="mobile-nav" id={mobileNavigationId} aria-label="移动端导航">
-        <Link href="/" onClick={closeMenu}>首页<span aria-hidden="true">→</span></Link>
+        <BrowserNavigationLink href="/" onNavigate={closeMenu}>首页<span aria-hidden="true">→</span></BrowserNavigationLink>
         <HomeGuideLink onNavigate={closeMenu} showArrow />
-        {pageLinks.map((item) => <Link className={activePage === item.id ? "active" : undefined} href={item.href} aria-current={activePage === item.id ? "page" : undefined} key={item.id} onClick={closeMenu}>{item.label}<span aria-hidden="true">→</span></Link>)}
+        {pageLinks.map((item) => <BrowserNavigationLink className={activePage === item.id ? "active" : undefined} href={item.href} aria-current={activePage === item.id ? "page" : undefined} key={item.id} onNavigate={closeMenu}>{item.label}<span aria-hidden="true">→</span></BrowserNavigationLink>)}
       </nav>}
     </header>
   );

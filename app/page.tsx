@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
+import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
 import { EnvironmentChecker } from "@/components/EnvironmentChecker";
 import { PathFinder } from "@/components/PathFinder";
 import { ToolLogo } from "@/components/ToolLogo";
@@ -114,10 +115,10 @@ export default function Home() {
       <header className="topbar" aria-label="网站顶部导航" ref={headerRef}>
         <a className="brand" href="#top" aria-label="开启使用 AI 的第一步，返回首页" onClick={() => setActiveHomeSection("top")}><span className="brand-mark" aria-hidden="true">✣</span><span>开启使用 AI 的第一步</span></a>
         <nav className="desktop-nav" aria-label="主要导航">
-          <a className={activeHomeSection === "top" ? "active" : undefined} href="#top" aria-current={activeHomeSection === "top" ? "page" : undefined} onClick={() => setActiveHomeSection("top")}>首页</a><a className={activeHomeSection === "guides" ? "active" : undefined} href="#guides" aria-current={activeHomeSection === "guides" ? "page" : undefined} onClick={() => setActiveHomeSection("guides")}>安装指南</a><Link href="/compare">工具对比</Link><Link href="/tools">工具导航</Link><Link href="/resources">资源导航</Link><Link href="/questions">常见问题</Link>
+          <a className={activeHomeSection === "top" ? "active" : undefined} href="#top" aria-current={activeHomeSection === "top" ? "page" : undefined} onClick={() => setActiveHomeSection("top")}>首页</a><a className={activeHomeSection === "guides" ? "active" : undefined} href="#guides" aria-current={activeHomeSection === "guides" ? "page" : undefined} onClick={() => setActiveHomeSection("guides")}>安装指南</a><BrowserNavigationLink href="/compare">工具对比</BrowserNavigationLink><BrowserNavigationLink href="/tools">工具导航</BrowserNavigationLink><BrowserNavigationLink href="/resources">资源导航</BrowserNavigationLink><BrowserNavigationLink href="/questions">常见问题</BrowserNavigationLink>
         </nav>
         <button ref={menuButtonRef} className="menu-button" type="button" aria-label={menuOpen ? "关闭导航菜单" : "打开导航菜单"} aria-controls="mobile-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen((current) => !current)}>{menuOpen ? "关闭" : "菜单"}</button>
-        {menuOpen && <nav className="mobile-nav" id="mobile-navigation" aria-label="移动端导航">{[["首页", "#top"], ["安装指南", "#guides"], ["工具对比", "/compare"], ["工具导航", "/tools"], ["资源导航", "/resources"], ["常见问题", "/questions"]].map(([label, href]) => href.startsWith("/") ? <Link href={href} key={href} onClick={() => setMenuOpen(false)}>{label}<span aria-hidden="true">→</span></Link> : <a className={href === `#${activeHomeSection}` ? "active" : undefined} href={href} key={href} aria-current={href === `#${activeHomeSection}` ? "page" : undefined} onClick={() => { setActiveHomeSection(href === "#guides" ? "guides" : "top"); setMenuOpen(false); }}>{label}<span aria-hidden="true">→</span></a>)}</nav>}
+        {menuOpen && <nav className="mobile-nav" id="mobile-navigation" aria-label="移动端导航">{[["首页", "#top"], ["安装指南", "#guides"], ["工具对比", "/compare"], ["工具导航", "/tools"], ["资源导航", "/resources"], ["常见问题", "/questions"]].map(([label, href]) => href.startsWith("/") ? <BrowserNavigationLink href={href} key={href} onNavigate={() => setMenuOpen(false)}>{label}<span aria-hidden="true">→</span></BrowserNavigationLink> : <a className={href === `#${activeHomeSection}` ? "active" : undefined} href={href} key={href} aria-current={href === `#${activeHomeSection}` ? "page" : undefined} onClick={() => { setActiveHomeSection(href === "#guides" ? "guides" : "top"); setMenuOpen(false); }}>{label}<span aria-hidden="true">→</span></a>)}</nav>}
       </header>
 
       <section className="hero" id="top">
