@@ -1,0 +1,318 @@
+export type ResourceTone = "blue" | "mint" | "peach" | "violet";
+
+export type ResourceLink = {
+  id: string;
+  name: string;
+  description: string;
+  url: string;
+  domain: string;
+  tags: string[];
+  mark: string;
+  tone: ResourceTone;
+  logo?: string;
+};
+
+export type ResourceCategory = {
+  id: string;
+  title: string;
+  description: string;
+};
+
+export const platformClients: ResourceLink[] = [
+  {
+    id: "v2rayn",
+    name: "v2rayN",
+    description: "适用于 Windows、Linux 与 macOS 的开源图形客户端。",
+    url: "https://github.com/2dust/v2rayN",
+    domain: "github.com/2dust/v2rayN",
+    tags: ["桌面端", "开源"],
+    mark: "V2",
+    tone: "blue",
+    logo: "/resource-logos/v2rayn.svg",
+  },
+  {
+    id: "v2rayng",
+    name: "v2rayNG",
+    description: "面向 Android 设备的开源图形客户端。",
+    url: "https://github.com/2dust/v2rayNG",
+    domain: "github.com/2dust/v2rayNG",
+    tags: ["Android", "开源"],
+    mark: "NG",
+    tone: "mint",
+    logo: "/resource-logos/v2rayng.png",
+  },
+  {
+    id: "flclash",
+    name: "FlClash",
+    description: "基于 Clash Meta 的多平台开源客户端，覆盖 Android、Windows、macOS 与 Linux。",
+    url: "https://github.com/chen08209/FlClash",
+    domain: "github.com/chen08209/FlClash",
+    tags: ["全平台", "开源"],
+    mark: "FC",
+    tone: "violet",
+    logo: "/resource-logos/flclash.ico",
+  },
+  {
+    id: "clash-verge-rev",
+    name: "Clash Verge Rev",
+    description: "基于 Tauri 的桌面端图形客户端，支持 Windows、macOS 与 Linux。",
+    url: "https://github.com/clash-verge-rev/clash-verge-rev",
+    domain: "github.com/clash-verge-rev/clash-verge-rev",
+    tags: ["桌面端", "开源"],
+    mark: "CV",
+    tone: "blue",
+    logo: "/resource-logos/clash-verge-rev.png",
+  },
+  {
+    id: "shadowrocket",
+    name: "Shadowrocket",
+    description: "面向 Apple 设备的规则型网络工具，以 App Store 信息为准。",
+    url: "https://apps.apple.com/us/app/shadowrocket/id932747118",
+    domain: "apps.apple.com",
+    tags: ["iPhone / iPad", "付费应用"],
+    mark: "SR",
+    tone: "peach",
+    logo: "/resource-logos/shadowrocket.jpg",
+  },
+];
+
+export const networkCheckServices: ResourceLink[] = [
+  {
+    id: "ping0",
+    name: "Ping0",
+    description: "快速查看公开 IP、位置、连接与基础网络环境信息。",
+    url: "https://ping0.cc/",
+    domain: "ping0.cc",
+    tags: ["IP 信息", "基础检测"],
+    mark: "P0",
+    tone: "blue",
+    logo: "/resource-logos/ping0.ico",
+  },
+  {
+    id: "ipleak",
+    name: "IPLeak",
+    description: "检查公开 IP、WebRTC 与 DNS 请求是否暴露预期之外的信息。",
+    url: "https://ipleak.net/",
+    domain: "ipleak.net",
+    tags: ["DNS 泄露", "WebRTC"],
+    mark: "IL",
+    tone: "mint",
+    logo: "/resource-logos/ipleak.ico",
+  },
+  {
+    id: "ipipseek",
+    name: "IPIPSeek",
+    description: "查询 IP 归属、类型和风险信息，结果应与其他来源交叉核对。",
+    url: "https://www.ipipseek.com/",
+    domain: "ipipseek.com",
+    tags: ["IP 属性", "风险参考"],
+    mark: "IS",
+    tone: "violet",
+    logo: "/resource-logos/ipipseek.ico",
+  },
+];
+
+export const aiWebServices: ResourceLink[] = [
+  {
+    id: "chatgpt-web",
+    name: "ChatGPT",
+    description: "对话、写作、研究、代码、视觉创作与多模态任务入口。",
+    url: "https://chatgpt.com/",
+    domain: "chatgpt.com",
+    tags: ["通用助手", "多模态"],
+    mark: "CG",
+    tone: "blue",
+    logo: "/logos/chatgpt.svg",
+  },
+  {
+    id: "claude-web",
+    name: "Claude",
+    description: "适合对话、长文档、写作、分析、代码与复杂任务协作。",
+    url: "https://claude.ai/",
+    domain: "claude.ai",
+    tags: ["通用助手", "长文本"],
+    mark: "CL",
+    tone: "peach",
+    logo: "/logos/claude.svg",
+  },
+  {
+    id: "gemini-web",
+    name: "Google Gemini",
+    description: "Google 提供的通用 AI 助手与多模态对话入口。",
+    url: "https://gemini.google.com/",
+    domain: "gemini.google.com",
+    tags: ["通用助手", "Google"],
+    mark: "GE",
+    tone: "violet",
+    logo: "/resource-logos/gemini-web.svg",
+  },
+  {
+    id: "deepseek-web",
+    name: "DeepSeek",
+    description: "面向推理、问答、写作和代码任务的官方网页版入口。",
+    url: "https://chat.deepseek.com/",
+    domain: "chat.deepseek.com",
+    tags: ["推理", "代码"],
+    mark: "DS",
+    tone: "mint",
+    logo: "/resource-logos/deepseek-web.png",
+  },
+  {
+    id: "kimi-web",
+    name: "Kimi",
+    description: "支持对话、搜索、长文档处理、创作与 Agent 任务。",
+    url: "https://www.kimi.com/",
+    domain: "kimi.com",
+    tags: ["长文本", "Agent"],
+    mark: "KI",
+    tone: "blue",
+    logo: "/resource-logos/kimi-web.ico",
+  },
+];
+
+export const apiPlatforms: ResourceLink[] = [
+  {
+    id: "openai-api",
+    name: "OpenAI API Platform",
+    description: "创建 API Key、管理项目与用量，并使用 OpenAI 模型构建应用。",
+    url: "https://platform.openai.com/",
+    domain: "platform.openai.com",
+    tags: ["官方模型", "项目管理"],
+    mark: "OA",
+    tone: "blue",
+    logo: "/logos/chatgpt.svg",
+  },
+  {
+    id: "claude-api",
+    name: "Claude Platform",
+    description: "获取 Claude API、管理密钥与账单，并在 Workbench 中测试提示词。",
+    url: "https://platform.claude.com/",
+    domain: "platform.claude.com",
+    tags: ["官方模型", "Workbench"],
+    mark: "CL",
+    tone: "peach",
+    logo: "/logos/claude.svg",
+  },
+  {
+    id: "gemini-api",
+    name: "Google AI Studio",
+    description: "体验 Gemini 模型、创建 API Key，并快速生成调用示例。",
+    url: "https://aistudio.google.com/",
+    domain: "aistudio.google.com",
+    tags: ["Gemini API", "在线调试"],
+    mark: "GE",
+    tone: "violet",
+    logo: "/resource-logos/gemini-web.svg",
+  },
+  {
+    id: "deepseek-api",
+    name: "DeepSeek 开放平台",
+    description: "创建 DeepSeek API Key、查看用量与余额，并调用官方模型。",
+    url: "https://platform.deepseek.com/",
+    domain: "platform.deepseek.com",
+    tags: ["官方模型", "兼容接口"],
+    mark: "DS",
+    tone: "mint",
+    logo: "/resource-logos/deepseek-web.png",
+  },
+  {
+    id: "kimi-api",
+    name: "Kimi 开放平台",
+    description: "使用 Kimi 模型与官方工具，管理 API Key、用量和开发配置。",
+    url: "https://platform.kimi.com/",
+    domain: "platform.kimi.com",
+    tags: ["官方模型", "开发工具"],
+    mark: "KI",
+    tone: "blue",
+    logo: "/resource-logos/kimi-web.ico",
+  },
+  {
+    id: "qwen-api",
+    name: "阿里云百炼（通义千问）",
+    description: "通过阿里云百炼调用通义千问等模型，并管理密钥、应用与用量。",
+    url: "https://bailian.console.aliyun.com/",
+    domain: "bailian.console.aliyun.com",
+    tags: ["通义千问", "模型服务"],
+    mark: "QW",
+    tone: "violet",
+    logo: "/resource-logos/qwen-api.png",
+  },
+  {
+    id: "glm-api",
+    name: "智谱 BigModel（GLM）",
+    description: "访问智谱 GLM 系列模型，创建 API Key 并查看开发文档与用量。",
+    url: "https://open.bigmodel.cn/",
+    domain: "open.bigmodel.cn",
+    tags: ["GLM", "模型服务"],
+    mark: "GL",
+    tone: "blue",
+    logo: "/resource-logos/glm-api.png",
+  },
+  {
+    id: "siliconflow-api",
+    name: "SiliconFlow",
+    description: "提供多种模型的统一 API 服务，使用前请核对模型来源与数据规则。",
+    url: "https://cloud.siliconflow.cn/",
+    domain: "cloud.siliconflow.cn",
+    tags: ["模型聚合", "统一接口"],
+    mark: "SF",
+    tone: "mint",
+    logo: "/resource-logos/siliconflow-api.png",
+  },
+  {
+    id: "openrouter-api",
+    name: "OpenRouter",
+    description: "聚合多个模型提供商的统一接口，可按模型与提供商选择路由。",
+    url: "https://openrouter.ai/",
+    domain: "openrouter.ai",
+    tags: ["模型聚合", "路由选择"],
+    mark: "OR",
+    tone: "peach",
+    logo: "/resource-logos/openrouter-api.ico",
+  },
+];
+
+export const resourceCategories: ResourceCategory[] = [
+  { id: "ai-creative", title: "AI 图像与视频", description: "从快速生成到模型社区与专业视频流程。" },
+  { id: "productivity", title: "办公与研究", description: "整理信息、协作、设计和检索资料。" },
+  { id: "design-assets", title: "设计与视觉素材", description: "寻找界面灵感、作品案例和可用素材。" },
+  { id: "content-community", title: "内容与社区", description: "学习、发布内容并参与兴趣社区。" },
+  { id: "development-learning", title: "开发与学习", description: "查找代码、解决问题并学习系统课程。" },
+  { id: "knowledge", title: "搜索与知识", description: "通用搜索和基础知识查询入口。" },
+];
+
+export const featuredResources: Array<ResourceLink & { categoryId: string }> = [
+  { id: "midjourney", name: "Midjourney", description: "用于高质量图像生成、风格探索与创意概念表达。", url: "https://www.midjourney.com/", domain: "midjourney.com", tags: ["图像生成", "创意"], mark: "MJ", tone: "violet", logo: "/resource-logos/midjourney.png", categoryId: "ai-creative" },
+  { id: "civitai", name: "Civitai", description: "生成式图像模型、资源与作品交流社区。", url: "https://civitai.com/", domain: "civitai.com", tags: ["模型社区", "图像"], mark: "CI", tone: "blue", logo: "/resource-logos/civitai.jpg", categoryId: "ai-creative" },
+  { id: "dreamina", name: "即梦 AI", description: "提供图片、视频、智能画布等中文 AI 创作功能。", url: "https://jimeng.jianying.com/ai-tool/home", domain: "jimeng.jianying.com", tags: ["图片", "视频"], mark: "梦", tone: "peach", logo: "/resource-logos/dreamina.ico", categoryId: "ai-creative" },
+  { id: "kling", name: "可灵 AI", description: "面向图片和视频生成的 AI 创意生产力平台。", url: "https://kling.ai/cn", domain: "kling.ai", tags: ["视频生成", "图片"], mark: "可", tone: "mint", logo: "/resource-logos/kling.png", categoryId: "ai-creative" },
+  { id: "libtv", name: "LibTV", description: "LiblibAI 旗下的多模型 AI 视频创作平台。", url: "https://www.liblib.tv/", domain: "liblib.tv", tags: ["视频生成", "创作流程"], mark: "TV", tone: "violet", logo: "/resource-logos/libtv.ico", categoryId: "ai-creative" },
+  { id: "liblibai", name: "LiblibAI", description: "集合图片、视频创作和生成式模型资源的社区平台。", url: "https://www.liblib.art/", domain: "liblib.art", tags: ["模型社区", "多模态"], mark: "LI", tone: "blue", logo: "/resource-logos/liblibai.ico", categoryId: "ai-creative" },
+
+  { id: "notion", name: "Notion", description: "将笔记、知识库、项目管理与 AI 辅助整合在一起。", url: "https://www.notion.com/", domain: "notion.com", tags: ["知识管理", "协作"], mark: "N", tone: "blue", logo: "/resource-logos/notion.png", categoryId: "productivity" },
+  { id: "canva", name: "Canva", description: "通过模板和 AI 功能快速制作海报、演示与社交内容。", url: "https://www.canva.com/", domain: "canva.com", tags: ["在线设计", "模板"], mark: "CA", tone: "violet", logo: "/resource-logos/canva.png", categoryId: "productivity" },
+  { id: "perplexity", name: "Perplexity", description: "提供来源引用的联网搜索与研究辅助工具。", url: "https://www.perplexity.ai/", domain: "perplexity.ai", tags: ["AI 搜索", "研究"], mark: "PX", tone: "mint", logo: "/resource-logos/perplexity.svg", categoryId: "productivity" },
+
+  { id: "figma", name: "Figma", description: "用于 UI、产品设计、原型和团队实时协作。", url: "https://www.figma.com/", domain: "figma.com", tags: ["UI / UX", "协作"], mark: "F", tone: "violet", logo: "/resource-logos/figma.png", categoryId: "design-assets" },
+  { id: "dribbble", name: "Dribbble", description: "浏览设计作品、界面案例和视觉创意灵感。", url: "https://dribbble.com/", domain: "dribbble.com", tags: ["设计灵感", "作品"], mark: "DR", tone: "peach", logo: "/resource-logos/dribbble.svg", categoryId: "design-assets" },
+  { id: "behance", name: "Behance", description: "展示和浏览较完整的创意项目与作品集。", url: "https://www.behance.net/", domain: "behance.net", tags: ["作品集", "案例"], mark: "BE", tone: "blue", logo: "/resource-logos/behance.svg", categoryId: "design-assets" },
+  { id: "pinterest", name: "Pinterest", description: "按照主题收集图片、设计参考和视觉灵感。", url: "https://www.pinterest.com/", domain: "pinterest.com", tags: ["视觉发现", "灵感"], mark: "P", tone: "peach", logo: "/resource-logos/pinterest.svg", categoryId: "design-assets" },
+  { id: "unsplash", name: "Unsplash", description: "查找高质量摄影图片，使用前应查看对应许可说明。", url: "https://unsplash.com/", domain: "unsplash.com", tags: ["摄影", "素材"], mark: "U", tone: "mint", logo: "/resource-logos/unsplash.svg", categoryId: "design-assets" },
+
+  { id: "youtube", name: "YouTube", description: "查找视频教程、课程、测评和创作内容。", url: "https://www.youtube.com/", domain: "youtube.com", tags: ["视频", "学习"], mark: "YT", tone: "peach", logo: "/resource-logos/youtube.svg", categoryId: "content-community" },
+  { id: "medium", name: "Medium", description: "阅读和发布技术、设计与行业主题的长文。", url: "https://medium.com/", domain: "medium.com", tags: ["长文", "创作"], mark: "M", tone: "mint", logo: "/resource-logos/medium.svg", categoryId: "content-community" },
+  { id: "reddit", name: "Reddit", description: "通过主题社区查找讨论、经验和真实用户反馈。", url: "https://www.reddit.com/", domain: "reddit.com", tags: ["社区", "讨论"], mark: "R", tone: "peach", logo: "/resource-logos/reddit.svg", categoryId: "content-community" },
+  { id: "discord", name: "Discord", description: "加入开发者、创作者和产品用户的实时社区。", url: "https://discord.com/", domain: "discord.com", tags: ["社群", "实时交流"], mark: "D", tone: "violet", logo: "/resource-logos/discord.svg", categoryId: "content-community" },
+
+  { id: "github", name: "GitHub", description: "查找开源项目、托管代码并参与协作开发。", url: "https://github.com/", domain: "github.com", tags: ["开源", "代码托管"], mark: "GH", tone: "blue", logo: "/resource-logos/github.svg", categoryId: "development-learning" },
+  { id: "stackoverflow", name: "Stack Overflow", description: "搜索编程问题、错误原因和社区解答。", url: "https://stackoverflow.com/", domain: "stackoverflow.com", tags: ["编程问答", "排错"], mark: "SO", tone: "peach", logo: "/resource-logos/stackoverflow.svg", categoryId: "development-learning" },
+  { id: "khan-academy", name: "Khan Academy", description: "提供数学、科学、计算机等结构化免费课程。", url: "https://www.khanacademy.org/", domain: "khanacademy.org", tags: ["免费课程", "基础学习"], mark: "KA", tone: "mint", logo: "/resource-logos/khan-academy.ico", categoryId: "development-learning" },
+  { id: "coursera", name: "Coursera", description: "查找大学课程、职业证书和系统化技能课程。", url: "https://www.coursera.org/", domain: "coursera.org", tags: ["在线课程", "职业技能"], mark: "CO", tone: "blue", logo: "/resource-logos/coursera.png", categoryId: "development-learning" },
+
+  { id: "google", name: "Google", description: "通用网页搜索、资料查询和信息入口。", url: "https://www.google.com/", domain: "google.com", tags: ["搜索", "信息"], mark: "G", tone: "blue", logo: "/resource-logos/google.svg", categoryId: "knowledge" },
+  { id: "wikipedia", name: "Wikipedia", description: "查询多语言百科条目和主题背景信息。", url: "https://www.wikipedia.org/", domain: "wikipedia.org", tags: ["百科", "知识"], mark: "W", tone: "mint", logo: "/resource-logos/wikipedia.svg", categoryId: "knowledge" },
+];
+
+export function getResourceCategory(categoryId: string) {
+  return resourceCategories.find((category) => category.id === categoryId);
+}

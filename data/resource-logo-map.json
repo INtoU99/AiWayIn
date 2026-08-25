@@ -1,0 +1,152 @@
+[
+  {
+    "id": "v2rayn",
+    "path": "/resource-logos/v2rayn.svg",
+    "source": "user-provided official asset"
+  },
+  {
+    "id": "civitai",
+    "path": "/resource-logos/civitai.jpg",
+    "source": "user-provided official asset"
+  },
+  {
+    "id": "canva",
+    "path": "/resource-logos/canva.png",
+    "source": "user-provided official asset, deterministically processed"
+  },
+  {
+    "id": "midjourney",
+    "path": "/resource-logos/midjourney.png",
+    "source": "user-provided official asset, deterministically processed"
+  },
+  {
+    "id": "v2rayng",
+    "path": "/resource-logos/v2rayng.png",
+    "source": "https://raw.githubusercontent.com/2dust/v2rayNG/master/V2rayNG/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+  },
+  {
+    "id": "shadowrocket",
+    "path": "/resource-logos/shadowrocket.jpg",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/44/d3/df/44d3df14-cf72-37d1-6e61-582f7023b90e/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-85-220.png/512x512bb.jpg"
+  },
+  {
+    "id": "gemini-web",
+    "path": "/resource-logos/gemini-web.svg",
+    "source": "https://cdn.simpleicons.org/googlegemini"
+  },
+  {
+    "id": "deepseek-web",
+    "path": "/resource-logos/deepseek-web.png",
+    "source": "https://fe-static.deepseek.com/chat/icon-180.png"
+  },
+  {
+    "id": "kimi-web",
+    "path": "/resource-logos/kimi-web.ico",
+    "source": "https://www.kimi.com/favicon.ico"
+  },
+  {
+    "id": "dreamina",
+    "path": "/resource-logos/dreamina.ico",
+    "source": "https://lf3-lv-buz.vlabstatic.com/obj/image-lvweb-buz/common/images/dreamina-v5.ico"
+  },
+  {
+    "id": "kling",
+    "path": "/resource-logos/kling.png",
+    "source": "https://s16-kling.klingai.com/kos/s101/nlav112918/kling-homepage-aio/logo-180x180.png"
+  },
+  {
+    "id": "libtv",
+    "path": "/resource-logos/libtv.ico",
+    "source": "https://www.liblib.tv/favicon.ico"
+  },
+  {
+    "id": "liblibai",
+    "path": "/resource-logos/liblibai.ico",
+    "source": "https://www.liblib.art/favicon.ico"
+  },
+  {
+    "id": "notion",
+    "path": "/resource-logos/notion.png",
+    "source": "https://www.notion.com/front-static/logo-ios.png"
+  },
+  {
+    "id": "perplexity",
+    "path": "/resource-logos/perplexity.svg",
+    "source": "https://cdn.simpleicons.org/perplexity"
+  },
+  {
+    "id": "figma",
+    "path": "/resource-logos/figma.png",
+    "source": "https://static.figma.com/app/icon/2/touch-180.png"
+  },
+  {
+    "id": "dribbble",
+    "path": "/resource-logos/dribbble.svg",
+    "source": "https://cdn.simpleicons.org/dribbble"
+  },
+  {
+    "id": "behance",
+    "path": "/resource-logos/behance.svg",
+    "source": "https://cdn.simpleicons.org/behance"
+  },
+  {
+    "id": "pinterest",
+    "path": "/resource-logos/pinterest.svg",
+    "source": "https://cdn.simpleicons.org/pinterest"
+  },
+  {
+    "id": "unsplash",
+    "path": "/resource-logos/unsplash.svg",
+    "source": "https://cdn.simpleicons.org/unsplash"
+  },
+  {
+    "id": "youtube",
+    "path": "/resource-logos/youtube.svg",
+    "source": "https://cdn.simpleicons.org/youtube"
+  },
+  {
+    "id": "medium",
+    "path": "/resource-logos/medium.svg",
+    "source": "https://cdn.simpleicons.org/medium"
+  },
+  {
+    "id": "reddit",
+    "path": "/resource-logos/reddit.svg",
+    "source": "https://cdn.simpleicons.org/reddit"
+  },
+  {
+    "id": "discord",
+    "path": "/resource-logos/discord.svg",
+    "source": "https://cdn.simpleicons.org/discord"
+  },
+  {
+    "id": "github",
+    "path": "/resource-logos/github.svg",
+    "source": "https://github.githubassets.com/assets/pinned-octocat-093da3e6fa40.svg"
+  },
+  {
+    "id": "stackoverflow",
+    "path": "/resource-logos/stackoverflow.svg",
+    "source": "https://cdn.simpleicons.org/stackoverflow"
+  },
+  {
+    "id": "khan-academy",
+    "path": "/resource-logos/khan-academy.ico",
+    "source": "https://www.khanacademy.org/favicon.ico"
+  },
+  {
+    "id": "coursera",
+    "path": "/resource-logos/coursera.png",
+    "source": "https://d3njjcbhbojbot.cloudfront.net/web/images/favicons/apple-touch-icon-v2-180x180.png"
+  },
+  {
+    "id": "google",
+    "path": "/resource-logos/google.svg",
+    "source": "https://cdn.simpleicons.org/google"
+  },
+  {
+    "id": "wikipedia",
+    "path": "/resource-logos/wikipedia.svg",
+    "source": "https://cdn.simpleicons.org/wikipedia"
+  }
+]

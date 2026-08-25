@@ -1,0 +1,122 @@
+[
+  {
+    "id": "crawlee",
+    "path": "/github-project-logos/crawlee.png",
+    "repository": "apify/crawlee",
+    "source": "https://avatars.githubusercontent.com/u/24586296?v=4"
+  },
+  {
+    "id": "dify",
+    "path": "/github-project-logos/dify.png",
+    "repository": "langgenius/dify",
+    "source": "https://avatars.githubusercontent.com/u/127165244?v=4"
+  },
+  {
+    "id": "n8n",
+    "path": "/github-project-logos/n8n.png",
+    "repository": "n8n-io/n8n",
+    "source": "https://avatars.githubusercontent.com/u/45487711?v=4"
+  },
+  {
+    "id": "firecrawl",
+    "path": "/github-project-logos/firecrawl.png",
+    "repository": "firecrawl/firecrawl",
+    "source": "https://avatars.githubusercontent.com/u/135057108?v=4"
+  },
+  {
+    "id": "comfyui",
+    "path": "/github-project-logos/comfyui.png",
+    "repository": "Comfy-Org/ComfyUI",
+    "source": "https://avatars.githubusercontent.com/u/166579949?v=4"
+  },
+  {
+    "id": "screenshot-to-code",
+    "path": "/github-project-logos/screenshot-to-code.png",
+    "repository": "abi/screenshot-to-code",
+    "source": "https://avatars.githubusercontent.com/u/23818?v=4"
+  },
+  {
+    "id": "real-esrgan",
+    "path": "/github-project-logos/real-esrgan.jpg",
+    "repository": "xinntao/Real-ESRGAN",
+    "source": "https://avatars.githubusercontent.com/u/17445847?v=4"
+  },
+  {
+    "id": "tabby",
+    "path": "/github-project-logos/tabby.png",
+    "repository": "TabbyML/tabby",
+    "source": "https://avatars.githubusercontent.com/u/125617854?v=4"
+  },
+  {
+    "id": "goose",
+    "path": "/github-project-logos/goose.png",
+    "repository": "aaif-goose/goose",
+    "source": "https://avatars.githubusercontent.com/u/271095942?v=4"
+  },
+  {
+    "id": "streamlit",
+    "path": "/github-project-logos/streamlit.png",
+    "repository": "streamlit/streamlit",
+    "source": "https://avatars.githubusercontent.com/u/45109972?v=4"
+  },
+  {
+    "id": "ragflow",
+    "path": "/github-project-logos/ragflow.png",
+    "repository": "infiniflow/ragflow",
+    "source": "https://avatars.githubusercontent.com/u/69962740?v=4"
+  },
+  {
+    "id": "graphrag",
+    "path": "/github-project-logos/graphrag.png",
+    "repository": "microsoft/graphrag",
+    "source": "https://avatars.githubusercontent.com/u/6154722?v=4"
+  },
+  {
+    "id": "markitdown",
+    "path": "/github-project-logos/markitdown.png",
+    "repository": "microsoft/markitdown",
+    "source": "https://avatars.githubusercontent.com/u/6154722?v=4"
+  },
+  {
+    "id": "appflowy",
+    "path": "/github-project-logos/appflowy.png",
+    "repository": "AppFlowy-IO/AppFlowy",
+    "source": "https://avatars.githubusercontent.com/u/86002201?v=4"
+  },
+  {
+    "id": "open-webui",
+    "path": "/github-project-logos/open-webui.png",
+    "repository": "open-webui/open-webui",
+    "source": "https://avatars.githubusercontent.com/u/158137808?v=4"
+  },
+  {
+    "id": "lobehub",
+    "path": "/github-project-logos/lobehub.png",
+    "repository": "lobehub/lobehub",
+    "source": "https://avatars.githubusercontent.com/u/131470832?v=4"
+  },
+  {
+    "id": "vane",
+    "path": "/github-project-logos/vane.png",
+    "repository": "ItzCrazyKns/Vane",
+    "source": "https://avatars.githubusercontent.com/u/95534749?v=4"
+  },
+  {
+    "id": "ollama-repo",
+    "path": "/github-project-logos/ollama-repo.png",
+    "repository": "ollama/ollama",
+    "source": "https://avatars.githubusercontent.com/u/151674099?v=4"
+  },
+  {
+    "id": "whisper",
+    "path": "/github-project-logos/whisper.png",
+    "repository": "openai/whisper",
+    "source": "https://avatars.githubusercontent.com/u/14957082?v=4"
+  },
+  {
+    "id": "gpt-sovits",
+    "path": "/github-project-logos/gpt-sovits.png",
+    "repository": "RVC-Boss/GPT-SoVITS",
+    "source": "https://avatars.githubusercontent.com/u/129054828?v=4"
+  }
+]
