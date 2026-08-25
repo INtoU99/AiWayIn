@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 
+import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
 import { ToolLogo } from "@/components/ToolLogo";
 import { comparisonToolIds } from "@/data/toolComparisons";
 import { catalogTools } from "@/data/tools";
@@ -122,7 +122,7 @@ export function PathFinder() {
             {!complete && step === 1 && <button className="path-next" type="button" disabled={capabilities.length === 0} onClick={() => moveTo(2)}>下一步 <span aria-hidden="true">→</span></button>}
             {!complete && step === 2 && <button className="path-next" type="button" disabled={!participation} onClick={() => moveTo(3)}>下一步 <span aria-hidden="true">→</span></button>}
             {!complete && step === 3 && <button className="path-next" type="button" disabled={!device || !setup} onClick={finish}>生成我的路线 <span aria-hidden="true">→</span></button>}
-            {complete && primaryTool && <><Link className="path-primary-link" href={`/tools/${primaryTool.id}`}>查看 {primaryTool.shortName} 详情 <span aria-hidden="true">→</span></Link>{comparableRecommendations.length >= 2 && <Link className="path-compare-link" href={comparisonHref}>对比推荐工具</Link>}<button className="path-reset" type="button" onClick={reset}>重新选择</button></>}
+            {complete && primaryTool && <><BrowserNavigationLink className="path-primary-link" href={`/tools/${primaryTool.id}`}>查看 {primaryTool.shortName} 详情 <span aria-hidden="true">→</span></BrowserNavigationLink>{comparableRecommendations.length >= 2 && <BrowserNavigationLink className="path-compare-link" href={comparisonHref}>对比推荐工具</BrowserNavigationLink>}<button className="path-reset" type="button" onClick={reset}>重新选择</button></>}
           </div>
         </div>
 
@@ -141,7 +141,7 @@ export function PathFinder() {
             <div className="alternative-list">{recommendations.slice(1).map(({ profile }) => {
               const tool = catalogTools.find((item) => item.id === profile.toolId);
               if (!tool) return null;
-              return <Link href={`/tools/${tool.id}`} key={tool.id}><ToolLogo src={tool.logo} alt={tool.logoAlt} /><span><strong>{tool.name}</strong><small>{profile.strengths.slice(0, 2).join(" · ")}</small></span><span aria-hidden="true">→</span></Link>;
+              return <BrowserNavigationLink href={`/tools/${tool.id}`} key={tool.id}><ToolLogo src={tool.logo} alt={tool.logoAlt} /><span><strong>{tool.name}</strong><small>{profile.strengths.slice(0, 2).join(" · ")}</small></span><span aria-hidden="true">→</span></BrowserNavigationLink>;
             })}</div>
             <p className="comparison-note">更完整的能力、平台、费用与权限差异将在“工具对比”功能中提供。</p>
           </>}

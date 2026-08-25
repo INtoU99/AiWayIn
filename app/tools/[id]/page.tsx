@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
 import { ResourceLogo } from "@/components/ResourceLogo";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ToolLogo } from "@/components/ToolLogo";
@@ -44,7 +44,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
     <main className="site-shell detail-shell">
       <SiteHeader activePage="tools" />
 
-      <nav className="breadcrumb" aria-label="面包屑"><Link href="/tools">工具导航</Link><span aria-hidden="true">/</span><Link href={`/tools#${tool.categoryId}`}>{category?.title ?? "工具分类"}</Link><span aria-hidden="true">/</span><span aria-current="page">{tool.shortName}</span></nav>
+      <nav className="breadcrumb" aria-label="面包屑"><BrowserNavigationLink href="/tools">工具导航</BrowserNavigationLink><span aria-hidden="true">/</span><BrowserNavigationLink href={`/tools#${tool.categoryId}`}>{category?.title ?? "工具分类"}</BrowserNavigationLink><span aria-hidden="true">/</span><span aria-current="page">{tool.shortName}</span></nav>
 
       <section className={`tool-detail-hero ${tool.tone}`}>
         <div className="detail-logo-column"><ToolLogo src={tool.logo} alt={tool.logoAlt} size="large" /></div>
@@ -91,7 +91,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
           <div><span className={`project-difficulty ${getGitHubDifficultyClass(project.difficulty)}`}>{project.difficulty}</span><h3>{project.name}</h3><p>{project.description}</p></div>
           <a href={getGitHubProjectUrl(project)} target="_blank" rel="noreferrer">查看 GitHub 仓库 <span aria-hidden="true">↗</span></a>
         </article>)}</div>
-        <Link className="related-resources-link" href="/resources#github-projects">浏览全部 GitHub 项目 <span aria-hidden="true">→</span></Link>
+        <BrowserNavigationLink className="related-resources-link" href="/resources#github-projects">浏览全部 GitHub 项目 <span aria-hidden="true">→</span></BrowserNavigationLink>
       </section>}
 
       <section className="detail-section safety-detail">
@@ -99,7 +99,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
         <div className="safety-grid">{tool.safetyNotes.map((item, index) => <article key={item}><span>0{index + 1}</span><p>{item}</p></article>)}</div>
       </section>
 
-      <div className="detail-next"><Link href="/tools">← 返回全部工具</Link><a href={tool.href} target="_blank" rel="noreferrer">前往官方网站 ↗</a></div>
+      <div className="detail-next"><BrowserNavigationLink href="/tools">← 返回全部工具</BrowserNavigationLink><a href={tool.href} target="_blank" rel="noreferrer">前往官方网站 ↗</a></div>
     </main>
   );
 }

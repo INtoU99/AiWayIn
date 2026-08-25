@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
+import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ToolLogo } from "@/components/ToolLogo";
 import { catalogTools, getToolsByCategory, toolCategories } from "@/data/tools";
@@ -34,13 +34,13 @@ export default function ToolsPage() {
             </div>
             <div className="directory-grid">
               {tools.map((tool) => (
-                <Link className={`directory-card ${tool.tone}`} href={`/tools/${tool.id}`} key={tool.id}>
+                <BrowserNavigationLink className={`directory-card ${tool.tone}`} href={`/tools/${tool.id}`} key={tool.id}>
                   <div className="directory-card-top"><ToolLogo src={tool.logo} alt={tool.logoAlt} /><span className="tool-badge">{tool.badge}</span></div>
                   <h3>{tool.name}</h3>
                   <p>{tool.description}</p>
                   <div className="tool-meta"><span>{tool.level}</span><span>{tool.system}</span></div>
                   <strong>查看安装与说明 <span aria-hidden="true">→</span></strong>
-                </Link>
+                </BrowserNavigationLink>
               ))}
             </div>
           </section>

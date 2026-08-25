@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
 import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
@@ -140,13 +139,13 @@ export default function Home() {
 
       {submittedQuery && <section className="search-results" id="search-results" aria-live="polite">
         <div className="results-heading"><div><span className="section-kicker">站内搜索</span><h2 ref={resultsHeadingRef} tabIndex={-1}>“{submittedQuery}”的结果</h2></div><button type="button" onClick={clearSearch}>清除</button></div>
-        {results.length > 0 ? <div className="result-list">{results.map((item) => <Link href={item.href} key={`${item.category}-${item.title}`}><span><small>{item.category}</small><strong>{item.title}</strong><p>{item.description}</p></span><span aria-hidden="true">→</span></Link>)}</div> : <div className="empty-result"><strong>暂时没有直接匹配的工具</strong><p>可以尝试只输入工具名，例如“Node.js”“ChatGPT”或“Ollama”。</p></div>}
+        {results.length > 0 ? <div className="result-list">{results.map((item) => <BrowserNavigationLink href={item.href} key={`${item.category}-${item.title}`}><span><small>{item.category}</small><strong>{item.title}</strong><p>{item.description}</p></span><span aria-hidden="true">→</span></BrowserNavigationLink>)}</div> : <div className="empty-result"><strong>暂时没有直接匹配的工具</strong><p>可以尝试只输入工具名，例如“Node.js”“ChatGPT”或“Ollama”。</p></div>}
       </section>}
 
       <section className="section-block" id="tools">
         <div className="section-heading"><div><span className="section-kicker">官方入口</span><h2>先选择你要使用的工具</h2></div><p>首页展示推荐入口，完整目录按用途分为五个板块。</p></div>
-        <div className="tool-grid">{catalogTools.filter((tool) => tool.featured).map((tool) => <article className={`tool-card ${tool.tone}`} key={tool.id}><div className="tool-top"><ToolLogo src={tool.logo} alt={tool.logoAlt} /><span className="tool-badge">{tool.badge}</span></div><h3>{tool.name}</h3><p>{tool.description}</p><small>{tool.system}</small><Link href={`/tools/${tool.id}`}>查看安装与说明<span aria-hidden="true">→</span></Link></article>)}</div>
-        <Link className="all-tools-link" href="/tools">浏览全部 {catalogTools.length} 个工具与分类 <span aria-hidden="true">→</span></Link>
+        <div className="tool-grid">{catalogTools.filter((tool) => tool.featured).map((tool) => <article className={`tool-card ${tool.tone}`} key={tool.id}><div className="tool-top"><ToolLogo src={tool.logo} alt={tool.logoAlt} /><span className="tool-badge">{tool.badge}</span></div><h3>{tool.name}</h3><p>{tool.description}</p><small>{tool.system}</small><BrowserNavigationLink href={`/tools/${tool.id}`}>查看安装与说明<span aria-hidden="true">→</span></BrowserNavigationLink></article>)}</div>
+        <BrowserNavigationLink className="all-tools-link" href="/tools">浏览全部 {catalogTools.length} 个工具与分类 <span aria-hidden="true">→</span></BrowserNavigationLink>
       </section>
 
       <section className="section-block" id="guides">

@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
 import { ToolLogo } from "@/components/ToolLogo";
 import { catalogTools, toolCategories } from "@/data/tools";
 import {
@@ -97,12 +97,12 @@ export function EnvironmentChecker() {
             const isConfirmed = confirmed.includes(requirement);
             return <article className={isConfirmed ? "confirmed" : ""} key={requirement}>
               <button className="requirement-check" type="button" aria-pressed={isConfirmed} onClick={() => toggleRequirement(requirement)}><span aria-hidden="true">{isConfirmed ? "✓" : index + 1}</span><span><strong>{requirement}</strong><small>{isConfirmed ? "已由你确认" : hint ? hint.note : "请根据工具详情与官方说明确认"}</small></span></button>
-              {hint && <div className="command-hints">{hint.commands.map((command) => <div key={command}><code>{command}</code><button type="button" onClick={() => copyCommand(command)}>{copyError === command ? "复制失败" : copied === command ? "已复制" : "复制"}</button></div>)}{copyError && hint.commands.includes(copyError) && <p className="command-copy-feedback" role="status">未能自动复制，请手动选中上方命令后复制。</p>}{hint.helpHref && <Link href={hint.helpHref}>查看环境安装说明 →</Link>}</div>}
+              {hint && <div className="command-hints">{hint.commands.map((command) => <div key={command}><code>{command}</code><button type="button" onClick={() => copyCommand(command)}>{copyError === command ? "复制失败" : copied === command ? "已复制" : "复制"}</button></div>)}{copyError && hint.commands.includes(copyError) && <p className="command-copy-feedback" role="status">未能自动复制，请手动选中上方命令后复制。</p>}{hint.helpHref && <BrowserNavigationLink href={hint.helpHref}>查看环境安装说明 →</BrowserNavigationLink>}</div>}
             </article>;
           })}
         </div>}
 
-        <div className="environment-actions"><Link className="path-primary-link" href={`/tools/${tool.id}`}>查看 {tool.shortName} 安装步骤 <span aria-hidden="true">→</span></Link><a className="environment-official-link" href={tool.href} target="_blank" rel="noreferrer">前往官方入口 ↗</a></div>
+        <div className="environment-actions"><BrowserNavigationLink className="path-primary-link" href={`/tools/${tool.id}`}>查看 {tool.shortName} 安装步骤 <span aria-hidden="true">→</span></BrowserNavigationLink><a className="environment-official-link" href={tool.href} target="_blank" rel="noreferrer">前往官方入口 ↗</a></div>
       </div>
     </div>
   );

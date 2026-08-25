@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
+import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
 import { getQuestionCategory, questionCategories, questions, type QuestionCategoryId, type QuestionLink } from "@/data/questions";
 
 function QuestionResourceLink({ link }: { link: QuestionLink }) {
   if (link.href.startsWith("http")) return <a href={link.href} target="_blank" rel="noreferrer">{link.label}<span aria-hidden="true">↗</span></a>;
-  return <Link href={link.href}>{link.label}<span aria-hidden="true">→</span></Link>;
+  return <BrowserNavigationLink href={link.href}>{link.label}<span aria-hidden="true">→</span></BrowserNavigationLink>;
 }
 
 export function QuestionDirectory() {

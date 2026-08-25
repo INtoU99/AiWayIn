@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
 
 export default function NotFoundPage() {
   return (
@@ -7,8 +7,8 @@ export default function NotFoundPage() {
       <h1>这里暂时没有对应的工具</h1>
       <p>链接可能已经更新，也可能输入了不存在的工具名称。</p>
       <div className="detail-next">
-        <Link href="/tools">返回工具导航</Link>
-        <Link href="/">返回首页</Link>
+        <BrowserNavigationLink href="/tools">返回工具导航</BrowserNavigationLink>
+        <BrowserNavigationLink href="/">返回首页</BrowserNavigationLink>
       </div>
     </main>
   );

@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 
+import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
 import { ResourceLogo } from "@/components/ResourceLogo";
 import { getGitHubDifficultyClass, getGitHubProjectLogo, getGitHubProjectUrl, githubProjectCategories, githubProjects } from "@/data/githubProjects";
 import { getTool } from "@/data/tools";
@@ -42,7 +42,7 @@ export function GitHubProjectDirectory() {
             <div className="resource-card-copy">
               <h3>{project.name}</h3><p>{project.description}</p>
               <div className="resource-tags"><span className={`project-difficulty ${getGitHubDifficultyClass(project.difficulty)}`}>{project.difficulty}</span>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-              {relatedTools.length > 0 && <div className="project-related-tools"><small>关联工具</small><div>{relatedTools.map((tool) => <Link href={`/tools/${tool.id}`} key={tool.id}>{tool.shortName}</Link>)}</div></div>}
+              {relatedTools.length > 0 && <div className="project-related-tools"><small>关联工具</small><div>{relatedTools.map((tool) => <BrowserNavigationLink href={`/tools/${tool.id}`} key={tool.id}>{tool.shortName}</BrowserNavigationLink>)}</div></div>}
             </div>
             <a href={getGitHubProjectUrl(project)} target="_blank" rel="noreferrer" aria-label={`打开 ${project.name} GitHub 仓库`}><small>github.com/{project.repository}</small><strong>查看项目 <span aria-hidden="true">↗</span></strong></a>
           </article>

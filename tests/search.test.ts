@@ -73,6 +73,29 @@ test("跨页安装指南导航保留首页锚点且首页会切换激活标签",
   assert.match(browserNavigationSource, /window\.location\.assign\(href\)/);
 });
 
+test("工具卡片与站内跨页面入口使用完整页面跳转", () => {
+  const routedFiles = [
+    "app/page.tsx",
+    "app/tools/page.tsx",
+    "app/tools/[id]/page.tsx",
+    "app/not-found.tsx",
+    "components/EnvironmentChecker.tsx",
+    "components/GitHubProjectDirectory.tsx",
+    "components/PathFinder.tsx",
+    "components/QuestionDirectory.tsx",
+    "components/ToolComparison.tsx",
+  ];
+
+  for (const file of routedFiles) {
+    const source = readFileSync(join(process.cwd(), file), "utf8");
+    assert.doesNotMatch(source, /import Link from "next\/link"/, `${file} 不应再依赖可能卡住的客户端跨页路由`);
+    assert.match(source, /BrowserNavigationLink/, `${file} 应使用完整页面跳转入口`);
+  }
+
+  const toolsPageSource = readFileSync(join(process.cwd(), "app/tools/page.tsx"), "utf8");
+  assert.match(toolsPageSource, /<BrowserNavigationLink className={`directory-card \$\{tool\.tone\}`} href={`\/tools\/\$\{tool\.id\}`}/);
+});
+
 test("全局流场背景不会拦截操作并尊重减少动态效果偏好", () => {
   const layoutSource = readFileSync(join(process.cwd(), "app/layout.tsx"), "utf8");
   const backgroundSource = readFileSync(join(process.cwd(), "components/AmbientFlowBackground.tsx"), "utf8");

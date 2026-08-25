@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
 import { ToolLogo } from "@/components/ToolLogo";
 import { catalogTools, getToolCategory, type ToolCatalogItem } from "@/data/tools";
 import {
@@ -99,7 +99,7 @@ export function ToolComparison({ initialToolIds = [] }: { initialToolIds?: strin
 
         <div className="decision-section">
           <div className="decision-heading"><span className="section-kicker">如何选择</span><h2>没有统一冠军，只有更合适的场景</h2><p>以下结论只针对当前选择，不代表工具的绝对能力排名。</p></div>
-          <div className="decision-grid">{comparedTools.map(({ tool, profile }) => <article className={tool.tone} key={tool.id}><ToolLogo src={tool.logo} alt={tool.logoAlt} /><span>如果你希望</span><h3>{profile.chooseWhen}</h3><Link href={`/tools/${tool.id}`}>查看 {tool.shortName} 详情 <span aria-hidden="true">→</span></Link></article>)}</div>
+          <div className="decision-grid">{comparedTools.map(({ tool, profile }) => <article className={tool.tone} key={tool.id}><ToolLogo src={tool.logo} alt={tool.logoAlt} /><span>如果你希望</span><h3>{profile.chooseWhen}</h3><BrowserNavigationLink href={`/tools/${tool.id}`}>查看 {tool.shortName} 详情 <span aria-hidden="true">→</span></BrowserNavigationLink></article>)}</div>
         </div>
       </section> : <section className="compare-empty" aria-live="polite"><span aria-hidden="true">↔</span><h2>至少选择两个工具才能开始比较</h2><p>你可以手动选择，也可以直接使用上方的常见组合。</p></section>}
     </>
