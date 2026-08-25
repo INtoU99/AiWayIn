@@ -36,6 +36,8 @@ body {
   height: 100%;
   pointer-events: none;
   opacity: 0.92;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .site-content-layer { position: relative; z-index: 1; }

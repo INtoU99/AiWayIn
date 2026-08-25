@@ -104,7 +104,11 @@ test("全局流场背景不会拦截操作并尊重减少动态效果偏好", ()
   assert.match(backgroundSource, /prefers-reduced-motion: reduce/);
   assert.match(backgroundSource, /document\.hidden/);
   assert.doesNotMatch(backgroundSource, /addEventListener\("scroll"/);
+  assert.match(backgroundSource, /mobileViewport && widthUnchanged/);
+  assert.match(backgroundSource, /Math\.min\(time - previousFrameTime, 50\)/);
+  assert.match(backgroundSource, /drawFrame\(animationTime\)/);
   assert.match(cssSource, /\.ambient-flow-background[\s\S]*pointer-events: none/);
+  assert.match(cssSource, /\.ambient-flow-background[\s\S]*transform: translateZ\(0\)/);
   assert.match(cssSource, /prefers-reduced-motion: reduce[\s\S]*\.ambient-flow-background \{ display: none; \}/);
 });
 

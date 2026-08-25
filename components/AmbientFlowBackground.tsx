@@ -48,7 +48,9 @@ export function AmbientFlowBackground() {
     let height = 0;
     let animationFrame = 0;
     let resizeFrame = 0;
-    let lastFrameTime = 0;
+    let animationTime = 0;
+    let previousFrameTime = 0;
+    let lastDrawTime = 0;
 
     function drawFrame(time: number) {
       context.clearRect(0, 0, width, height);
@@ -66,7 +68,7 @@ export function AmbientFlowBackground() {
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-      drawFrame(0);
+      drawFrame(animationTime);
     }
 
     function drawAtmosphere(time: number) {
@@ -138,10 +140,13 @@ export function AmbientFlowBackground() {
     function animate(time: number) {
       animationFrame = 0;
       if (document.hidden || reducedMotion.matches) return;
+      const elapsed = previousFrameTime ? Math.min(time - previousFrameTime, 50) : 0;
+      previousFrameTime = time;
+      animationTime += elapsed;
       const frameInterval = width < 680 || saveData || lowPowerDevice ? 34 : 24;
-      if (time - lastFrameTime >= frameInterval) {
-        drawFrame(time);
-        lastFrameTime = time;
+      if (time - lastDrawTime >= frameInterval) {
+        drawFrame(animationTime);
+        lastDrawTime = time;
       }
       animationFrame = window.requestAnimationFrame(animate);
     }
@@ -155,9 +160,18 @@ export function AmbientFlowBackground() {
     function stopAnimation() {
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
       animationFrame = 0;
+      previousFrameTime = 0;
     }
 
     function handleResize() {
+      const nextWidth = window.innerWidth;
+      const widthUnchanged = Math.abs(nextWidth - width) <= 1;
+      const mobileViewport = Math.min(nextWidth, width) < 680;
+
+      // Mobile browser toolbars change only the visual viewport height while
+      // scrolling. Resizing the canvas for those events clears and redraws the
+      // fixed background repeatedly, which makes the ribbons appear to twitch.
+      if (mobileViewport && widthUnchanged) return;
       if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
       resizeFrame = window.requestAnimationFrame(() => {
         resizeFrame = 0;
@@ -173,7 +187,7 @@ export function AmbientFlowBackground() {
     function handleMotionPreference() {
       if (reducedMotion.matches) {
         stopAnimation();
-        drawFrame(0);
+        drawFrame(animationTime);
       } else {
         startAnimation();
       }
