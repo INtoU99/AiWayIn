@@ -20,6 +20,8 @@
 
 # misc
 .DS_Store
+Thumbs.db
+Desktop.ini
 *.pem
 
 # debug
@@ -40,4 +42,10 @@ yarn-error.log*
 /outputs/
 /work/
 /.npm-cache/
+/.codex/
+/.agents/
 /.ai-collab/
+/AGENTS.md
+/.vscode/
+/.idea/
+*.code-workspace
