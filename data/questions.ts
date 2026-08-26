@@ -189,6 +189,20 @@ export const questions: QuestionItem[] = [
     featured: true,
   },
   {
+    id: "skill-versus-mcp",
+    categoryId: "choosing",
+    question: "什么是 Skill 与 MCP？",
+    answer: "Skill（技能）是为 AI 整理的一套可复用任务方法和配套资源，可能包含操作步骤、模板、参考资料或脚本，让 Agent 处理某类工作时更加稳定。MCP（Model Context Protocol，模型上下文协议）是一套开放连接标准，让支持它的 AI 应用能够发现并使用外部服务提供的工具、数据资源和提示。通俗地说，Skill 像一份岗位操作手册，MCP 则像统一规格的插座与数据接口。",
+    keywords: "skill skills 技能 mcp model context protocol 模型上下文协议 agent 工具 资源 插件 连接",
+    steps: [
+      "Skill 主要回答“这项任务应该怎么做”：例如规定制作报告时先核对数据、再生成图表，最后检查引用。",
+      "MCP 主要解决“AI 可以连接什么、怎样调用”：例如通过 MCP 服务器读取数据库、访问 Git 仓库或调用业务系统工具。",
+      "二者可以配合：Skill 负责告诉 Agent 采用什么流程，MCP 负责提供流程中需要的数据与操作能力；没有 MCP，Skill 也可以指导本地任务，没有专用 Skill，Agent 也可能直接调用 MCP 工具。",
+    ],
+    links: [{ label: "MCP 官方说明", href: "https://modelcontextprotocol.io/" }],
+    notice: { title: "能力不等于可信", text: "Skill 可能包含脚本或操作指令，MCP 可能读取数据或执行写入、发送与删除操作。安装或连接前应核对来源、权限范围、密钥处理和具体操作，并只开放完成任务所需的最小权限。", tone: "warning" },
+  },
+  {
     id: "image-support-meaning",
     categoryId: "choosing",
     question: "“支持图片”是指能看图还是能生成图片？",

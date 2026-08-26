@@ -356,9 +356,9 @@ test("GitHub 项目难度标签和关联工具保持有效", () => {
   assert.deepEqual(getRelatedGitHubProjects("docker").map((project) => project.id), ["dify", "n8n", "firecrawl", "tabby", "ragflow", "open-webui"]);
 });
 
-test("常见问题页面包含六类 28 个有效问答", () => {
+test("常见问题页面包含六类 29 个有效问答", () => {
   assert.equal(questionCategories.length, 6);
-  assert.equal(questions.length, 28);
+  assert.equal(questions.length, 29);
   assert.equal(questions.filter((item) => item.featured).length, 8);
   const ids = new Set<string>();
   for (const item of questions) {
@@ -374,4 +374,9 @@ test("常见问题页面包含六类 28 个有效问答", () => {
   }
   assert.equal(questions.find((item) => item.id === "no-google-email")?.notice?.tone, "warning");
   assert.equal(questions.find((item) => item.id === "use-api-key")?.code?.includes("API Base URL：https://api.deepseek.com"), true);
+  const skillAndMcp = questions.find((item) => item.id === "skill-versus-mcp");
+  assert.equal(skillAndMcp?.categoryId, "choosing");
+  assert.equal(skillAndMcp?.answer.includes("岗位操作手册"), true);
+  assert.equal(skillAndMcp?.answer.includes("模型上下文协议"), true);
+  assert.equal(skillAndMcp?.notice?.tone, "warning");
 });
