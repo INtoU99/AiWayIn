@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const outputDirectory = path.resolve("public/resource-logos");
@@ -10,6 +10,9 @@ const targets = [
   ["gemini-web", "https://gemini.google.com/", "https://cdn.simpleicons.org/googlegemini"],
   ["deepseek-web", "https://chat.deepseek.com/"],
   ["kimi-web", "https://www.kimi.com/", "https://www.kimi.com/favicon.ico"],
+  ["grok-web", "https://grok.com/"],
+  ["chatglm-web", "https://chatglm.cn/main/alltoolsdetail?lang=zh"],
+  ["doubao-web", "https://www.doubao.com/"],
   ["midjourney", "https://www.midjourney.com/", "https://www.midjourney.com/favicon.ico"],
   ["civitai", "https://civitai.com/", "https://civitai.com/favicon.ico"],
   ["dreamina", "https://jimeng.jianying.com/ai-tool/home"],
@@ -19,6 +22,15 @@ const targets = [
   ["notion", "https://www.notion.com/"],
   ["canva", "https://www.canva.com/", "https://www.canva.com/favicon.ico"],
   ["perplexity", "https://www.perplexity.ai/", "https://cdn.simpleicons.org/perplexity"],
+  ["obsidian", "https://obsidian.md/", "https://cdn.simpleicons.org/obsidian"],
+  ["coze", "https://www.coze.cn/"],
+  ["aishort", "https://www.aishort.top/", "https://github.com/rockbenben.png?size=256"],
+  ["uiverse", "https://uiverse.io/", "https://github.com/uiverse-io.png?size=256"],
+  ["motionsites", "https://motionsites.ai/"],
+  ["morphicons", "https://www.morphicons.com/"],
+  ["reactbits", "https://www.reactbits.dev/"],
+  ["aceternity-ui", "https://ui.aceternity.com/"],
+  ["originkit", "https://www.originkit.dev/"],
   ["figma", "https://www.figma.com/"],
   ["dribbble", "https://dribbble.com/", "https://cdn.simpleicons.org/dribbble"],
   ["behance", "https://www.behance.net/", "https://cdn.simpleicons.org/behance"],
@@ -77,8 +89,10 @@ async function fetchWithTimeout(url, accept) {
 await mkdir(outputDirectory, { recursive: true });
 const sourceRows = [];
 const resultRows = [];
+const requestedIds = new Set(process.argv.slice(2));
+const selectedTargets = requestedIds.size > 0 ? targets.filter(([id]) => requestedIds.has(id)) : targets;
 
-for (const [id, pageUrl, providedLogoUrl] of targets) {
+for (const [id, pageUrl, providedLogoUrl] of selectedTargets) {
   try {
     let logoUrl = providedLogoUrl;
     if (logoUrl?.startsWith("itunes:")) {
@@ -109,6 +123,28 @@ for (const [id, pageUrl, providedLogoUrl] of targets) {
   }
 }
 
-const sourceDocument = `# 资源导航图标来源\n\n优先使用对应官方网站声明的 favicon、应用图标或官方站点资源；少数阻止自动获取的品牌使用 Simple Icons 的本地化矢量版本。全部素材仅用于识别资源入口。\n\n| 资源 ID | 官方页面 | 图标源文件 | 本地文件 |\n| --- | --- | --- | --- |\n${sourceRows.join("\n")}\n`;
+let finalSourceRows = sourceRows;
+let finalResultRows = resultRows;
+if (requestedIds.size > 0) {
+  const successfulIds = new Set(resultRows.map(({ id }) => id));
+  try {
+    const existingMap = JSON.parse(await readFile(path.resolve("data/resource-logo-map.json"), "utf8"));
+    finalResultRows = [...existingMap.filter(({ id }) => !successfulIds.has(id)), ...resultRows];
+  } catch {
+    // 首次生成时不存在旧映射，直接使用本次结果。
+  }
+  try {
+    const existingSource = await readFile(path.join(outputDirectory, "SOURCES.md"), "utf8");
+    const existingRows = existingSource.split(/\r?\n/).filter((line) => line.startsWith("| ") && !line.startsWith("| 资源 ID ") && !line.startsWith("| ---"));
+    finalSourceRows = [
+      ...existingRows.filter((line) => !successfulIds.has(line.split("|")[1]?.trim())),
+      ...sourceRows,
+    ];
+  } catch {
+    // 首次生成时不存在旧来源文件，直接使用本次结果。
+  }
+}
+
+const sourceDocument = `# 资源导航图标来源\n\n优先使用对应官方网站声明的 favicon、应用图标或官方站点资源；少数阻止自动获取的品牌使用 Simple Icons 或官方 GitHub 账号头像的本地化版本。全部素材仅用于识别资源入口。\n\n| 资源 ID | 官方页面 | 图标源文件 | 本地文件 |\n| --- | --- | --- | --- |\n${finalSourceRows.join("\n")}\n`;
 await writeFile(path.join(outputDirectory, "SOURCES.md"), sourceDocument, "utf8");
-await writeFile(path.resolve("data/resource-logo-map.json"), `${JSON.stringify(resultRows, null, 2)}\n`, "utf8");
+await writeFile(path.resolve("data/resource-logo-map.json"), `${JSON.stringify(finalResultRows, null, 2)}\n`, "utf8");

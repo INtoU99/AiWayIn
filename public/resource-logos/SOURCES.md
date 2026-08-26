@@ -1,6 +1,6 @@
 # 资源导航图标来源
 
-优先使用对应官方网站声明的 favicon、应用图标或官方站点资源；少数阻止自动获取的品牌使用 Simple Icons 的本地化矢量版本。全部素材仅用于识别资源入口。
+优先使用对应官方网站声明的 favicon、应用图标或官方站点资源；少数阻止自动获取的品牌使用 Simple Icons 或官方 GitHub 账号头像的本地化版本。全部素材仅用于识别资源入口。
 
 | 资源 ID | 官方页面 | 图标源文件 | 本地文件 |
 | --- | --- | --- | --- |
@@ -48,3 +48,15 @@
 | glm-api | https://open.bigmodel.cn/ | https://static.bigmodel.cn/wd-paas-front/static/images/favicon.png | glm-api.png |
 | siliconflow-api | https://cloud.siliconflow.cn/ | https://siliconflow.cn/favicon.ico | siliconflow-api.png |
 | openrouter-api | https://openrouter.ai/ | https://openrouter.ai/favicon.ico | openrouter-api.ico |
+| grok-web | https://grok.com/ | https://grok.com/images/apple-touch-icon.png | grok-web.png |
+| chatglm-web | https://chatglm.cn/main/alltoolsdetail?lang=zh | https://chatglm.cn/favicon.ico | chatglm-web.ico |
+| doubao-web | https://www.doubao.com/ | https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/favicon/new-doubao/180x180.png | doubao-web.png |
+| obsidian | https://obsidian.md/ | https://cdn.simpleicons.org/obsidian | obsidian.svg |
+| coze | https://www.coze.cn/ | https://lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/favicon2.ico | coze.ico |
+| motionsites | https://motionsites.ai/ | https://motionsites.ai/favicon.png?v=2 | motionsites.png |
+| morphicons | https://www.morphicons.com/ | https://www.morphicons.com/favicon/apple-touch-icon.png | morphicons.png |
+| reactbits | https://www.reactbits.dev/ | https://www.reactbits.dev/apple-touch-icon.png | reactbits.png |
+| aceternity-ui | https://ui.aceternity.com/ | https://ui.aceternity.com/apple-icon.png?2deb28af3ac52d4d | aceternity-ui.png |
+| originkit | https://www.originkit.dev/ | https://www.originkit.dev/apple-icon.png?v=4 | originkit.png |
+| aishort | https://www.aishort.top/ | https://avatars.githubusercontent.com/u/28252913?s=256&v=4 | aishort.jpg |
+| uiverse | https://uiverse.io/ | https://avatars.githubusercontent.com/u/103369066?s=256&v=4 | uiverse.png |

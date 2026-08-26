@@ -1,9 +1,11 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { githubProjects } from "../data/githubProjects.ts";
 
 const outputDirectory = path.resolve("public/github-project-logos");
+const requestedIds = new Set(process.argv.slice(2));
+const selectedProjects = requestedIds.size > 0 ? githubProjects.filter(({ id }) => requestedIds.has(id)) : githubProjects;
 const headers = {
   accept: "application/vnd.github+json",
   "user-agent": "AIGettingStartedResourceAudit/1.0",
@@ -21,7 +23,7 @@ await mkdir(outputDirectory, { recursive: true });
 const map = [];
 const sourceRows = [];
 
-for (const project of githubProjects) {
+for (const project of selectedProjects) {
   try {
     const repositoryResponse = await fetch(`https://api.github.com/repos/${project.repository}`, {
       headers,
@@ -48,5 +50,28 @@ for (const project of githubProjects) {
   }
 }
 
-await writeFile(path.resolve("data/github-project-logo-map.json"), `${JSON.stringify(map, null, 2)}\n`, "utf8");
-await writeFile(path.join(outputDirectory, "SOURCES.md"), `# GitHub 项目图标来源\n\n图标取自 GitHub 仓库当前所属账号或组织的公开头像，仅用于识别对应开源项目。\n\n| 项目 | 仓库 | 所属账号 | GitHub 图标源 | 本地文件 |\n| --- | --- | --- | --- | --- |\n${sourceRows.join("\n")}\n`, "utf8");
+let finalMap = map;
+let finalSourceRows = sourceRows;
+if (requestedIds.size > 0) {
+  const successfulIds = new Set(map.map(({ id }) => id));
+  const successfulRepositories = new Set(map.map(({ repository }) => repository));
+  try {
+    const existingMap = JSON.parse(await readFile(path.resolve("data/github-project-logo-map.json"), "utf8"));
+    finalMap = [...existingMap.filter(({ id }) => !successfulIds.has(id)), ...map];
+  } catch {
+    // 首次生成时不存在旧映射，直接使用本次结果。
+  }
+  try {
+    const existingSource = await readFile(path.join(outputDirectory, "SOURCES.md"), "utf8");
+    const existingRows = existingSource.split(/\r?\n/).filter((line) => line.startsWith("| ") && !line.startsWith("| 项目 ") && !line.startsWith("| ---"));
+    finalSourceRows = [
+      ...existingRows.filter((line) => !successfulRepositories.has(line.split("|")[2]?.trim())),
+      ...sourceRows,
+    ];
+  } catch {
+    // 首次生成时不存在旧来源文件，直接使用本次结果。
+  }
+}
+
+await writeFile(path.resolve("data/github-project-logo-map.json"), `${JSON.stringify(finalMap, null, 2)}\n`, "utf8");
+await writeFile(path.join(outputDirectory, "SOURCES.md"), `# GitHub 项目图标来源\n\n图标取自 GitHub 仓库当前所属账号或组织的公开头像，仅用于识别对应开源项目。\n\n| 项目 | 仓库 | 所属账号 | GitHub 图标源 | 本地文件 |\n| --- | --- | --- | --- | --- |\n${finalSourceRows.join("\n")}\n`, "utf8");

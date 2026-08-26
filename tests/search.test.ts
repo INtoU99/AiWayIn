@@ -304,17 +304,25 @@ test("API 开放平台使用经过核对的官方入口", () => {
   assert.equal(apiPlatforms.find((resource) => resource.id === "siliconflow-api")?.url, "https://cloud.siliconflow.cn/");
 });
 
-test("精选网站均归入有效分类且 LibTV 与 LiblibAI 使用独立入口", () => {
+test("精选网站均归入有效分类且新增资源保持指定分类与顺序", () => {
   assert.equal(resourceCategories.length, 6);
   for (const resource of featuredResources) assert.ok(getResourceCategory(resource.categoryId));
   assert.equal(featuredResources.find((resource) => resource.id === "libtv")?.url, "https://www.liblib.tv/");
   assert.equal(featuredResources.find((resource) => resource.id === "liblibai")?.url, "https://www.liblib.art/");
+  assert.deepEqual(
+    featuredResources.filter((resource) => resource.categoryId === "design-assets").slice(0, 6).map((resource) => resource.id),
+    ["uiverse", "motionsites", "morphicons", "reactbits", "aceternity-ui", "originkit"],
+  );
+  for (const id of ["obsidian", "coze", "aishort"]) {
+    assert.equal(featuredResources.find((resource) => resource.id === id)?.categoryId, "productivity");
+  }
+  assert.deepEqual(aiWebServices.slice(-3).map((resource) => resource.id), ["grok-web", "chatglm-web", "doubao-web"]);
 });
 
 test("资源导航的全部入口都使用项目内 Logo", () => {
   const resources = [...platformClients, ...networkCheckServices, ...aiWebServices, ...apiPlatforms, ...featuredResources];
   const resourcesWithLogo = resources.filter((resource) => resource.logo);
-  assert.equal(resourcesWithLogo.length, 46);
+  assert.equal(resourcesWithLogo.length, 58);
   for (const resource of resourcesWithLogo) {
     assert.match(resource.logo ?? "", /^\/(logos|resource-logos)\/[a-z0-9.-]+$/);
     assert.equal(existsSync(join(process.cwd(), "public", resource.logo ?? "")), true, `${resource.name} Logo 不存在`);
@@ -323,7 +331,7 @@ test("资源导航的全部入口都使用项目内 Logo", () => {
 });
 
 test("GitHub 精选项目使用有效且唯一的官方仓库地址", () => {
-  assert.equal(githubProjects.length, 20);
+  assert.equal(githubProjects.length, 22);
   assert.equal(githubProjectCategories.length, 6);
   const repositories = new Set<string>();
   const categoryIds = new Set(githubProjectCategories.map((category) => category.id));
@@ -339,6 +347,8 @@ test("GitHub 精选项目使用有效且唯一的官方仓库地址", () => {
     assert.equal(existsSync(join(process.cwd(), "public", logo)), true, `${project.name} GitHub 图标不存在`);
   }
   assert.equal(githubProjects.find((project) => project.id === "goose")?.repository, "aaif-goose/goose");
+  assert.equal(githubProjects.find((project) => project.id === "animejs")?.categoryId, "creative");
+  assert.equal(githubProjects.find((project) => project.id === "stable-diffusion-webui")?.categoryId, "creative");
   assert.equal(githubProjects.find((project) => project.id === "lobehub")?.tags.includes("原 LobeChat"), true);
   assert.equal(githubProjects.find((project) => project.id === "vane")?.tags.includes("原 Perplexica"), true);
 });
@@ -352,7 +362,7 @@ test("GitHub 项目难度标签和关联工具保持有效", () => {
     }
   }
   assert.deepEqual(getRelatedGitHubProjects("ollama").map((project) => project.id), ["open-webui", "vane", "ollama-repo"]);
-  assert.deepEqual(getRelatedGitHubProjects("python").map((project) => project.id), ["comfyui", "real-esrgan", "streamlit", "graphrag", "markitdown", "whisper", "gpt-sovits"]);
+  assert.deepEqual(getRelatedGitHubProjects("python").map((project) => project.id), ["stable-diffusion-webui", "comfyui", "real-esrgan", "streamlit", "graphrag", "markitdown", "whisper", "gpt-sovits"]);
   assert.deepEqual(getRelatedGitHubProjects("docker").map((project) => project.id), ["dify", "n8n", "firecrawl", "tabby", "ragflow", "open-webui"]);
 });
 

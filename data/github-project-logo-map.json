@@ -118,5 +118,17 @@
     "path": "/github-project-logos/gpt-sovits.png",
     "repository": "RVC-Boss/GPT-SoVITS",
     "source": "https://avatars.githubusercontent.com/u/129054828?v=4"
+  },
+  {
+    "id": "animejs",
+    "path": "/github-project-logos/animejs.png",
+    "repository": "juliangarnier/anime",
+    "source": "https://avatars.githubusercontent.com/u/1268691?v=4"
+  },
+  {
+    "id": "stable-diffusion-webui",
+    "path": "/github-project-logos/stable-diffusion-webui.png",
+    "repository": "AUTOMATIC1111/stable-diffusion-webui",
+    "source": "https://avatars.githubusercontent.com/u/20920490?v=4"
   }
 ]

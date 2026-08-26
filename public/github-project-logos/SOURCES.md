@@ -24,3 +24,5 @@
 | Ollama | ollama/ollama | ollama | https://avatars.githubusercontent.com/u/151674099?v=4 | ollama-repo.png |
 | Whisper | openai/whisper | openai | https://avatars.githubusercontent.com/u/14957082?v=4 | whisper.png |
 | GPT-SoVITS | RVC-Boss/GPT-SoVITS | RVC-Boss | https://avatars.githubusercontent.com/u/129054828?v=4 | gpt-sovits.png |
+| Anime.js | juliangarnier/anime | juliangarnier | https://avatars.githubusercontent.com/u/1268691?v=4 | animejs.png |
+| Stable Diffusion WebUI | AUTOMATIC1111/stable-diffusion-webui | AUTOMATIC1111 | https://avatars.githubusercontent.com/u/20920490?v=4 | stable-diffusion-webui.png |

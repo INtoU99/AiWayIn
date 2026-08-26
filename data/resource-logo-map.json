@@ -148,5 +148,65 @@
     "id": "wikipedia",
     "path": "/resource-logos/wikipedia.svg",
     "source": "https://cdn.simpleicons.org/wikipedia"
+  },
+  {
+    "id": "grok-web",
+    "path": "/resource-logos/grok-web.png",
+    "source": "https://grok.com/images/apple-touch-icon.png"
+  },
+  {
+    "id": "chatglm-web",
+    "path": "/resource-logos/chatglm-web.ico",
+    "source": "https://chatglm.cn/favicon.ico"
+  },
+  {
+    "id": "doubao-web",
+    "path": "/resource-logos/doubao-web.png",
+    "source": "https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/favicon/new-doubao/180x180.png"
+  },
+  {
+    "id": "obsidian",
+    "path": "/resource-logos/obsidian.svg",
+    "source": "https://cdn.simpleicons.org/obsidian"
+  },
+  {
+    "id": "coze",
+    "path": "/resource-logos/coze.ico",
+    "source": "https://lf-coze-web-cdn.coze.cn/obj/coze-web-cn/coze-space/static/favicon2.ico"
+  },
+  {
+    "id": "motionsites",
+    "path": "/resource-logos/motionsites.png",
+    "source": "https://motionsites.ai/favicon.png?v=2"
+  },
+  {
+    "id": "morphicons",
+    "path": "/resource-logos/morphicons.png",
+    "source": "https://www.morphicons.com/favicon/apple-touch-icon.png"
+  },
+  {
+    "id": "reactbits",
+    "path": "/resource-logos/reactbits.png",
+    "source": "https://www.reactbits.dev/apple-touch-icon.png"
+  },
+  {
+    "id": "aceternity-ui",
+    "path": "/resource-logos/aceternity-ui.png",
+    "source": "https://ui.aceternity.com/apple-icon.png?2deb28af3ac52d4d"
+  },
+  {
+    "id": "originkit",
+    "path": "/resource-logos/originkit.png",
+    "source": "https://www.originkit.dev/apple-icon.png?v=4"
+  },
+  {
+    "id": "aishort",
+    "path": "/resource-logos/aishort.jpg",
+    "source": "https://avatars.githubusercontent.com/u/28252913?s=256&v=4"
+  },
+  {
+    "id": "uiverse",
+    "path": "/resource-logos/uiverse.png",
+    "source": "https://avatars.githubusercontent.com/u/103369066?s=256&v=4"
   }
 ]
