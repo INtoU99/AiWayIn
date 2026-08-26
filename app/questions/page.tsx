@@ -22,7 +22,6 @@ export default function QuestionsPage() {
       <QuestionDirectory />
 
       <aside className="brand-disclaimer question-disclaimer"><strong>内容边界</strong><p>本站不提供账号交易、代充值、代理线路或共享 API Key；费用、服务地区、模型和产品能力会发生变化，请以卡片链接的官方页面为准。</p></aside>
-      <footer><span>开启使用 AI 的第一步</span><p>先理解问题，再执行下一步。</p><a href="#top">回到顶部 ↑</a></footer>
     </main>
   );
 }

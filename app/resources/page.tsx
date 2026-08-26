@@ -26,6 +26,7 @@ export default function ResourcesPage() {
       <section className="directory-section" id="platform-clients">
         <div className="directory-heading"><div><span className="section-kicker">按设备选择</span><h2>平台代理客户端</h2></div><p>这里只提供客户端项目或应用商店入口，不提供任何线路、节点或订阅。</p></div>
         <div className="resource-compact-grid">{platformClients.map((resource) => <article className="resource-compact-card" key={resource.id}><ResourceLogo logo={resource.logo} mark={resource.mark} tone={resource.tone} name={resource.name} /><div><h3>{resource.name}</h3><p>{resource.description}</p><div className="resource-tags">{resource.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div><a href={resource.url} target="_blank" rel="noreferrer"><small>{resource.domain}</small><strong>查看官方入口 <span aria-hidden="true">↗</span></strong></a></article>)}</div>
+        <aside className="resource-notice github-notice"><span aria-hidden="true">i</span><p><strong>基本使用方式</strong>通常在代理客户端中添加 VPN 服务提供商提供的订阅链接，并选择可用节点后即可使用。具体操作和配置参数请以您的 VPN 服务提供商说明为准。</p></aside>
         <aside className="resource-notice warning"><span aria-hidden="true">!</span><p><strong>服务边界</strong>本站仅整理客户端的官方信息与下载入口，不提供、销售或推荐任何网络代理、节点、订阅及线路服务。请遵守所在地法律法规，谨慎辨别第三方服务，切勿向不可信来源付款或提供个人信息。</p></aside>
       </section>
 
@@ -61,7 +62,6 @@ export default function ResourcesPage() {
       </section>
 
       <aside className="brand-disclaimer"><strong>收录说明</strong><p>页面中的名称和标志仅用于识别对应服务，权利归各自所有者；收录不代表本站与其存在赞助或合作关系。</p></aside>
-      <footer><span>开启使用 AI 的第一步</span><p>面向中文新手的 AI 工具与资源导航。</p><a href="#top">回到顶部 ↑</a></footer>
     </main>
   );
 }

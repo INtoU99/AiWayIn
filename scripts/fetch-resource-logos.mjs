@@ -46,6 +46,7 @@ const targets = [
   ["coursera", "https://www.coursera.org/"],
   ["google", "https://www.google.com/", "https://cdn.simpleicons.org/google"],
   ["wikipedia", "https://www.wikipedia.org/", "https://cdn.simpleicons.org/wikipedia"],
+  ["gmail-contact", "https://mail.google.com/", "https://cdn.simpleicons.org/gmail"],
 ];
 
 function attribute(tag, name) {

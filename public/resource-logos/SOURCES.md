@@ -60,3 +60,4 @@
 | originkit | https://www.originkit.dev/ | https://www.originkit.dev/apple-icon.png?v=4 | originkit.png |
 | aishort | https://www.aishort.top/ | https://avatars.githubusercontent.com/u/28252913?s=256&v=4 | aishort.jpg |
 | uiverse | https://uiverse.io/ | https://avatars.githubusercontent.com/u/103369066?s=256&v=4 | uiverse.png |
+| gmail-contact | https://mail.google.com/ | https://cdn.simpleicons.org/gmail | gmail-contact.svg |

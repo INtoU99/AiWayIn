@@ -208,5 +208,10 @@
     "id": "uiverse",
     "path": "/resource-logos/uiverse.png",
     "source": "https://avatars.githubusercontent.com/u/103369066?s=256&v=4"
+  },
+  {
+    "id": "gmail-contact",
+    "path": "/resource-logos/gmail-contact.svg",
+    "source": "https://cdn.simpleicons.org/gmail"
   }
 ]

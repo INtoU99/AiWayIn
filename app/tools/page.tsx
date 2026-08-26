@@ -52,7 +52,6 @@ export default function ToolsPage() {
         <p>页面中的产品名称与标志仅用于识别对应工具，权利归各自所有者；本站不代表与这些品牌存在赞助或合作关系。</p>
       </aside>
 
-      <footer><span>开启使用 AI 的第一步</span><p>面向中文新手的 AI 工具导航与安装说明。</p><a href="#top">回到顶部 ↑</a></footer>
     </main>
   );
 }

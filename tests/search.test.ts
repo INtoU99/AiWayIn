@@ -112,6 +112,25 @@ test("全局流场背景不会拦截操作并尊重减少动态效果偏好", ()
   assert.match(cssSource, /prefers-reduced-motion: reduce[\s\S]*\.ambient-flow-background \{ display: none; \}/);
 });
 
+test("全站使用统一联系页脚并提供可点击的 Gmail 地址", () => {
+  const layoutSource = readFileSync(join(process.cwd(), "app/layout.tsx"), "utf8");
+  const footerSource = readFileSync(join(process.cwd(), "components/SiteFooter.tsx"), "utf8");
+  assert.match(layoutSource, /<SiteFooter \/>/);
+  assert.match(footerSource, /本站主要面向新手提供基础的资源导航/);
+  assert.match(footerSource, /mailto:\$\{contactEmail\}/);
+  assert.match(footerSource, /chuthachtung22013@gmail\.com/);
+  assert.equal(existsSync(join(process.cwd(), "public/resource-logos/gmail-contact.svg")), true);
+});
+
+test("平台代理客户端的基本使用说明位于服务边界警示之前", () => {
+  const resourcePageSource = readFileSync(join(process.cwd(), "app/resources/page.tsx"), "utf8");
+  const usageNoteIndex = resourcePageSource.indexOf("基本使用方式");
+  const boundaryNoticeIndex = resourcePageSource.indexOf("服务边界");
+  assert.ok(usageNoteIndex >= 0);
+  assert.ok(boundaryNoticeIndex > usageNoteIndex);
+  assert.match(resourcePageSource, /添加 VPN 服务提供商提供的订阅链接/);
+});
+
 test("OpenCode 有完整工具详情与官方入口", () => {
   const opencode = getTool("opencode");
   assert.ok(opencode);

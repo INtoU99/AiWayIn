@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import { AmbientFlowBackground } from "@/components/AmbientFlowBackground";
 import { BackToTop } from "@/components/BackToTop";
+import { SiteFooter } from "@/components/SiteFooter";
 
 import "./globals.css";
 
@@ -30,7 +31,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="zh-CN">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AmbientFlowBackground />
-        <div className="site-content-layer">{children}</div>
+        <div className="site-content-layer">{children}<SiteFooter /></div>
         <BackToTop />
       </body>
     </html>

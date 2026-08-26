@@ -27,7 +27,6 @@ export default async function ComparePage({ searchParams }: ComparePageProps) {
 
       <ToolComparison initialToolIds={initialToolIds} />
 
-      <footer><span>开启使用 AI 的第一步</span><p>工具能力会随版本变化，对比内容以标注的核验范围为准。</p><a href="#top">回到顶部 ↑</a></footer>
     </main>
   );
 }

@@ -159,7 +159,6 @@ export default function Home() {
         </div>
       </section>
 
-      <footer><span>开启使用 AI 的第一步</span><p>面向中文新手的 AI 工具导航与安装说明。</p><a href="#top">回到顶部 ↑</a></footer>
     </main>
   );
 }
