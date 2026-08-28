@@ -125,10 +125,13 @@ test("全站使用统一联系页脚并提供可点击的 Gmail 地址", () => {
 test("平台代理客户端的基本使用说明位于服务边界警示之前", () => {
   const resourcePageSource = readFileSync(join(process.cwd(), "app/resources/page.tsx"), "utf8");
   const usageNoteIndex = resourcePageSource.indexOf("基本使用方式");
-  const boundaryNoticeIndex = resourcePageSource.indexOf("服务边界");
+  const boundaryNoticeIndex = resourcePageSource.indexOf("下载方式与服务边界");
   assert.ok(usageNoteIndex >= 0);
   assert.ok(boundaryNoticeIndex > usageNoteIndex);
   assert.match(resourcePageSource, /添加 VPN 服务提供商提供的订阅链接/);
+  assert.match(resourcePageSource, /官方 GitHub 仓库的 Releases 板块/);
+  assert.match(resourcePageSource, /App Store“媒体与购买项目”的账户/);
+  assert.match(resourcePageSource, /第三方 VPN 服务均与本站无关/);
 });
 
 test("OpenCode 有完整工具详情与官方入口", () => {
