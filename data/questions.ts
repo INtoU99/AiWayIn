@@ -66,6 +66,20 @@ export const questions: QuestionItem[] = [
   },
 
   {
+    id: "what-is-terminal",
+    categoryId: "environment",
+    question: "什么是终端，如何打开终端？",
+    answer: "终端是通过文字命令与电脑交互的工具，也常被称为命令行、控制台或 Shell。安装开发工具、检查环境和运行项目时，经常需要把命令输入终端并按回车执行；打开终端本身不会修改电脑，真正产生操作的是你随后执行的命令。",
+    keywords: "终端 命令行 控制台 shell powershell terminal 打开 文件夹 目录 windows macos linux",
+    steps: [
+      "Windows：按 Windows 键，搜索“终端”“Windows Terminal”或“PowerShell”，点击搜索结果即可打开。",
+      "macOS：按 Command + 空格打开聚焦搜索，输入“终端”或“Terminal”，然后按回车。",
+      "Linux：多数桌面系统可以按 Ctrl + Alt + T；也可以在应用列表中搜索“终端”或“Terminal”。",
+      "需要在指定文件夹内打开时：Windows 可先进入该文件夹，再右键空白处选择“在终端中打开”；macOS 可打开终端，输入 cd 后留一个空格，把文件夹拖进终端并按回车；Linux 通常可在文件管理器中右键文件夹或空白处选择“在终端中打开”。不同系统版本的名称可能略有区别。",
+    ],
+    notice: { title: "执行前先看懂", text: "终端会按照输入内容直接执行操作。不要复制运行来源不明的命令，尤其是要求管理员权限、删除文件或关闭安全功能的命令。", tone: "info" },
+  },
+  {
     id: "command-not-found",
     categoryId: "environment",
     question: "输入命令后提示“找不到命令”怎么办？",

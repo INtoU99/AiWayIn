@@ -388,9 +388,9 @@ test("GitHub 项目难度标签和关联工具保持有效", () => {
   assert.deepEqual(getRelatedGitHubProjects("docker").map((project) => project.id), ["dify", "n8n", "firecrawl", "tabby", "ragflow", "open-webui"]);
 });
 
-test("常见问题页面包含六类 29 个有效问答", () => {
+test("常见问题页面包含六类 30 个有效问答", () => {
   assert.equal(questionCategories.length, 6);
-  assert.equal(questions.length, 29);
+  assert.equal(questions.length, 30);
   assert.equal(questions.filter((item) => item.featured).length, 8);
   const ids = new Set<string>();
   for (const item of questions) {
@@ -411,4 +411,13 @@ test("常见问题页面包含六类 29 个有效问答", () => {
   assert.equal(skillAndMcp?.answer.includes("岗位操作手册"), true);
   assert.equal(skillAndMcp?.answer.includes("模型上下文协议"), true);
   assert.equal(skillAndMcp?.notice?.tone, "warning");
+  const environmentQuestions = questions.filter((item) => item.categoryId === "environment");
+  assert.equal(environmentQuestions[0]?.id, "what-is-terminal");
+  const terminalQuestion = environmentQuestions[0];
+  assert.ok(terminalQuestion);
+  assert.equal(matchesSearch({ title: terminalQuestion.question, description: `${terminalQuestion.answer} ${terminalQuestion.steps?.join(" ")}`, keywords: terminalQuestion.keywords }, "终端怎么打开"), true);
+  const questionDirectorySource = readFileSync(join(process.cwd(), "components/QuestionDirectory.tsx"), "utf8");
+  assert.match(questionDirectorySource, /onSubmit=\{submitSearch\}/);
+  assert.match(questionDirectorySource, /setCategoryId\("all"\)/);
+  assert.match(questionDirectorySource, /scrollIntoView\(\{ behavior: "smooth", block: "center" \}\)/);
 });
