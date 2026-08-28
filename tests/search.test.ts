@@ -353,7 +353,7 @@ test("资源导航的全部入口都使用项目内 Logo", () => {
 });
 
 test("GitHub 精选项目使用有效且唯一的官方仓库地址", () => {
-  assert.equal(githubProjects.length, 22);
+  assert.equal(githubProjects.length, 23);
   assert.equal(githubProjectCategories.length, 6);
   const repositories = new Set<string>();
   const categoryIds = new Set(githubProjectCategories.map((category) => category.id));
@@ -371,6 +371,8 @@ test("GitHub 精选项目使用有效且唯一的官方仓库地址", () => {
   assert.equal(githubProjects.find((project) => project.id === "goose")?.repository, "aaif-goose/goose");
   assert.equal(githubProjects.find((project) => project.id === "animejs")?.categoryId, "creative");
   assert.equal(githubProjects.find((project) => project.id === "stable-diffusion-webui")?.categoryId, "creative");
+  assert.equal(githubProjects.find((project) => project.id === "voxcpm")?.repository, "OpenBMB/VoxCPM");
+  assert.equal(githubProjects.find((project) => project.id === "voxcpm")?.categoryId, "speech");
   assert.equal(githubProjects.find((project) => project.id === "lobehub")?.tags.includes("原 LobeChat"), true);
   assert.equal(githubProjects.find((project) => project.id === "vane")?.tags.includes("原 Perplexica"), true);
 });
@@ -384,7 +386,7 @@ test("GitHub 项目难度标签和关联工具保持有效", () => {
     }
   }
   assert.deepEqual(getRelatedGitHubProjects("ollama").map((project) => project.id), ["open-webui", "vane", "ollama-repo"]);
-  assert.deepEqual(getRelatedGitHubProjects("python").map((project) => project.id), ["stable-diffusion-webui", "comfyui", "real-esrgan", "streamlit", "graphrag", "markitdown", "whisper", "gpt-sovits"]);
+  assert.deepEqual(getRelatedGitHubProjects("python").map((project) => project.id), ["stable-diffusion-webui", "comfyui", "real-esrgan", "streamlit", "graphrag", "markitdown", "whisper", "voxcpm", "gpt-sovits"]);
   assert.deepEqual(getRelatedGitHubProjects("docker").map((project) => project.id), ["dify", "n8n", "firecrawl", "tabby", "ragflow", "open-webui"]);
 });
 

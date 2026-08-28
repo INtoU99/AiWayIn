@@ -130,5 +130,11 @@
     "path": "/github-project-logos/stable-diffusion-webui.png",
     "repository": "AUTOMATIC1111/stable-diffusion-webui",
     "source": "https://avatars.githubusercontent.com/u/20920490?v=4"
+  },
+  {
+    "id": "voxcpm",
+    "path": "/github-project-logos/voxcpm.png",
+    "repository": "OpenBMB/VoxCPM",
+    "source": "https://avatars.githubusercontent.com/u/89920203?v=4"
   }
 ]

@@ -26,3 +26,4 @@
 | GPT-SoVITS | RVC-Boss/GPT-SoVITS | RVC-Boss | https://avatars.githubusercontent.com/u/129054828?v=4 | gpt-sovits.png |
 | Anime.js | juliangarnier/anime | juliangarnier | https://avatars.githubusercontent.com/u/1268691?v=4 | animejs.png |
 | Stable Diffusion WebUI | AUTOMATIC1111/stable-diffusion-webui | AUTOMATIC1111 | https://avatars.githubusercontent.com/u/20920490?v=4 | stable-diffusion-webui.png |
+| VoxCPM | OpenBMB/VoxCPM | OpenBMB | https://avatars.githubusercontent.com/u/89920203?v=4 | voxcpm.png |

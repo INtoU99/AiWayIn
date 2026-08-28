@@ -49,6 +49,7 @@ export const githubProjects: GitHubProject[] = [
   { id: "ollama-repo", name: "Ollama", repository: "ollama/ollama", description: "在本地运行和管理多种大语言模型的跨平台工具。", categoryId: "local-chat", tags: ["本地模型", "跨平台"], mark: "OL", tone: "mint", difficulty: "入门友好", relatedToolIds: ["ollama"] },
 
   { id: "whisper", name: "Whisper", repository: "openai/whisper", description: "OpenAI 开源的多语言语音识别模型与推理代码。", categoryId: "speech", tags: ["语音识别", "多语言"], mark: "WH", tone: "blue", difficulty: "需要配置", relatedToolIds: ["python"] },
+  { id: "voxcpm", name: "VoxCPM", repository: "OpenBMB/VoxCPM", description: "支持多语言语音合成、声音设计与音色克隆的开源文本转语音模型。", categoryId: "speech", tags: ["语音合成", "音色克隆"], mark: "VX", tone: "mint", difficulty: "进阶部署", relatedToolIds: ["python"] },
   { id: "gpt-sovits", name: "GPT-SoVITS", repository: "RVC-Boss/GPT-SoVITS", description: "面向少样本语音合成与音色建模的开源项目。", categoryId: "speech", tags: ["语音合成", "进阶"], mark: "GS", tone: "violet", difficulty: "进阶部署", relatedToolIds: ["python"] },
 ];
 
