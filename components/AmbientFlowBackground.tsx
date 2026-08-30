@@ -37,9 +37,12 @@ export function AmbientFlowBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas?.getContext("2d");
-    if (!canvas || !context) return;
+    const canvasElement = canvasRef.current;
+    if (!canvasElement) return;
+    const drawingContext = canvasElement.getContext("2d");
+    if (!drawingContext) return;
+    const canvas: HTMLCanvasElement = canvasElement;
+    const context: CanvasRenderingContext2D = drawingContext;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const saveData = (navigator as NavigatorWithConnection).connection?.saveData === true;

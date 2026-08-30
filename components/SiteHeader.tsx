@@ -5,13 +5,14 @@ import { useEffect, useId, useRef, useState } from "react";
 import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
 import { HomeGuideLink } from "@/components/HomeGuideLink";
 
-type SitePage = "compare" | "tools" | "resources" | "questions";
+type SitePage = "compare" | "tools" | "resources" | "questions" | "advanced";
 
 const pageLinks: Array<{ id: SitePage; label: string; href: string }> = [
   { id: "compare", label: "工具对比", href: "/compare" },
   { id: "tools", label: "工具导航", href: "/tools" },
   { id: "resources", label: "资源导航", href: "/resources" },
   { id: "questions", label: "常见问题", href: "/questions" },
+  { id: "advanced", label: "进阶计划", href: "/advanced" },
 ];
 
 export function SiteHeader({ activePage }: { activePage: SitePage }) {

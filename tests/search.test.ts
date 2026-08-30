@@ -47,7 +47,7 @@ test("工具目录包含 17 个不重复的工具入口", () => {
 });
 
 test("跨页安装指南导航保留首页锚点且首页会切换激活标签", () => {
-  for (const [file, activePage] of [["app/compare/page.tsx", "compare"], ["app/questions/page.tsx", "questions"], ["app/resources/page.tsx", "resources"], ["app/tools/page.tsx", "tools"], ["app/tools/[id]/page.tsx", "tools"]]) {
+  for (const [file, activePage] of [["app/advanced/page.tsx", "advanced"], ["app/compare/page.tsx", "compare"], ["app/questions/page.tsx", "questions"], ["app/resources/page.tsx", "resources"], ["app/tools/page.tsx", "tools"], ["app/tools/[id]/page.tsx", "tools"]]) {
     const source = readFileSync(join(process.cwd(), file), "utf8");
     assert.match(source, new RegExp(`<SiteHeader activePage="${activePage}" \\/>`), `${file} 应使用统一导航并设置当前页面`);
     assert.doesNotMatch(source, /<Link href="\/#guides">/, `${file} 不应让客户端路由接管跨页锚点`);
@@ -58,7 +58,7 @@ test("跨页安装指南导航保留首页锚点且首页会切换激活标签",
   assert.match(siteHeaderSource, /className="menu-button"/);
   assert.match(siteHeaderSource, /className="mobile-nav"/);
   assert.match(siteHeaderSource, /BrowserNavigationLink/);
-  for (const href of ["/compare", "/tools", "/resources", "/questions"]) {
+  for (const href of ["/compare", "/tools", "/resources", "/questions", "/advanced"]) {
     assert.match(siteHeaderSource, new RegExp(`href: "${href}"`));
   }
   const guideLinkSource = readFileSync(join(process.cwd(), "components/HomeGuideLink.tsx"), "utf8");
@@ -66,9 +66,12 @@ test("跨页安装指南导航保留首页锚点且首页会切换激活标签",
   const homeSource = readFileSync(join(process.cwd(), "app/page.tsx"), "utf8");
   assert.match(homeSource, /id="guides"/);
   assert.match(homeSource, /activeHomeSection === "guides"/);
-  for (const [href, label] of [["/compare", "工具对比"], ["/tools", "工具导航"], ["/resources", "资源导航"], ["/questions", "常见问题"]]) {
+  for (const [href, label] of [["/compare", "工具对比"], ["/tools", "工具导航"], ["/resources", "资源导航"], ["/questions", "常见问题"], ["/advanced", "进阶计划"]]) {
     assert.match(homeSource, new RegExp(`<BrowserNavigationLink href="${href}">${label}<\\/BrowserNavigationLink>`), `首页顶部导航应通过浏览器完整跳转到 ${href}`);
   }
+  assert.match(homeSource, /className="starter-card violet advanced-entry" href="\/advanced"/);
+  assert.match(homeSource, /工具已经安装好了？/);
+  assert.match(homeSource, /试试进阶路线/);
   const browserNavigationSource = readFileSync(join(process.cwd(), "components/BrowserNavigationLink.tsx"), "utf8");
   assert.match(browserNavigationSource, /window\.location\.assign\(href\)/);
 });
@@ -94,6 +97,177 @@ test("工具卡片与站内跨页面入口使用完整页面跳转", () => {
 
   const toolsPageSource = readFileSync(join(process.cwd(), "app/tools/page.tsx"), "utf8");
   assert.match(toolsPageSource, /<BrowserNavigationLink className={`directory-card \$\{tool\.tone\}`} href={`\/tools\/\$\{tool\.id\}`}/);
+});
+
+test("进阶计划使用四个可折叠方向并提供跨形态应用框架", () => {
+  const source = readFileSync(join(process.cwd(), "app/advanced/page.tsx"), "utf8");
+  assert.match(source, /<details className=\{`advanced-direction-card/);
+  assert.doesNotMatch(source, /open=\{/);
+  assert.match(source, /先理解骨架，不必先学完理论/);
+  assert.equal((source.match(/index: "0[1-4]"/g) ?? []).length, 8);
+  assert.match(source, /\{direction\.index\}/);
+  assert.match(source, /\{path\.index\}/);
+  assert.doesNotMatch(source, /direction\.mark|path\.mark/);
+  assert.match(source, /AI 应用构建与设计/);
+  assert.doesNotMatch(source, /AI 设计与多模态/);
+  assert.match(source, /产品形态与运行环境/);
+  assert.match(source, /语言、运行时与版本/);
+  assert.match(source, /框架、平台接口与依赖/);
+  assert.match(source, /输入输出、数据与状态/);
+  assert.match(source, /结构边界与质量要求/);
+  assert.match(source, /界面与交互（按需）/);
+  assert.match(source, /桌面轻应用、命令行工具、浏览器扩展还是宿主软件插件/);
+  assert.match(source, /完成后检查/);
+  assert.match(source, /从零构建原型/);
+  assert.match(source, /目标 → 范围 → 输入输出 → 异常情况 → 验收标准/);
+  assert.match(source, /运行 → 功能检查 → 异常测试 → 构建或打包 → 目标环境复查/);
+  assert.doesNotMatch(source, /手机端检查/);
+  assert.equal((source.match(/className="advanced-code-lesson-card"/g) ?? []).length, 20);
+  assert.match(source, /className="advanced-code-starter-horizontal"/);
+  assert.match(source, /<strong>可以先从这里开始<\/strong>/);
+  assert.match(source, /<strong>让 AI 输出更规范，需要先说明哪些项目条件？<\/strong>/);
+  assert.match(source, /<strong>应用构建不只是生成一个页面<\/strong>/);
+  assert.match(source, /<strong>建立可复用的协作路径<\/strong>/);
+  assert.match(source, /保持良好的习惯，是提升效率的高级途径/);
+  assert.match(source, /创建精简的 AGENTS\.md/);
+  assert.match(source, /帮我写一个任务管理工具/);
+  assert.match(source, /帮我写一个番茄钟工具/);
+  assert.match(source, /把 AI 变成与你共同学习和解决问题的伙伴/);
+  assert.match(source, /继续探索，你也许会掌握以下能力/);
+  assert.match(source, /Prompt Engineering（提示词工程）/);
+  assert.match(source, /自然语言编程（Vibe Coding）/);
+  assert.match(source, /结构化信息检索/);
+  assert.match(source, /工作流编排（Orchestration）/);
+  assert.equal((source.match(/<strong>Tips<\/strong>/g) ?? []).length, 1);
+  assert.match(source, /重要知识、事实与结论仍然需要查证/);
+  assert.match(source, /祝你能在擅长的领域中发光发热，无限进步/);
+});
+
+test("办公与研究方向提供三种差异化交付和完整教学边界", () => {
+  const pageSource = readFileSync(join(process.cwd(), "app/advanced/page.tsx"), "utf8");
+  const labSource = readFileSync(join(process.cwd(), "components/OfficeResearchLab.tsx"), "utf8");
+
+  assert.match(pageSource, /import \{ OfficeResearchLab \}/);
+  assert.match(pageSource, /direction\.id === "office"/);
+  assert.match(pageSource, /<OfficeResearchLab \/>/);
+  assert.match(pageSource, /任务与交付目标/);
+  assert.match(pageSource, /来源与证据等级/);
+  assert.match(pageSource, /上传前先脱敏/);
+  assert.match(pageSource, /不要毫无戒备地上传身份证件、账号密码、财务信息、客户资料、商业机密、API Key/);
+  assert.match(pageSource, /办公与研究不只是总结一篇文章/);
+  assert.match(pageSource, /背景与用途 → 输入资料 → 处理任务/);
+
+  assert.equal((labSource.match(/id: "(research|meeting|spreadsheet)"/g) ?? []).length, 3);
+  assert.match(labSource, /mode: "file"/);
+  assert.match(labSource, /mode: "inline"/);
+  assert.match(labSource, /mode: "table"/);
+  assert.match(labSource, /多来源研究简报/);
+  assert.match(labSource, /会议记录整理/);
+  assert.match(labSource, /表格清理与分析/);
+  assert.match(labSource, /预设数据 · 无上传 · 无外部请求/);
+  assert.match(labSource, /FileTypeIcon/);
+  assert.match(labSource, /<svg viewBox="0 0 36 42"/);
+  assert.match(labSource, /研究简报_v1\.docx/);
+  assert.match(labSource, /活动报名表_清理结果\.xlsx/);
+  assert.match(labSource, /07 · 项目验收清单/);
+  assert.match(labSource, /08 · 常见问题与边界/);
+  assert.match(labSource, /09 · 下一步升级/);
+  assert.match(labSource, /文件卡片用于表现办公交付流程/);
+  assert.doesNotMatch(labSource, /继续调整|第二轮|revision/i);
+  assert.doesNotMatch(labSource, /fetch\(|https?:\/\//);
+});
+
+test("内容创作方向使用三个单次生成模板交付不同媒体成果", () => {
+  const pageSource = readFileSync(join(process.cwd(), "app/advanced/page.tsx"), "utf8");
+  const labSource = readFileSync(join(process.cwd(), "components/ContentCreationLab.tsx"), "utf8");
+
+  assert.match(pageSource, /import \{ ContentCreationLab \}/);
+  assert.match(pageSource, /direction\.id === "content"/);
+  assert.match(pageSource, /<ContentCreationLab \/>/);
+  assert.match(pageSource, /先写一份内容创作简报/);
+  assert.match(pageSource, /内容创作不只是让 AI 写一篇文章/);
+  assert.match(pageSource, /素材、版权与授权/);
+  assert.match(pageSource, /创作简报结构：目标 → 受众 → 核心信息/);
+  assert.match(pageSource, /不要未经允许克隆声音或制作误导性内容/);
+
+  assert.equal((labSource.match(/id: "(article|social|video)"/g) ?? []).length, 3);
+  assert.match(labSource, /文章与文案编辑/);
+  assert.match(labSource, /社交媒体图文包/);
+  assert.match(labSource, /短视频创作工作流/);
+  assert.match(labSource, /单次创作演示 · 非实时 AI/);
+  assert.match(labSource, /内容稿 · 可继续编辑/);
+  assert.match(labSource, /content-cover-canvas/);
+  assert.match(labSource, /content-storyboard-grid/);
+  assert.match(labSource, /content-video-timeline/);
+  assert.match(labSource, /07 · 项目验收清单/);
+  assert.match(labSource, /08 · 常见问题与边界/);
+  assert.match(labSource, /09 · 下一步建议/);
+  assert.doesNotMatch(labSource, /继续调整|第二轮|revision/i);
+  assert.doesNotMatch(labSource, /fetch\(|https?:\/\//);
+});
+
+test("Agent 与自动化方向从单次可靠运行演示三种重复流程", () => {
+  const pageSource = readFileSync(join(process.cwd(), "app/advanced/page.tsx"), "utf8");
+  const labSource = readFileSync(join(process.cwd(), "components/AgentAutomationLab.tsx"), "utf8");
+
+  assert.match(pageSource, /import \{ AgentAutomationLab \}/);
+  assert.match(pageSource, /direction\.id === "agent"/);
+  assert.match(pageSource, /<AgentAutomationLab \/>/);
+  assert.match(pageSource, /自动化之前，先把流程手动跑通/);
+  assert.match(pageSource, /Skill、MCP 与工具选择/);
+  assert.match(pageSource, /状态、去重与重复运行/);
+  assert.match(pageSource, /手动跑通 → 写成步骤 → 限定权限 → 单次执行/);
+  assert.match(pageSource, /不绕过登录、验证和访问限制/);
+  assert.match(pageSource, /网页关闭后不会自动运行/);
+
+  assert.equal((labSource.match(/id: "(digest|monitor|report)"/g) ?? []).length, 3);
+  assert.match(labSource, /定时资料摘要/);
+  assert.match(labSource, /公开页面更新监测/);
+  assert.match(labSource, /周期办公数据分析/);
+  assert.match(labSource, /单次运行演示 · 非真实后台任务/);
+  assert.match(labSource, /Agent 运行控制台/);
+  assert.match(labSource, /预设任务 · 最小权限 · 无外部操作/);
+  assert.match(labSource, /本周资料摘要/);
+  assert.match(labSource, /agent-snapshot-compare/);
+  assert.match(labSource, /本周办公数据分析/);
+  assert.match(labSource, /07 · 项目验收清单/);
+  assert.match(labSource, /08 · 常见问题与边界/);
+  assert.match(labSource, /09 · 下一步升级/);
+  assert.match(labSource, /不会创建真实定时任务、访问外部来源或在网页关闭后继续运行/);
+  assert.doesNotMatch(labSource, /fetch\(|https?:\/\//);
+});
+
+test("四个进阶预览窗格使用无文字圆形发送箭头并提高最小字号", () => {
+  const componentFiles = [
+    "components/AdvancedPracticeLab.tsx",
+    "components/OfficeResearchLab.tsx",
+    "components/ContentCreationLab.tsx",
+    "components/AgentAutomationLab.tsx",
+  ];
+  for (const file of componentFiles) {
+    const source = readFileSync(join(process.cwd(), file), "utf8");
+    assert.match(source, /<i className="composer-send-arrow" aria-hidden="true" \/><\/button>/, `${file} 应使用无文字发送箭头`);
+  }
+
+  const cssSource = readFileSync(join(process.cwd(), "app/globals.css"), "utf8");
+  assert.match(cssSource, /\.practice-composer-input > button, \.office-composer-input > button,[\s\S]*width: 46px;[\s\S]*border-radius: 50%/);
+  assert.match(cssSource, /\.composer-send-arrow[\s\S]*border-bottom: 9px solid #fff/);
+  assert.match(cssSource, /\.advanced-direction-card small,[\s\S]*font-size: 11px/);
+  assert.match(cssSource, /\.question-category-summary span[\s\S]*font-size: 11px/);
+  assert.match(cssSource, /\.question-category-summary strong \{ font-size: 13px/);
+  assert.match(cssSource, /\.question-category-summary small[\s\S]*font-size: 11px/);
+  assert.match(cssSource, /\.advanced-agent-terms p \{[^}]*font-size: 11px/);
+
+  const advancedLabSource = readFileSync(join(process.cwd(), "components/AdvancedPracticeLab.tsx"), "utf8");
+  assert.match(advancedLabSource, /role="status" aria-live="polite" aria-atomic="true"/);
+  assert.doesNotMatch(advancedLabSource, /className="practice-unified-scroll"[^>]*aria-live/);
+
+  for (const oldClass of ["practice-lab-workspace", "practice-chat-panel", "practice-chat-scroll", "practice-choice-stack", "practice-primary-action", "practice-prompt-preview", "practice-action-row", "practice-term-grid", "practice-preview-panel", "practice-template-picker", "practice-chat-empty", "practice-playback-controls", "practice-preview-stage", "practice-preview-note", "practice-mobile-tabs", "practice-template-icon"]) {
+    assert.equal(cssSource.includes(`.${oldClass}`), false, `旧版样式 .${oldClass} 应已移除`);
+  }
+
+  const packageSource = JSON.parse(readFileSync(join(process.cwd(), "package.json"), "utf8")) as { scripts?: Record<string, string> };
+  assert.equal(packageSource.scripts?.typecheck, "tsc --noEmit");
 });
 
 test("全局流场背景不会拦截操作并尊重减少动态效果偏好", () => {
@@ -422,4 +596,59 @@ test("常见问题页面包含六类 30 个有效问答", () => {
   assert.match(questionDirectorySource, /onSubmit=\{submitSearch\}/);
   assert.match(questionDirectorySource, /setCategoryId\("all"\)/);
   assert.match(questionDirectorySource, /scrollIntoView\(\{ behavior: "smooth", block: "center" \}\)/);
+});
+
+test("进阶计划使用五种模板提供动态对话与隔离预览", () => {
+  const advancedPageSource = readFileSync(join(process.cwd(), "app/advanced/page.tsx"), "utf8");
+  const practiceLabSource = readFileSync(join(process.cwd(), "components/AdvancedPracticeLab.tsx"), "utf8");
+
+  assert.match(advancedPageSource, /direction\.id === "coding" && <AdvancedPracticeLab \/>/);
+  assert.equal((practiceLabSource.match(/id: "(portfolio|todo|taskboard|pomodoro|hero)"/g) ?? []).length, 5);
+  assert.match(practiceLabSource, /动态教学演示 · 非实时 AI/);
+  assert.match(practiceLabSource, /个人作品主页/);
+  assert.match(practiceLabSource, /待办事项清单/);
+  assert.match(practiceLabSource, /动态落地页 Hero/);
+  assert.match(practiceLabSource, /任务管理面板/);
+  assert.match(practiceLabSource, /番茄钟计时器/);
+  assert.match(practiceLabSource, /createTaskboardDocument/);
+  assert.match(practiceLabSource, /createPomodoroDocument/);
+  assert.match(practiceLabSource, /React、TypeScript、Tailwind CSS 和 Motion/);
+  assert.match(practiceLabSource, /practice-conversation-window/);
+  assert.match(practiceLabSource, /practice-inline-delivery/);
+  assert.match(practiceLabSource, /发送并生成/);
+  assert.match(practiceLabSource, /level: "入门"/);
+  assert.match(practiceLabSource, /level: "进阶"/);
+  assert.match(practiceLabSource, /practice-composer-template-copy/);
+  assert.match(practiceLabSource, /practice-composer-revisions/);
+  assert.match(practiceLabSource, /第二轮迭代/);
+  assert.match(practiceLabSource, /createRevisionStyle/);
+  assert.match(practiceLabSource, /项目说明/);
+  assert.match(practiceLabSource, /01 · 项目目标/);
+  assert.match(practiceLabSource, /02 · 最终成果/);
+  assert.match(practiceLabSource, /03 · 开始前准备/);
+  assert.match(practiceLabSource, /04 · 推荐工具组合/);
+  assert.match(practiceLabSource, /05 · 实际操作流程/);
+  assert.match(practiceLabSource, /06 · 起始提示词/);
+  assert.match(practiceLabSource, /07 · 项目验收清单/);
+  assert.match(practiceLabSource, /08 · 常见问题与边界/);
+  assert.match(practiceLabSource, /09 · 下一步升级/);
+  assert.match(practiceLabSource, /主要方案/);
+  assert.match(practiceLabSource, /替代方案/);
+  assert.match(practiceLabSource, /项目验收清单/);
+  assert.match(practiceLabSource, /当前结果是隔离的效果预演/);
+  assert.match(practiceLabSource, /当前窗口仅以简单页面演示 AI 构建流程/);
+  assert.match(practiceLabSource, /搭配设计类 Skill/);
+  assert.doesNotMatch(practiceLabSource, /这是经过设计的教学提示词/);
+  assert.match(practiceLabSource, /以白色为主，加入一种低饱和辅助色/);
+  assert.match(practiceLabSource, /以白色为主，只搭配一种接近中性的浅灰蓝色/);
+  assert.doesNotMatch(practiceLabSource.split("function createWaitingDocument")[0], /#[\da-f]{3,8}/i);
+  assert.match(practiceLabSource, /white-space:nowrap/);
+  assert.match(practiceLabSource, /replace\('<div class="portrait">✦<\/div>', ""\)/);
+  assert.doesNotMatch(practiceLabSource, /practice-mobile-tabs/);
+  assert.match(practiceLabSource, /window\.setTimeout/);
+  assert.match(practiceLabSource, /prefers-reduced-motion: reduce/);
+  assert.match(practiceLabSource, /sandbox="allow-scripts"/);
+  assert.match(practiceLabSource, /Content-Security-Policy/);
+  assert.match(practiceLabSource, /default-src 'none'/);
+  assert.doesNotMatch(practiceLabSource, /fetch\(|https?:\/\//);
 });
