@@ -6582,6 +6582,7 @@ h1 { margin: 24px 0 16px; max-width: 680px; font-size: clamp(37px, 3.65vw, 52px)
   }
 
   .home-page .home-hero-grid {
+    grid-template-columns: 1fr;
     min-height: auto;
     padding: 42px 34px 24px;
   }

@@ -397,6 +397,7 @@ test("首屏标题使用统一紧凑尺度且首页入口同步收紧", () => {
   assert.match(cssSource, /Visual refinement batch one/);
   assert.match(cssSource, /\.home-page \.home-hero \{[\s\S]*?min-height: 548px/);
   assert.match(cssSource, /\.home-page \.starter-card \{[\s\S]*?min-height: 108px/);
+  assert.match(cssSource, /@media \(max-width: 980px\) \{\s*\.home-page \.home-hero \{[\s\S]*?\.home-page \.home-hero-grid \{\s*grid-template-columns: 1fr;/);
   assert.match(cssSource, /\.compare-page \.compare-hero h1,[\s\S]*?\.advanced-page \.advanced-hero h1 \{[\s\S]*?font-size: clamp\(36px, 4\.05vw, 52px\)/);
   assert.match(cssSource, /@media \(max-width: 680px\)[\s\S]*?\.advanced-page \.advanced-hero h1,[\s\S]*?font-size: clamp\(30px, 9\.2vw, 40px\)/);
 });
