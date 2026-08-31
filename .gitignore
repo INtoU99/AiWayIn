@@ -46,6 +46,7 @@ yarn-error.log*
 /.codex/
 /.agents/
 /.ai-collab/
+/.design-proposals/
 /AGENTS.md
 /.vscode/
 /.idea/

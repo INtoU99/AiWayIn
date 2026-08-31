@@ -34,7 +34,7 @@ export function ResourceDirectory() {
 
       <p className="resource-count" aria-live="polite">当前显示 {resources.length} 个网站</p>
       {resources.length > 0 ? <div className="resource-site-grid">{resources.map((resource) => (
-        <article className="resource-site-card" key={resource.id}>
+        <article className="resource-site-card resource-note-card" key={resource.id}>
           <ResourceLogo logo={resource.logo} mark={resource.mark} tone={resource.tone} name={resource.name} />
           <div className="resource-card-copy"><h3>{resource.name}</h3><p>{resource.description}</p><div className="resource-tags">{resource.tags.map((tag) => <span key={tag}>{tag}</span>)}</div></div>
           <a href={resource.url} target="_blank" rel="noreferrer" aria-label={`访问 ${resource.name} 官方网站`}><small>{resource.domain}</small><strong>访问官网 <span aria-hidden="true">↗</span></strong></a>

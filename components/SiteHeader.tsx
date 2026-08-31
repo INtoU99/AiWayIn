@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { BrowserNavigationLink } from "@/components/BrowserNavigationLink";
 import { HomeGuideLink } from "@/components/HomeGuideLink";
@@ -17,9 +17,11 @@ const pageLinks: Array<{ id: SitePage; label: string; href: string }> = [
 
 export function SiteHeader({ activePage }: { activePage: SitePage }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [headerScrolled, setHeaderScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
-  const mobileNavigationId = useId();
+  const sentinelRef = useRef<HTMLSpanElement>(null);
+  const mobileNavigationId = "site-mobile-navigation";
 
   useEffect(() => {
     const desktopQuery = window.matchMedia("(min-width: 981px)");
@@ -28,6 +30,14 @@ export function SiteHeader({ activePage }: { activePage: SitePage }) {
     };
     desktopQuery.addEventListener("change", closeAtDesktop);
     return () => desktopQuery.removeEventListener("change", closeAtDesktop);
+  }, []);
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(([entry]) => setHeaderScrolled(!entry.isIntersecting), { threshold: 0 });
+    observer.observe(sentinel);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -54,7 +64,9 @@ export function SiteHeader({ activePage }: { activePage: SitePage }) {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className="simple-topbar" aria-label="网站顶部导航" ref={headerRef}>
+    <>
+    <span className="header-scroll-sentinel" ref={sentinelRef} aria-hidden="true" />
+    <header className={`simple-topbar${headerScrolled ? " is-scrolled" : ""}`} aria-label="网站顶部导航" ref={headerRef}>
       <BrowserNavigationLink className="brand" href="/"><span className="brand-mark" aria-hidden="true">✣</span><span>开启使用 AI 的第一步</span></BrowserNavigationLink>
       <nav className="simple-desktop-nav" aria-label="主要导航">
         <BrowserNavigationLink href="/">首页</BrowserNavigationLink>
@@ -68,5 +80,6 @@ export function SiteHeader({ activePage }: { activePage: SitePage }) {
         {pageLinks.map((item) => <BrowserNavigationLink className={activePage === item.id ? "active" : undefined} href={item.href} aria-current={activePage === item.id ? "page" : undefined} key={item.id} onNavigate={closeMenu}>{item.label}<span aria-hidden="true">→</span></BrowserNavigationLink>)}
       </nav>}
     </header>
+    </>
   );
 }

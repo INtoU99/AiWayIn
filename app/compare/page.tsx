@@ -17,11 +17,11 @@ export default async function ComparePage({ searchParams }: ComparePageProps) {
   const initialToolIds = (tools ?? "").split(",").filter((toolId, index, values) => allowedToolIds.has(toolId) && values.indexOf(toolId) === index).slice(0, 3);
 
   return (
-    <main className="site-shell detail-shell" id="top">
+    <main className="site-shell detail-shell compare-page" id="top">
       <SiteHeader activePage="compare" />
 
       <section className="compare-hero">
-        <div><span className="eyebrow">面向新手的进阶选择</span><h1>把犹豫的工具放在一起，<br />看清差异再决定</h1></div>
+        <div><span className="eyebrow">面向新手的进阶选择</span><h1>把犹豫的工具放在一起，看清差异再决定</h1></div>
         <p>聚焦 AI 助手与 Agent，不把运行环境、版本管理或基础开发工具混入对比。选择两个工具即可开始，最多同时比较三个。</p>
       </section>
 

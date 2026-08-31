@@ -69,9 +69,11 @@ test("跨页安装指南导航保留首页锚点且首页会切换激活标签",
   for (const [href, label] of [["/compare", "工具对比"], ["/tools", "工具导航"], ["/resources", "资源导航"], ["/questions", "常见问题"], ["/advanced", "进阶计划"]]) {
     assert.match(homeSource, new RegExp(`<BrowserNavigationLink href="${href}">${label}<\\/BrowserNavigationLink>`), `首页顶部导航应通过浏览器完整跳转到 ${href}`);
   }
-  assert.match(homeSource, /className="starter-card violet advanced-entry" href="\/advanced"/);
+  assert.match(homeSource, /className="starter-card advanced-entry" href="\/advanced"/);
   assert.match(homeSource, /工具已经安装好了？/);
   assert.match(homeSource, /试试进阶路线/);
+  assert.match(homeSource, /className="home-tool-rail"/);
+  assert.doesNotMatch(homeSource, /className="home-pathway-grid"|今天想解决什么问题/);
   const browserNavigationSource = readFileSync(join(process.cwd(), "components/BrowserNavigationLink.tsx"), "utf8");
   assert.match(browserNavigationSource, /window\.location\.assign\(href\)/);
 });
@@ -97,6 +99,74 @@ test("工具卡片与站内跨页面入口使用完整页面跳转", () => {
 
   const toolsPageSource = readFileSync(join(process.cwd(), "app/tools/page.tsx"), "utf8");
   assert.match(toolsPageSource, /<BrowserNavigationLink className={`directory-card \$\{tool\.tone\}`} href={`\/tools\/\$\{tool\.id\}`}/);
+});
+
+test("工具导航使用等尺寸玻璃随笔卡片并提供便利贴式掀起反馈", () => {
+  const pageSource = readFileSync(join(process.cwd(), "app/tools/page.tsx"), "utf8");
+  const cssSource = readFileSync(join(process.cwd(), "app/globals.css"), "utf8");
+
+  assert.match(pageSource, /className="site-shell detail-shell tools-page"/);
+  assert.match(pageSource, /className="tools-hero-index"/);
+  assert.match(pageSource, /className="directory-card-surface"/);
+  assert.match(cssSource, /\.tools-page \.directory-grid \{\s*grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
+  assert.match(cssSource, /\.tools-page \.directory-card \{[\s\S]*?border: 0;[\s\S]*?border-radius: 0;/);
+  assert.match(cssSource, /\.directory-card-surface::before,[\s\S]*?\.directory-card-surface::after/);
+  assert.match(cssSource, /transform: perspective\(900px\) translate3d\(0, -5px, 0\) rotateX\(1\.7deg\) rotateY\(1\.15deg\) rotateZ\(-\.14deg\)/);
+  assert.doesNotMatch(cssSource, /\.tools-page \.directory-section\[data-category="local-ai"\] \.directory-card \{\s*grid-column: 1 \/ -1/);
+  assert.match(cssSource, /@media \(max-width: 760px\)[\s\S]*?\.tools-page \.directory-grid \{\s*grid-template-columns: 1fr/);
+});
+
+test("全部工具详情页沿用海玻璃层级与无外框随笔卡片", () => {
+  const pageSource = readFileSync(join(process.cwd(), "app/tools/[id]/page.tsx"), "utf8");
+  const cssSource = readFileSync(join(process.cwd(), "app/globals.css"), "utf8");
+
+  assert.match(pageSource, /className="site-shell detail-shell tool-detail-page"/);
+  assert.ok((pageSource.match(/detail-note-card/g) ?? []).length >= 6);
+  assert.doesNotMatch(pageSource, /directDownloadDomains|核验于/);
+  assert.match(cssSource, /\.detail-note-card \{[\s\S]*?border: 0;[\s\S]*?border-radius: 0;/);
+  assert.match(cssSource, /\.tool-detail-page \.detail-grid \.detail-panel \{[\s\S]*?rgba\(249, 253, 251, \.28\)/);
+  assert.match(cssSource, /\.tool-detail-page \.installation-steps li \{[\s\S]*?rgba\(249, 253, 251, \.27\)/);
+  assert.match(cssSource, /\.detail-note-card::before[\s\S]*?clip-path:/);
+  assert.match(cssSource, /\.detail-note-card:hover,[\s\S]*?transform: perspective\(900px\) translate3d\(0, -5px, 0\)/);
+  assert.match(cssSource, /\.tool-detail-page \.success-panel \{[\s\S]*?background: rgba\(235, 247, 242, \.5\)/);
+  assert.match(cssSource, /@media \(hover: none\)[\s\S]*?\.detail-note-card:hover,[\s\S]*?transform: none/);
+});
+
+test("资源导航保留分类效率并沿用等高玻璃随笔卡片", () => {
+  const pageSource = readFileSync(join(process.cwd(), "app/resources/page.tsx"), "utf8");
+  const directorySource = readFileSync(join(process.cwd(), "components/ResourceDirectory.tsx"), "utf8");
+  const githubSource = readFileSync(join(process.cwd(), "components/GitHubProjectDirectory.tsx"), "utf8");
+  const cssSource = readFileSync(join(process.cwd(), "app/globals.css"), "utf8");
+
+  assert.match(pageSource, /className="site-shell detail-shell resources-page"/);
+  assert.match(pageSource, /className="resource-hero-map"/);
+  assert.ok((pageSource.match(/resource-note-card/g) ?? []).length >= 4);
+  assert.match(directorySource, /resource-site-card resource-note-card/);
+  assert.match(githubSource, /github-project-card resource-note-card/);
+  assert.match(cssSource, /\.resources-page \.resource-note-card \{[\s\S]*?border: 0;[\s\S]*?border-radius: 0;/);
+  assert.match(cssSource, /\.resources-page \.resource-note-card::before[\s\S]*?clip-path:/);
+  assert.match(cssSource, /\.resources-page \.resource-note-card:hover,[\s\S]*?transform: perspective\(900px\) translate3d\(0, -5px, 0\)/);
+  assert.match(cssSource, /\.resources-page \.resource-compact-grid,[\s\S]*?grid-auto-rows: 1fr/);
+  assert.match(cssSource, /\.resources-page \.github-project-card \{\s*min-height: 278px;/);
+  assert.doesNotMatch(cssSource, /\.resources-page \.github-project-card \{\s*min-height: 350px;/);
+  assert.match(cssSource, /@media \(hover: none\)[\s\S]*?\.resources-page \.resource-note-card:hover,[\s\S]*?transform: none/);
+});
+
+test("常见问题页使用直接搜索与无外框玻璃问答列表", () => {
+  const pageSource = readFileSync(join(process.cwd(), "app/questions/page.tsx"), "utf8");
+  const directorySource = readFileSync(join(process.cwd(), "components/QuestionDirectory.tsx"), "utf8");
+  const cssSource = readFileSync(join(process.cwd(), "app/globals.css"), "utf8");
+
+  assert.match(pageSource, /className="site-shell detail-shell questions-page"/);
+  assert.match(pageSource, /className="question-hero-guide"/);
+  assert.doesNotMatch(pageSource, /question-hero-map|category-jump/);
+  assert.doesNotMatch(directorySource, /question-featured|question-category-summary|revealQuestion/);
+  assert.match(directorySource, /className="question-controls"/);
+  assert.match(directorySource, /className="question-list"/);
+  assert.match(cssSource, /\.questions-page \.question-list article \{[\s\S]*?border: 0;[\s\S]*?border-radius: 0;/);
+  assert.match(cssSource, /\.questions-page \.question-list article::before[\s\S]*?clip-path:/);
+  assert.match(cssSource, /@media \(hover: none\)[\s\S]*?\.questions-page \.question-list article:not\(\.expanded\):hover,[\s\S]*?transform: none/);
+  assert.match(cssSource, /@media \(prefers-reduced-transparency: reduce\)[\s\S]*?\.questions-page \.question-list article/);
 });
 
 test("进阶计划使用四个可折叠方向并提供跨形态应用框架", () => {
@@ -132,6 +202,7 @@ test("进阶计划使用四个可折叠方向并提供跨形态应用框架", ()
   assert.match(source, /创建精简的 AGENTS\.md/);
   assert.match(source, /帮我写一个任务管理工具/);
   assert.match(source, /帮我写一个番茄钟工具/);
+  assert.match(source, /状态变化和完成条件。例如：/);
   assert.match(source, /把 AI 变成与你共同学习和解决问题的伙伴/);
   assert.match(source, /继续探索，你也许会掌握以下能力/);
   assert.match(source, /Prompt Engineering（提示词工程）/);
@@ -141,6 +212,34 @@ test("进阶计划使用四个可折叠方向并提供跨形态应用框架", ()
   assert.equal((source.match(/<strong>Tips<\/strong>/g) ?? []).length, 1);
   assert.match(source, /重要知识、事实与结论仍然需要查证/);
   assert.match(source, /祝你能在擅长的领域中发光发热，无限进步/);
+
+  const cssSource = readFileSync(join(process.cwd(), "app/globals.css"), "utf8");
+  assert.match(cssSource, /\.advanced-page \.advanced-growth-closing \{[\s\S]*?color: var\(--brand\);[\s\S]*?border-top: 0;[\s\S]*?font-size: 16px;[\s\S]*?font-style: italic;[\s\S]*?text-align: center;/);
+});
+
+test("进阶计划统一教学层级并保留四个功能预览窗格", () => {
+  const pageSource = readFileSync(join(process.cwd(), "app/advanced/page.tsx"), "utf8");
+  const cssSource = readFileSync(join(process.cwd(), "app/globals.css"), "utf8");
+  const componentFiles = [
+    "components/AdvancedPracticeLab.tsx",
+    "components/OfficeResearchLab.tsx",
+    "components/ContentCreationLab.tsx",
+    "components/AgentAutomationLab.tsx",
+  ];
+
+  assert.match(pageSource, /className="site-shell detail-shell advanced-page"/);
+  assert.match(cssSource, /\.advanced-page \.advanced-direction-card,[\s\S]*?border: 0;[\s\S]*?border-radius: 0;/);
+  assert.match(cssSource, /\.advanced-page \.advanced-introduction::before,[\s\S]*?clip-path:/);
+  assert.match(cssSource, /\.advanced-page :is\(\.advanced-practice-lab, \.office-research-lab, \.content-creation-lab, \.agent-automation-lab\)/);
+  assert.match(cssSource, /\.advanced-page \.advanced-direction-card:not\(\[open\]\):focus-within/);
+  assert.doesNotMatch(cssSource, /\.advanced-page \.advanced-direction-card:focus-within/);
+  assert.match(cssSource, /@media \(hover: none\)[\s\S]*?\.advanced-page \.advanced-direction-card:not\(\[open\]\):hover,[\s\S]*?transform: none/);
+  assert.match(cssSource, /@media \(prefers-reduced-transparency: reduce\)[\s\S]*?\.advanced-page \.advanced-direction-card/);
+
+  for (const file of ["app/advanced/page.tsx", ...componentFiles]) {
+    const source = readFileSync(join(process.cwd(), file), "utf8");
+    assert.doesNotMatch(source, /[—–]/, `${file} 不应包含长破折号`);
+  }
 });
 
 test("办公与研究方向提供三种差异化交付和完整教学边界", () => {
@@ -253,9 +352,9 @@ test("四个进阶预览窗格使用无文字圆形发送箭头并提高最小�
   assert.match(cssSource, /\.practice-composer-input > button, \.office-composer-input > button,[\s\S]*width: 46px;[\s\S]*border-radius: 50%/);
   assert.match(cssSource, /\.composer-send-arrow[\s\S]*border-bottom: 9px solid #fff/);
   assert.match(cssSource, /\.advanced-direction-card small,[\s\S]*font-size: 11px/);
-  assert.match(cssSource, /\.question-category-summary span[\s\S]*font-size: 11px/);
-  assert.match(cssSource, /\.question-category-summary strong \{ font-size: 13px/);
-  assert.match(cssSource, /\.question-category-summary small[\s\S]*font-size: 11px/);
+  assert.match(cssSource, /\.questions-page \.question-toggle small[\s\S]*font-size: 11px/);
+  assert.match(cssSource, /\.questions-page \.question-toggle strong[\s\S]*font-size: 16px/);
+  assert.match(cssSource, /\.questions-page \.question-answer > p[\s\S]*font-size: 14px/);
   assert.match(cssSource, /\.advanced-agent-terms p \{[^}]*font-size: 11px/);
 
   const advancedLabSource = readFileSync(join(process.cwd(), "components/AdvancedPracticeLab.tsx"), "utf8");
@@ -270,20 +369,42 @@ test("四个进阶预览窗格使用无文字圆形发送箭头并提高最小�
   assert.equal(packageSource.scripts?.typecheck, "tsc --noEmit");
 });
 
-test("全局流场背景不会拦截操作并尊重减少动态效果偏好", () => {
+test("全局海玻璃背景不会拦截操作并尊重减少动态效果偏好", () => {
   const layoutSource = readFileSync(join(process.cwd(), "app/layout.tsx"), "utf8");
   const backgroundSource = readFileSync(join(process.cwd(), "components/AmbientFlowBackground.tsx"), "utf8");
   const cssSource = readFileSync(join(process.cwd(), "app/globals.css"), "utf8");
   assert.match(layoutSource, /<AmbientFlowBackground \/>/);
-  assert.match(backgroundSource, /prefers-reduced-motion: reduce/);
-  assert.match(backgroundSource, /document\.hidden/);
+  assert.match(backgroundSource, /className="tidal-glass-canvas"/);
+  assert.match(backgroundSource, /className="tidal-glass-fallback"/);
+  assert.match(backgroundSource, /getContext\("webgl"/);
+  assert.match(backgroundSource, /requestAnimationFrame\(render\)/);
+  assert.match(backgroundSource, /float tideField/);
+  assert.match(backgroundSource, /uniform float uTime/);
+  assert.match(backgroundSource, /webglcontextlost/);
+  assert.match(backgroundSource, /ResizeObserver/);
   assert.doesNotMatch(backgroundSource, /addEventListener\("scroll"/);
-  assert.match(backgroundSource, /mobileViewport && widthUnchanged/);
-  assert.match(backgroundSource, /Math\.min\(time - previousFrameTime, 50\)/);
-  assert.match(backgroundSource, /drawFrame\(animationTime\)/);
+  assert.match(backgroundSource, /<canvas ref=\{canvasRef\}/);
   assert.match(cssSource, /\.ambient-flow-background[\s\S]*pointer-events: none/);
   assert.match(cssSource, /\.ambient-flow-background[\s\S]*transform: translateZ\(0\)/);
-  assert.match(cssSource, /prefers-reduced-motion: reduce[\s\S]*\.ambient-flow-background \{ display: none; \}/);
+  assert.match(cssSource, /tidal-glass-background\.png/);
+  assert.match(cssSource, /\.ambient-flow-background\.is-ready \.tidal-glass-canvas[\s\S]*opacity: \.92/);
+  assert.match(cssSource, /prefers-reduced-motion: reduce[\s\S]*\.tidal-glass-canvas \{ display: none; \}/);
+  assert.equal(existsSync(join(process.cwd(), "public/tidal-glass-background.png")), true);
+});
+
+test("首屏标题使用统一紧凑尺度且首页入口同步收紧", () => {
+  const cssSource = readFileSync(join(process.cwd(), "app/globals.css"), "utf8");
+  assert.match(cssSource, /Visual refinement batch one/);
+  assert.match(cssSource, /\.home-page \.home-hero \{[\s\S]*?min-height: 548px/);
+  assert.match(cssSource, /\.home-page \.starter-card \{[\s\S]*?min-height: 108px/);
+  assert.match(cssSource, /\.compare-page \.compare-hero h1,[\s\S]*?\.advanced-page \.advanced-hero h1 \{[\s\S]*?font-size: clamp\(36px, 4\.05vw, 52px\)/);
+  assert.match(cssSource, /@media \(max-width: 680px\)[\s\S]*?\.advanced-page \.advanced-hero h1,[\s\S]*?font-size: clamp\(30px, 9\.2vw, 40px\)/);
+});
+
+test("工具对比选择器不再使用负边距与首屏重叠", () => {
+  const cssSource = readFileSync(join(process.cwd(), "app/globals.css"), "utf8");
+  assert.doesNotMatch(cssSource, /\.compare-page \.compare-picker\s*\{[^}]*margin:\s*-/g);
+  assert.match(cssSource, /\.compare-page \.compare-picker\s*\{[^}]*margin:\s*18px 0 0/);
 });
 
 test("全站使用统一联系页脚并提供可点击的 Gmail 地址", () => {

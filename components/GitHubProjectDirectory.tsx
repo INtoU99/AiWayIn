@@ -37,7 +37,7 @@ export function GitHubProjectDirectory() {
           return tool ? [tool] : [];
         });
         return (
-          <article className="resource-site-card github-project-card" key={project.id}>
+          <article className="resource-site-card github-project-card resource-note-card" key={project.id}>
             <ResourceLogo logo={getGitHubProjectLogo(project)} mark={project.mark} tone={project.tone} name={project.name} />
             <div className="resource-card-copy">
               <h3>{project.name}</h3><p>{project.description}</p>

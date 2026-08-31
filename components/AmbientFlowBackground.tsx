@@ -2,214 +2,294 @@
 
 import { useEffect, useRef } from "react";
 
-type RGB = [number, number, number];
+const vertexShaderSource = `
+  attribute vec2 aPosition;
+  varying vec2 vUv;
 
-type NavigatorWithConnection = Navigator & {
-  connection?: { saveData?: boolean };
-};
+  void main() {
+    vUv = (aPosition + 1.0) * 0.5;
+    gl_Position = vec4(aPosition, 0.0, 1.0);
+  }
+`;
 
-type FlowLayer = {
-  y: number;
-  amplitude: number;
-  width: number;
-  speed: number;
-  phase: number;
-  direction: 1 | -1;
-  opacity: number;
-};
+const fragmentShaderSource = `
+  precision highp float;
 
-const BLUE: RGB = [72, 126, 242];
-const PINK_LAVENDER: RGB = [218, 117, 204];
-const BLUSH: RGB = [244, 151, 184];
-const MINT: RGB = [83, 194, 171];
+  uniform sampler2D uTexture;
+  uniform vec2 uResolution;
+  uniform vec2 uTextureSize;
+  uniform float uTime;
+  uniform float uStrength;
+  varying vec2 vUv;
 
-const FLOW_LAYERS: FlowLayer[] = [
-  { y: 0.18, amplitude: 54, width: 210, speed: 0.0002, phase: 0.2, direction: 1, opacity: 0.11 },
-  { y: 0.49, amplitude: 76, width: 280, speed: 0.00015, phase: 2.1, direction: -1, opacity: 0.125 },
-  { y: 0.8, amplitude: 62, width: 240, speed: 0.00018, phase: 4.2, direction: 1, opacity: 0.105 },
-];
+  float tideField(vec2 point, float time) {
+    float broad = sin(point.x * 2.4 + point.y * 1.2 + time * 0.62);
+    float crossing = sin(-point.x * 1.35 + point.y * 3.6 - time * 0.48 + sin(point.x * 1.8 + time * 0.28) * 0.65);
+    float curl = sin(length(point + vec2(sin(time * 0.19), cos(time * 0.16)) * 0.55) * 5.2 - time * 0.58);
+    float ribbon = sin((point.x * 0.55 - point.y * 1.6) * 5.1 + time * 0.36 + sin(point.y * 3.0 - time * 0.22));
+    return broad * 0.42 + crossing * 0.33 + curl * 0.18 + ribbon * 0.15;
+  }
 
-function rgba([red, green, blue]: RGB, alpha: number) {
-  return `rgba(${red},${green},${blue},${alpha})`;
+  vec2 coverUv(vec2 uv) {
+    float viewportAspect = uResolution.x / uResolution.y;
+    float textureAspect = uTextureSize.x / uTextureSize.y;
+    vec2 scale = vec2(1.0);
+
+    if (viewportAspect > textureAspect) {
+      scale.y = textureAspect / viewportAspect;
+    } else {
+      scale.x = viewportAspect / textureAspect;
+    }
+
+    return (uv - 0.5) * scale + 0.5;
+  }
+
+  void main() {
+    float aspect = uResolution.x / uResolution.y;
+    vec2 point = (vUv - 0.5) * vec2(aspect, 1.0);
+    float epsilon = 0.018;
+    float height = tideField(point, uTime);
+    float rightHeight = tideField(point + vec2(epsilon, 0.0), uTime);
+    float upperHeight = tideField(point + vec2(0.0, epsilon), uTime);
+    vec2 gradient = vec2(rightHeight - height, upperHeight - height) / epsilon;
+
+    vec2 textureUv = coverUv(vUv);
+    vec2 aspectCorrection = vec2(uTextureSize.y / uTextureSize.x, 1.0);
+    vec2 refraction = gradient * aspectCorrection * 0.016 * uStrength;
+    refraction += vec2(
+      sin(point.y * 4.2 + uTime * 0.34),
+      cos(point.x * 3.5 - uTime * 0.29)
+    ) * 0.0038 * uStrength;
+
+    vec2 sampleUv = clamp(textureUv + refraction, 0.002, 0.998);
+    vec2 prismOffset = normalize(gradient + vec2(0.0001)) * 0.0022 * uStrength;
+    vec3 base = texture2D(uTexture, sampleUv).rgb;
+    vec3 refracted = vec3(
+      texture2D(uTexture, clamp(sampleUv + prismOffset, 0.002, 0.998)).r,
+      base.g,
+      texture2D(uTexture, clamp(sampleUv - prismOffset, 0.002, 0.998)).b
+    );
+
+    vec3 surfaceNormal = normalize(vec3(-gradient.x * 0.42, -gradient.y * 0.42, 1.0));
+    vec3 lightDirection = normalize(vec3(-0.42, 0.58, 0.7));
+    float specular = pow(max(dot(surfaceNormal, lightDirection), 0.0), 8.0);
+    float softDepth = 0.985 + max(dot(surfaceNormal, vec3(0.22, -0.18, 0.96)), 0.0) * 0.035;
+    vec3 color = mix(base, refracted, 0.42) * softDepth;
+    color += vec3(0.92, 1.0, 0.97) * specular * 0.13;
+    color = mix(color, color * vec3(0.975, 1.018, 1.014), 0.22);
+
+    gl_FragColor = vec4(color, 1.0);
+  }
+`;
+
+function createShader(gl: WebGLRenderingContext, type: number, source: string) {
+  const shader = gl.createShader(type);
+  if (!shader) throw new Error("无法创建背景着色器");
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    const message = gl.getShaderInfoLog(shader) ?? "背景着色器编译失败";
+    gl.deleteShader(shader);
+    throw new Error(message);
+  }
+  return shader;
+}
+
+function createProgram(gl: WebGLRenderingContext) {
+  const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+  const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
+  const program = gl.createProgram();
+  if (!program) throw new Error("无法创建背景渲染程序");
+  gl.attachShader(program, vertexShader);
+  gl.attachShader(program, fragmentShader);
+  gl.linkProgram(program);
+  gl.deleteShader(vertexShader);
+  gl.deleteShader(fragmentShader);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    const message = gl.getProgramInfoLog(program) ?? "背景渲染程序链接失败";
+    gl.deleteProgram(program);
+    throw new Error(message);
+  }
+  return program;
 }
 
 export function AmbientFlowBackground() {
+  const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvasElement = canvasRef.current;
-    if (!canvasElement) return;
-    const drawingContext = canvasElement.getContext("2d");
-    if (!drawingContext) return;
-    const canvas: HTMLCanvasElement = canvasElement;
-    const context: CanvasRenderingContext2D = drawingContext;
+    const root = rootRef.current;
+    const canvas = canvasRef.current;
+    if (!root || !canvas) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const saveData = (navigator as NavigatorWithConnection).connection?.saveData === true;
-    const lowPowerDevice = (navigator.hardwareConcurrency ?? 8) <= 4;
-    let width = 0;
-    let height = 0;
+    if (reducedMotion.matches) {
+      root.classList.add("is-fallback", "is-reduced-motion");
+      return;
+    }
+
+    const gl = canvas.getContext("webgl", {
+      alpha: false,
+      antialias: false,
+      depth: false,
+      powerPreference: "high-performance",
+      premultipliedAlpha: false,
+    });
+
+    if (!gl) {
+      root.classList.add("is-fallback");
+      return;
+    }
+
     let animationFrame = 0;
-    let resizeFrame = 0;
-    let animationTime = 0;
-    let previousFrameTime = 0;
-    let lastDrawTime = 0;
+    let disposed = false;
+    let ready = false;
+    let previousTime = 0;
+    let elapsedTime = 0;
+    let frameInterval = 1000 / 45;
+    let program: WebGLProgram | null = null;
+    let positionBuffer: WebGLBuffer | null = null;
+    let texture: WebGLTexture | null = null;
+    let resizeObserver: ResizeObserver | null = null;
 
-    function drawFrame(time: number) {
-      context.clearRect(0, 0, width, height);
-      context.globalCompositeOperation = "source-over";
-      drawAtmosphere(time);
-      FLOW_LAYERS.forEach((layer, index) => drawFlowLayer(time, layer, index));
-    }
+    const image = new Image();
+    image.decoding = "async";
 
-    function resizeCanvas() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, saveData || lowPowerDevice ? 1.15 : 1.4);
-      canvas.width = Math.round(width * pixelRatio);
-      canvas.height = Math.round(height * pixelRatio);
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
-      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-      drawFrame(animationTime);
-    }
-
-    function drawAtmosphere(time: number) {
-      const radius = Math.max(width, height) * 0.72;
-      const glows: Array<{ color: RGB; x: number; y: number; phase: number; opacity: number }> = [
-        { color: BLUE, x: 0.12, y: 0.2, phase: 0, opacity: 0.12 },
-        { color: PINK_LAVENDER, x: 0.66, y: 0.26, phase: 2.3, opacity: 0.145 },
-        { color: BLUSH, x: 0.88, y: 0.72, phase: 4.1, opacity: 0.11 },
-        { color: MINT, x: 0.25, y: 0.84, phase: 5.4, opacity: 0.105 },
-      ];
-
-      for (const glow of glows) {
-        const x = width * glow.x + Math.sin(time * 0.00008 + glow.phase) * width * 0.08;
-        const y = height * glow.y + Math.cos(time * 0.00007 + glow.phase) * height * 0.09;
-        const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
-        gradient.addColorStop(0, rgba(glow.color, glow.opacity));
-        gradient.addColorStop(0.46, rgba(glow.color, glow.opacity * 0.48));
-        gradient.addColorStop(1, rgba(glow.color, 0));
-        context.fillStyle = gradient;
-        context.fillRect(0, 0, width, height);
-      }
-    }
-
-    function traceWave(time: number, layer: FlowLayer) {
-      const mobileScale = width < 680 ? 0.78 : 1;
-      const baseY = height * layer.y
-        + Math.sin(time * 0.00009 + layer.phase) * height * 0.035;
-      const amplitude = layer.amplitude * mobileScale;
-      context.beginPath();
-      for (let x = -80; x <= width + 80; x += 20) {
-        const y = baseY
-          + Math.sin(x * 0.0048 + time * layer.speed * layer.direction + layer.phase) * amplitude
-          + Math.cos(x * 0.0022 - time * layer.speed * 0.56 + layer.phase) * amplitude * 0.48;
-        if (x === -80) context.moveTo(x, y);
-        else context.lineTo(x, y);
-      }
-    }
-
-    function drawFlowLayer(time: number, layer: FlowLayer, index: number) {
-      const mobileScale = width < 680 ? 0.72 : 1;
-      const flowGradient = context.createLinearGradient(0, 0, width, height * 0.22);
-      if (index === 1) {
-        flowGradient.addColorStop(0, rgba(MINT, layer.opacity * 0.76));
-        flowGradient.addColorStop(0.46, rgba(PINK_LAVENDER, layer.opacity * 1.12));
-        flowGradient.addColorStop(1, rgba(BLUE, layer.opacity * 0.82));
-      } else {
-        flowGradient.addColorStop(0, rgba(BLUE, layer.opacity * 0.9));
-        flowGradient.addColorStop(0.54, rgba(PINK_LAVENDER, layer.opacity * 1.2));
-        flowGradient.addColorStop(1, rgba(MINT, layer.opacity * 0.84));
-      }
-
-      traceWave(time, layer);
-      context.strokeStyle = flowGradient;
-      context.lineWidth = layer.width * mobileScale;
-      context.lineCap = "round";
-      context.lineJoin = "round";
-      context.stroke();
-
-      const crestGradient = context.createLinearGradient(0, 0, width, 0);
-      crestGradient.addColorStop(0, rgba(BLUE, layer.opacity * 0.2));
-      crestGradient.addColorStop(0.55, rgba(BLUSH, layer.opacity * 0.42));
-      crestGradient.addColorStop(1, rgba(MINT, layer.opacity * 0.18));
-      traceWave(time + 480, { ...layer, amplitude: layer.amplitude * 0.72 });
-      context.strokeStyle = crestGradient;
-      context.lineWidth = layer.width * mobileScale * 0.42;
-      context.stroke();
-    }
-
-    function animate(time: number) {
+    const stopAnimation = () => {
+      window.cancelAnimationFrame(animationFrame);
       animationFrame = 0;
-      if (document.hidden || reducedMotion.matches) return;
-      const elapsed = previousFrameTime ? Math.min(time - previousFrameTime, 50) : 0;
-      previousFrameTime = time;
-      animationTime += elapsed;
-      const frameInterval = width < 680 || saveData || lowPowerDevice ? 34 : 24;
-      if (time - lastDrawTime >= frameInterval) {
-        drawFrame(animationTime);
-        lastDrawTime = time;
+      previousTime = 0;
+    };
+
+    const markFallback = () => {
+      stopAnimation();
+      root.classList.remove("is-ready");
+      root.classList.add("is-fallback");
+    };
+
+    const handleContextLost = () => markFallback();
+
+    const startRenderer = () => {
+      try {
+        program = createProgram(gl);
+        gl.useProgram(program);
+
+        positionBuffer = gl.createBuffer();
+        if (!positionBuffer) throw new Error("无法创建背景顶点缓冲区");
+        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+
+        const positionLocation = gl.getAttribLocation(program, "aPosition");
+        gl.enableVertexAttribArray(positionLocation);
+        gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+        texture = gl.createTexture();
+        if (!texture) throw new Error("无法创建背景纹理");
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+
+        const resolutionLocation = gl.getUniformLocation(program, "uResolution");
+        const textureSizeLocation = gl.getUniformLocation(program, "uTextureSize");
+        const timeLocation = gl.getUniformLocation(program, "uTime");
+        const strengthLocation = gl.getUniformLocation(program, "uStrength");
+        const textureLocation = gl.getUniformLocation(program, "uTexture");
+
+        gl.uniform1i(textureLocation, 0);
+        gl.uniform2f(textureSizeLocation, image.naturalWidth, image.naturalHeight);
+
+        const resize = () => {
+          const width = Math.max(canvas.clientWidth, 1);
+          const height = Math.max(canvas.clientHeight, 1);
+          const mobile = width < 720;
+          frameInterval = 1000 / (mobile ? 30 : 45);
+          const pixelRatio = Math.min(window.devicePixelRatio || 1, mobile ? 1.05 : 1.4);
+          const rawWidth = width * pixelRatio;
+          const rawHeight = height * pixelRatio;
+          const pixelBudget = mobile ? 1_250_000 : 2_800_000;
+          const budgetScale = Math.min(1, Math.sqrt(pixelBudget / (rawWidth * rawHeight)));
+          const nextWidth = Math.max(1, Math.round(rawWidth * budgetScale));
+          const nextHeight = Math.max(1, Math.round(rawHeight * budgetScale));
+
+          if (canvas.width !== nextWidth || canvas.height !== nextHeight) {
+            canvas.width = nextWidth;
+            canvas.height = nextHeight;
+          }
+
+          gl.viewport(0, 0, nextWidth, nextHeight);
+          gl.uniform2f(resolutionLocation, nextWidth, nextHeight);
+          gl.uniform1f(strengthLocation, mobile ? 0.82 : 1);
+        };
+
+        const render = (timestamp: number) => {
+          if (disposed || document.hidden) return;
+          if (previousTime && timestamp - previousTime < frameInterval) {
+            animationFrame = window.requestAnimationFrame(render);
+            return;
+          }
+          if (previousTime) elapsedTime += Math.min((timestamp - previousTime) / 1000, 0.05);
+          previousTime = timestamp;
+          gl.uniform1f(timeLocation, elapsedTime);
+          gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+          if (!ready) {
+            ready = true;
+            root.classList.remove("is-fallback");
+            root.classList.add("is-ready");
+          }
+          animationFrame = window.requestAnimationFrame(render);
+        };
+
+        const handleVisibilityChange = () => {
+          if (document.hidden) {
+            stopAnimation();
+          } else if (!animationFrame) {
+            animationFrame = window.requestAnimationFrame(render);
+          }
+        };
+
+        resizeObserver = new ResizeObserver(resize);
+        resizeObserver.observe(root);
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        resize();
+        animationFrame = window.requestAnimationFrame(render);
+
+        return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+      } catch {
+        markFallback();
+        return undefined;
       }
-      animationFrame = window.requestAnimationFrame(animate);
-    }
+    };
 
-    function startAnimation() {
-      if (!animationFrame && !document.hidden && !reducedMotion.matches) {
-        animationFrame = window.requestAnimationFrame(animate);
-      }
-    }
-
-    function stopAnimation() {
-      if (animationFrame) window.cancelAnimationFrame(animationFrame);
-      animationFrame = 0;
-      previousFrameTime = 0;
-    }
-
-    function handleResize() {
-      const nextWidth = window.innerWidth;
-      const widthUnchanged = Math.abs(nextWidth - width) <= 1;
-      const mobileViewport = Math.min(nextWidth, width) < 680;
-
-      // Mobile browser toolbars change only the visual viewport height while
-      // scrolling. Resizing the canvas for those events clears and redraws the
-      // fixed background repeatedly, which makes the ribbons appear to twitch.
-      if (mobileViewport && widthUnchanged) return;
-      if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
-      resizeFrame = window.requestAnimationFrame(() => {
-        resizeFrame = 0;
-        resizeCanvas();
-      });
-    }
-
-    function handleVisibilityChange() {
-      if (document.hidden) stopAnimation();
-      else startAnimation();
-    }
-
-    function handleMotionPreference() {
-      if (reducedMotion.matches) {
-        stopAnimation();
-        drawFrame(animationTime);
-      } else {
-        startAnimation();
-      }
-    }
-
-    resizeCanvas();
-    startAnimation();
-    window.addEventListener("resize", handleResize);
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    reducedMotion.addEventListener("change", handleMotionPreference);
+    let removeVisibilityListener: (() => void) | undefined;
+    image.addEventListener("load", () => {
+      if (!disposed) removeVisibilityListener = startRenderer();
+    }, { once: true });
+    image.addEventListener("error", markFallback, { once: true });
+    canvas.addEventListener("webglcontextlost", handleContextLost);
+    image.src = "/tidal-glass-background.png";
 
     return () => {
+      disposed = true;
       stopAnimation();
-      if (resizeFrame) window.cancelAnimationFrame(resizeFrame);
-      window.removeEventListener("resize", handleResize);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      reducedMotion.removeEventListener("change", handleMotionPreference);
+      removeVisibilityListener?.();
+      resizeObserver?.disconnect();
+      canvas.removeEventListener("webglcontextlost", handleContextLost);
+      if (texture) gl.deleteTexture(texture);
+      if (positionBuffer) gl.deleteBuffer(positionBuffer);
+      if (program) gl.deleteProgram(program);
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="ambient-flow-background" aria-hidden="true" />;
+  return (
+    <div ref={rootRef} className="ambient-flow-background is-fallback" aria-hidden="true">
+      <div className="tidal-glass-fallback" />
+      <canvas ref={canvasRef} className="tidal-glass-canvas" />
+      <div className="tidal-glass-light" />
+    </div>
+  );
 }

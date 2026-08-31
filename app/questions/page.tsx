@@ -11,12 +11,21 @@ export const metadata: Metadata = {
 
 export default function QuestionsPage() {
   return (
-    <main className="site-shell detail-shell" id="top">
+    <main className="site-shell detail-shell questions-page" id="top">
       <SiteHeader activePage="questions" />
 
-      <section className="question-hero">
-        <div><span className="eyebrow">六类问题 · {questions.length} 个简明答案</span><h1>遇到问题先别乱改，<br />从现象找到安全的下一步</h1></div>
-        <p>这里回答安装、环境、账号、API、权限和开源部署中的共性问题。工具专属步骤仍以详情页和官方文档为准。</p>
+      <section className="question-hero questions-directory-hero">
+        <div className="questions-hero-copy">
+          <span className="eyebrow">{questions.length} 个可执行答案</span>
+          <h1>遇到问题先别乱改，<br />从现象找到安全的下一步</h1>
+          <p>覆盖安装、环境、账号、API、权限和开源部署中的共性问题。具体操作仍以官方说明为准。</p>
+        </div>
+        <aside className="question-hero-guide" aria-label="阅读建议">
+          <strong>先确认现象，再开始修改</strong>
+          <div><span>描述</span><p>记下报错文字、所用设备与刚才执行的操作。</p></div>
+          <div><span>判断</span><p>区分安装、环境、账号、权限或网络问题。</p></div>
+          <div><span>验证</span><p>每次只改变一项，并检查结果是否符合预期。</p></div>
+        </aside>
       </section>
 
       <QuestionDirectory />
