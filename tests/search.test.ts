@@ -196,7 +196,7 @@ test("进阶计划使用四个可折叠方向并提供跨形态应用框架", ()
   assert.match(source, /className="advanced-code-starter-horizontal"/);
   assert.match(source, /<strong>可以先从这里开始<\/strong>/);
   assert.match(source, /<strong>让 AI 输出更规范，需要先说明哪些项目条件？<\/strong>/);
-  assert.match(source, /<strong>应用构建不只是生成一个页面<\/strong>/);
+  assert.match(source, /<strong>应用构建并非以页面生成为终点<\/strong>/);
   assert.match(source, /<strong>建立可复用的协作路径<\/strong>/);
   assert.match(source, /保持良好的习惯，是提升效率的高级途径/);
   assert.match(source, /创建精简的 AGENTS\.md/);
@@ -284,7 +284,7 @@ test("内容创作方向使用三个单次生成模板交付不同媒体成果",
   assert.match(pageSource, /direction\.id === "content"/);
   assert.match(pageSource, /<ContentCreationLab \/>/);
   assert.match(pageSource, /先写一份内容创作简报/);
-  assert.match(pageSource, /内容创作不只是让 AI 写一篇文章/);
+  assert.match(pageSource, /AI 写文章只是内容创作的一环/);
   assert.match(pageSource, /素材、版权与授权/);
   assert.match(pageSource, /创作简报结构：目标 → 受众 → 核心信息/);
   assert.match(pageSource, /不要未经允许克隆声音或制作误导性内容/);

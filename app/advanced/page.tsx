@@ -93,10 +93,10 @@ const advancedGrowthPaths = [
     tone: "content",
     abilities: [
       ["Prompt Engineering（提示词工程）", "掌握角色与目标设定、受众和风格控制、示例与限制条件、多轮迭代，以及在支持的生成工具中使用负面提示，让输出从能用逐步变得准确可控。"],
-      ["AI 工作流搭建", "把文案、图片、视频、配音、字幕与剪辑按顺序组织成可复用流程，减少重复整理，而不是只追求无差别批量生成。"],
-      ["多模态内容整合", "根据表达目标组合文本、图像、音频和视频，让不同媒介承担各自适合的信息，而不是简单堆叠素材。"],
+      ["AI 工作流搭建", "把文案、图片、视频、配音、字幕与剪辑按顺序组织成可复用流程，减少重复整理，避免无差别批量生成。"],
+      ["多模态内容整合", "根据表达目标组合文本、图像、音频和视频，让不同媒介承担各自适合的信息，避免简单堆叠素材。"],
       ["AI 版权与伦理合规", "了解不同地区、平台和素材来源对版权、人物授权、声音使用与 AI 标识的要求，降低下架、侵权和误导风险。"],
-      ["内容策略 × AI 协同", "让 AI 参与草稿、变体与素材整理，人负责选题、事实、受众洞察和最终调性，使效率与内容判断相互配合。"],
+      ["内容策略 × AI 协同", "让 AI 参与草稿、变体与素材整理，人负责选题、事实、受众洞察和最终调性。"],
     ],
     tip: "先固定受众、目标和交付形式，再讨论风格，通常比单纯堆叠形容词更有效。",
   },
@@ -151,7 +151,7 @@ export default function AdvancedPage() {
           <span className="eyebrow">从会使用，到能够独立完成</span>
           <h1>从一个真实的小目标开始，<br />建立属于你的 AI 工作流</h1>
         </div>
-        <p>进阶不等于一次安装更多工具。更重要的是理解目标、组织上下文、选择合适能力，并让每一步都有可以检查的结果。</p>
+        <p>工具可以按实际需要安装。进阶阶段需要理解目标、组织上下文、选择合适的能力，并让每一步都有可以检查的结果。</p>
       </section>
 
       <aside className="advanced-introduction" aria-labelledby="advanced-introduction-title">
@@ -191,8 +191,8 @@ export default function AdvancedPage() {
                   <div className="advanced-code-lesson-body"><div className="advanced-foundation-grid">{direction.foundations.map(([title, description]) => <article key={title}><strong>{title}</strong><p>{description}</p></article>)}</div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
-                  <summary><span><small>能力范围</small><strong>内容创作不只是让 AI 写一篇文章</strong></span><b aria-hidden="true">＋</b></summary>
-                  <div className="advanced-code-lesson-body"><div className="advanced-coding-scope-intro"><p>AI 可以参与选题、大纲、写作与编辑，也能协助封面构图、图片提示、视频脚本、分镜、旁白、字幕和多平台内容转换。更重要的是把这些能力组织成连续工作流，而不是分别生成一堆无法配合的素材。它们通常按照“选题与结构 → 文字与视觉 → 组合交付 → 发布复核”的顺序协作。</p></div><div className="advanced-content-capability-grid"><span>选题、大纲与长文编辑</span><span>标题、文案与品牌语气</span><span>封面、海报与图片说明</span><span>视频脚本、分镜与旁白</span><span>字幕、配音与素材组织</span><span>一份内容的多平台复用</span></div></div>
+                  <summary><span><small>能力范围</small><strong>AI 写文章只是内容创作的一环</strong></span><b aria-hidden="true">＋</b></summary>
+                  <div className="advanced-code-lesson-body"><div className="advanced-coding-scope-intro"><p>AI 可以参与选题、大纲、写作与编辑，也能协助封面构图、图片提示、视频脚本、分镜、旁白、字幕和多平台内容转换。这些能力需要组织成连续工作流，避免分别生成无法配合的素材。它们通常按照“选题与结构 → 文字与视觉 → 组合交付 → 发布复核”的顺序协作。</p></div><div className="advanced-content-capability-grid"><span>选题、大纲与长文编辑</span><span>标题、文案与品牌语气</span><span>封面、海报与图片说明</span><span>视频脚本、分镜与旁白</span><span>字幕、配音与素材组织</span><span>一份内容的多平台复用</span></div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
                   <summary><span><small>创作流程</small><strong>从内容目标到可以发布的完整成果</strong></span><b aria-hidden="true">＋</b></summary>
@@ -212,8 +212,8 @@ export default function AdvancedPage() {
                   <div className="advanced-code-lesson-body"><div className="advanced-foundation-grid">{direction.foundations.map(([title, description]) => <article key={title}><strong>{title}</strong><p>{description}</p></article>)}</div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
-                  <summary><span><small>能力范围</small><strong>应用构建不只是生成一个页面</strong></span><b aria-hidden="true">＋</b></summary>
-                  <div className="advanced-code-lesson-body"><div className="advanced-coding-scope-intro"><p>AI 可以参与需求拆解、原型与交互设计、代码实现、问题排查、测试、文档和部署。它既能从零构建网站、脚本、轻应用、小工具或插件，也能在理解已有项目后增加功能、修复问题或整理代码。涉及界面时再明确视觉层级和交互规范；没有界面时则优先保证输入输出、运行稳定性和交付方式。重点不是一次生成多少代码，而是限定改动范围，并让每一步都有可以验证的结果。</p></div><div className="advanced-coding-process-grid"><article><small>开始前</small><strong>把需求拆成可以执行的任务</strong><p>说明目标、修改范围、输入输出、异常情况和验收标准，避免直接要求 AI 一次完成一个含义模糊的大项目。</p><span>目标 → 范围 → 输入输出 → 异常情况 → 验收标准</span></article><article><small>交付前</small><strong>测试、构建并在目标环境复查</strong><p>确认代码能够运行、核心功能符合预期、异常输入得到处理，再完成构建或打包，并检查依赖、权限、环境变量、文件路径和启动方式。</p><span>运行 → 功能检查 → 异常测试 → 构建或打包 → 目标环境复查</span></article></div></div>
+                  <summary><span><small>能力范围</small><strong>应用构建并非以页面生成为终点</strong></span><b aria-hidden="true">＋</b></summary>
+                  <div className="advanced-code-lesson-body"><div className="advanced-coding-scope-intro"><p>AI 可以参与需求拆解、原型与交互设计、代码实现、问题排查、测试、文档和部署。它既能从零构建网站、脚本、轻应用、小工具或插件，也能在理解已有项目后增加功能、修复问题或整理代码。涉及界面时再明确视觉层级和交互规范；没有界面时则优先保证输入输出、运行稳定性和交付方式。每次限定改动范围，并以每一步的可验证结果判断进展。</p></div><div className="advanced-coding-process-grid"><article><small>开始前</small><strong>把需求拆成可以执行的任务</strong><p>说明目标、修改范围、输入输出、异常情况和验收标准，避免直接要求 AI 一次完成一个含义模糊的大项目。</p><span>目标 → 范围 → 输入输出 → 异常情况 → 验收标准</span></article><article><small>交付前</small><strong>测试、构建并在目标环境复查</strong><p>确认代码能够运行、核心功能符合预期、异常输入得到处理，再完成构建或打包，并检查依赖、权限、环境变量、文件路径和启动方式。</p><span>运行 → 功能检查 → 异常测试 → 构建或打包 → 目标环境复查</span></article></div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
                   <summary><span><small>实战路径</small><strong>建立可复用的协作路径</strong></span><b aria-hidden="true">＋</b></summary>
@@ -234,7 +234,7 @@ export default function AdvancedPage() {
                 </details>
                 <details className="advanced-code-lesson-card">
                   <summary><span><small>能力范围</small><strong>办公与研究不只是总结一篇文章</strong></span><b aria-hidden="true">＋</b></summary>
-                  <div className="advanced-code-lesson-body"><div className="advanced-coding-scope-intro"><p>AI 可以协助长文摘要、多来源比较、研究问题拆解、引用整理、文档差异对照、表格清洗与统计、会议纪要、演示大纲和资料归档。它的价值是缩短整理过程，不是替代事实核验与专业判断。</p></div><div className="advanced-office-capability-grid"><span>长文与多来源研究</span><span>文档比较与格式整理</span><span>表格清洗与数据分析</span><span>会议纪要与行动项</span><span>演示大纲与讲述逻辑</span><span>知识归档与资料转换</span></div></div>
+                  <div className="advanced-code-lesson-body"><div className="advanced-coding-scope-intro"><p>AI 可以协助长文摘要、多来源比较、研究问题拆解、引用整理、文档差异对照、表格清洗与统计、会议纪要、演示大纲和资料归档。它可以缩短资料整理过程，事实核验与专业判断仍需由人完成。</p></div><div className="advanced-office-capability-grid"><span>长文与多来源研究</span><span>文档比较与格式整理</span><span>表格清洗与数据分析</span><span>会议纪要与行动项</span><span>演示大纲与讲述逻辑</span><span>知识归档与资料转换</span></div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
                   <summary><span><small>实战路径</small><strong>从原始资料到可复核的交付成果</strong></span><b aria-hidden="true">＋</b></summary>
@@ -254,7 +254,7 @@ export default function AdvancedPage() {
                   <div className="advanced-code-lesson-body"><div className="advanced-foundation-grid">{direction.foundations.map(([title, description]) => <article key={title}><strong>{title}</strong><p>{description}</p></article>)}</div><div className="advanced-agent-terms"><article><strong>Skill</strong><p>任务已有稳定做法时，用它告诉 Agent 应该怎样完成。</p></article><article><strong>MCP</strong><p>Agent 需要读取文件、浏览器、文档或其他服务时，用它建立连接。</p></article><article><strong>API</strong><p>程序需要按固定规则访问外部能力或数据时，通过它进行调用。</p></article><article><strong>定时任务</strong><p>流程需要在指定时间重复运行时，用它设置触发频率。</p></article></div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
-                  <summary><span><small>能力范围</small><strong>从固定重复工作开始，而不是先搭复杂节点</strong></span><b aria-hidden="true">＋</b></summary>
+                  <summary><span><small>能力范围</small><strong>先从固定重复工作开始，熟悉后再考虑复杂节点</strong></span><b aria-hidden="true">＋</b></summary>
                   <div className="advanced-code-lesson-body"><div className="advanced-coding-scope-intro"><p>Agent 可以定时整理摘要、监测公开公告、批量处理文档与表格、生成周期报告、提取会议行动项、检查文件异常或转换固定格式。公开信息收集应优先使用官方 API、RSS 或允许访问的公开页面，并遵守访问频率、使用条款与版权要求。</p></div><div className="advanced-agent-capability-grid"><span>定时日报与周报</span><span>公开来源变化监测</span><span>批量文档与表格处理</span><span>会议行动项整理</span><span>文件异常与格式检查</span><span>固定内容格式转换</span></div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
@@ -279,7 +279,7 @@ export default function AdvancedPage() {
         <div className="advanced-growth-intro">
           <span className="section-kicker">继续探索</span>
           <h2 id="advanced-growth-title">把 AI 变成与你共同学习和解决问题的伙伴</h2>
-          <p>AI 不只是一件完成任务的简单工具。它也能与你讨论理论知识、拆解复杂问题，并在实践中帮助你逐步建立自己的方法。在探索过程中，AI 可以成为一位随时能够交流的学习伙伴，但重要知识、事实与结论仍然需要查证。</p>
+          <p>AI 也能与你讨论理论知识、拆解复杂问题，并在实践中帮助你逐步建立自己的方法。在探索过程中，它可以成为随时交流的学习伙伴，但重要知识、事实与结论仍然需要查证。</p>
         </div>
 
         <div className="advanced-growth-grid">
