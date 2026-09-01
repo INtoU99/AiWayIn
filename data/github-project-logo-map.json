@@ -136,5 +136,41 @@
     "path": "/github-project-logos/voxcpm.png",
     "repository": "OpenBMB/VoxCPM",
     "source": "https://avatars.githubusercontent.com/u/89920203?v=4"
+  },
+  {
+    "id": "graphify",
+    "path": "/github-project-logos/graphify.png",
+    "repository": "Graphify-Labs/graphify",
+    "source": "https://github.com/Graphify-Labs.png?size=200"
+  },
+  {
+    "id": "open-design",
+    "path": "/github-project-logos/open-design.png",
+    "repository": "nexu-io/open-design",
+    "source": "https://github.com/nexu-io.png?size=200"
+  },
+  {
+    "id": "build-your-own-x",
+    "path": "/github-project-logos/build-your-own-x.png",
+    "repository": "codecrafters-io/build-your-own-x",
+    "source": "https://github.com/codecrafters-io.png?size=200"
+  },
+  {
+    "id": "n8n-workflows",
+    "path": "/github-project-logos/n8n-workflows.jpg",
+    "repository": "Zie619/n8n-workflows",
+    "source": "https://github.com/Zie619.png?size=200"
+  },
+  {
+    "id": "deepagents",
+    "path": "/github-project-logos/deepagents.png",
+    "repository": "langchain-ai/deepagents",
+    "source": "https://github.com/langchain-ai.png?size=200"
+  },
+  {
+    "id": "langflow",
+    "path": "/github-project-logos/langflow.png",
+    "repository": "langflow-ai/langflow",
+    "source": "https://github.com/langflow-ai.png?size=200"
   }
 ]

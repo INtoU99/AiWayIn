@@ -27,3 +27,9 @@
 | Anime.js | juliangarnier/anime | juliangarnier | https://avatars.githubusercontent.com/u/1268691?v=4 | animejs.png |
 | Stable Diffusion WebUI | AUTOMATIC1111/stable-diffusion-webui | AUTOMATIC1111 | https://avatars.githubusercontent.com/u/20920490?v=4 | stable-diffusion-webui.png |
 | VoxCPM | OpenBMB/VoxCPM | OpenBMB | https://avatars.githubusercontent.com/u/89920203?v=4 | voxcpm.png |
+| Graphify | Graphify-Labs/graphify | Graphify-Labs | https://github.com/Graphify-Labs.png?size=200 | graphify.png |
+| open-design | nexu-io/open-design | nexu-io | https://github.com/nexu-io.png?size=200 | open-design.png |
+| Build Your Own X | codecrafters-io/build-your-own-x | codecrafters-io | https://github.com/codecrafters-io.png?size=200 | build-your-own-x.png |
+| n8n-workflows | Zie619/n8n-workflows | Zie619 | https://github.com/Zie619.png?size=200 | n8n-workflows.jpg |
+| Deep Agents | langchain-ai/deepagents | langchain-ai | https://github.com/langchain-ai.png?size=200 | deepagents.png |
+| Langflow | langflow-ai/langflow | langflow-ai | https://github.com/langflow-ai.png?size=200 | langflow.png |

@@ -26,16 +26,22 @@ export const githubProjects: GitHubProject[] = [
   { id: "crawlee", name: "Crawlee", repository: "apify/crawlee", description: "面向网页抓取和浏览器自动化的 JavaScript / TypeScript 框架。", categoryId: "automation", tags: ["Node.js", "浏览器自动化"], mark: "CR", tone: "blue", difficulty: "需要配置", relatedToolIds: ["nodejs"] },
   { id: "dify", name: "Dify", repository: "langgenius/dify", description: "用于构建 Agent 工作流、RAG 应用和模型工具链的协作平台。", categoryId: "automation", tags: ["工作流", "RAG"], mark: "DI", tone: "violet", difficulty: "进阶部署", relatedToolIds: ["docker"] },
   { id: "n8n", name: "n8n", repository: "n8n-io/n8n", description: "结合可视化流程、代码节点与 AI 能力的自动化平台。", categoryId: "automation", tags: ["流程自动化", "集成"], mark: "N8", tone: "peach", difficulty: "需要配置", relatedToolIds: ["nodejs", "docker"] },
+  { id: "n8n-workflows", name: "n8n-workflows", repository: "Zie619/n8n-workflows", description: "汇集可检索的 n8n 自动化流程模板，适合从现成案例理解节点连接与任务编排。", categoryId: "automation", tags: ["工作流模板", "n8n"], mark: "NW", tone: "peach", difficulty: "需要配置", relatedToolIds: ["python", "docker"] },
+  { id: "deepagents", name: "Deep Agents", repository: "langchain-ai/deepagents", description: "基于 LangGraph 的 Agent Harness，内置规划、文件系统、子 Agent 与上下文管理能力。", categoryId: "automation", tags: ["Agent Harness", "LangGraph"], mark: "DA", tone: "mint", difficulty: "进阶部署", relatedToolIds: ["python"] },
+  { id: "langflow", name: "Langflow", repository: "langflow-ai/langflow", description: "用于可视化构建、调试和部署 AI Agent 与工作流的开源平台。", categoryId: "automation", tags: ["可视化编排", "Agent"], mark: "LF", tone: "violet", difficulty: "需要配置", relatedToolIds: ["python", "docker"] },
   { id: "firecrawl", name: "Firecrawl", repository: "firecrawl/firecrawl", description: "将网页搜索与抓取结果转换为适合 AI 使用的结构化内容。", categoryId: "automation", tags: ["网页数据", "AI 上下文"], mark: "FC", tone: "mint", difficulty: "进阶部署", relatedToolIds: ["nodejs", "docker"] },
 
   { id: "animejs", name: "Anime.js", repository: "juliangarnier/anime", description: "轻量且用途广泛的 JavaScript 动画引擎，可驱动 CSS、SVG、DOM 属性与 JavaScript 对象。", categoryId: "creative", tags: ["前端动画", "JavaScript"], mark: "AN", tone: "peach", difficulty: "需要配置", relatedToolIds: ["nodejs", "vscode"] },
   { id: "stable-diffusion-webui", name: "Stable Diffusion WebUI", repository: "AUTOMATIC1111/stable-diffusion-webui", description: "基于 Gradio 的 Stable Diffusion 本地 Web 界面，提供文生图、图生图与扩展工作流。", categoryId: "creative", tags: ["图像生成", "本地部署"], mark: "SD", tone: "violet", difficulty: "进阶部署", relatedToolIds: ["python", "git"] },
   { id: "comfyui", name: "ComfyUI", repository: "Comfy-Org/ComfyUI", description: "通过节点图编排扩散模型生成流程的模块化图形界面与后端。", categoryId: "creative", tags: ["节点工作流", "图像生成"], mark: "CU", tone: "violet", difficulty: "进阶部署", relatedToolIds: ["python", "git"] },
   { id: "screenshot-to-code", name: "screenshot-to-code", repository: "abi/screenshot-to-code", description: "将截图转换为 HTML、Tailwind、React 或 Vue 代码的参考项目。", categoryId: "creative", tags: ["前端", "截图转代码"], mark: "SC", tone: "blue", difficulty: "需要配置", relatedToolIds: ["nodejs", "vscode"] },
+  { id: "open-design", name: "open-design", repository: "nexu-io/open-design", description: "面向编码 Agent 的本地优先设计工具，可从提示词生成并迭代多种视觉交付物。", categoryId: "creative", tags: ["设计 Agent", "本地优先"], mark: "OD", tone: "mint", difficulty: "需要配置", relatedToolIds: ["deepseek-harness", "opencode", "cursor"] },
   { id: "real-esrgan", name: "Real-ESRGAN", repository: "xinntao/Real-ESRGAN", description: "用于真实图像、动漫图片与视频画面的实用型超分辨率修复。", categoryId: "creative", tags: ["图像修复", "超分辨率"], mark: "RE", tone: "peach", difficulty: "进阶部署", relatedToolIds: ["python"] },
 
   { id: "tabby", name: "Tabby", repository: "TabbyML/tabby", description: "可以自行托管的开源 AI 编码助手。", categoryId: "coding-data", tags: ["自托管", "编程助手"], mark: "TA", tone: "mint", difficulty: "进阶部署", relatedToolIds: ["vscode", "docker"] },
   { id: "goose", name: "Goose", repository: "aaif-goose/goose", description: "可扩展的开源 AI Agent，可执行安装、编辑、运行和测试等开发任务。", categoryId: "coding-data", tags: ["Agent", "开发流程"], mark: "GO", tone: "peach", difficulty: "需要配置", relatedToolIds: ["vscode"] },
+  { id: "graphify", name: "Graphify", repository: "Graphify-Labs/graphify", description: "将代码、文档与配置映射为可查询的知识图谱，帮助理解项目结构和依赖关系。", categoryId: "coding-data", tags: ["代码图谱", "项目理解"], mark: "GY", tone: "blue", difficulty: "需要配置", relatedToolIds: ["python", "git", "opencode", "cursor"] },
+  { id: "build-your-own-x", name: "Build Your Own X", repository: "codecrafters-io/build-your-own-x", description: "按技术主题整理的动手实现教程合集，通过从零复刻工具理解其工作原理。", categoryId: "coding-data", tags: ["编码教程", "项目模板"], mark: "BX", tone: "mint", difficulty: "入门友好", relatedToolIds: ["git", "vscode"] },
   { id: "streamlit", name: "Streamlit", repository: "streamlit/streamlit", description: "使用 Python 快速构建和分享交互式数据应用。", categoryId: "coding-data", tags: ["Python", "数据应用"], mark: "ST", tone: "blue", difficulty: "入门友好", relatedToolIds: ["python"] },
 
   { id: "ragflow", name: "RAGFlow", repository: "infiniflow/ragflow", description: "结合文档理解、检索增强生成与 Agent 能力的开源 RAG 引擎。", categoryId: "knowledge-docs", tags: ["RAG", "文档理解"], mark: "RF", tone: "mint", difficulty: "进阶部署", relatedToolIds: ["docker"] },
@@ -58,7 +64,7 @@ export function getGitHubProjectUrl(project: GitHubProject) {
 }
 
 export function getGitHubProjectLogo(project: GitHubProject) {
-  const extension = project.id === "real-esrgan" ? "jpg" : "png";
+  const extension = ["real-esrgan", "n8n-workflows"].includes(project.id) ? "jpg" : "png";
   return `/github-project-logos/${project.id}.${extension}`;
 }
 

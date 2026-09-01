@@ -649,7 +649,7 @@ test("资源导航的全部入口都使用项目内 Logo", () => {
 });
 
 test("GitHub 精选项目使用有效且唯一的官方仓库地址", () => {
-  assert.equal(githubProjects.length, 23);
+  assert.equal(githubProjects.length, 29);
   assert.equal(githubProjectCategories.length, 6);
   const repositories = new Set<string>();
   const categoryIds = new Set(githubProjectCategories.map((category) => category.id));
@@ -669,6 +669,12 @@ test("GitHub 精选项目使用有效且唯一的官方仓库地址", () => {
   assert.equal(githubProjects.find((project) => project.id === "stable-diffusion-webui")?.categoryId, "creative");
   assert.equal(githubProjects.find((project) => project.id === "voxcpm")?.repository, "OpenBMB/VoxCPM");
   assert.equal(githubProjects.find((project) => project.id === "voxcpm")?.categoryId, "speech");
+  assert.equal(githubProjects.find((project) => project.id === "graphify")?.categoryId, "coding-data");
+  assert.equal(githubProjects.find((project) => project.id === "open-design")?.categoryId, "creative");
+  assert.equal(githubProjects.find((project) => project.id === "build-your-own-x")?.categoryId, "coding-data");
+  for (const id of ["n8n-workflows", "deepagents", "langflow"]) {
+    assert.equal(githubProjects.find((project) => project.id === id)?.categoryId, "automation");
+  }
   assert.equal(githubProjects.find((project) => project.id === "lobehub")?.tags.includes("原 LobeChat"), true);
   assert.equal(githubProjects.find((project) => project.id === "vane")?.tags.includes("原 Perplexica"), true);
 });
@@ -682,8 +688,8 @@ test("GitHub 项目难度标签和关联工具保持有效", () => {
     }
   }
   assert.deepEqual(getRelatedGitHubProjects("ollama").map((project) => project.id), ["open-webui", "vane", "ollama-repo"]);
-  assert.deepEqual(getRelatedGitHubProjects("python").map((project) => project.id), ["stable-diffusion-webui", "comfyui", "real-esrgan", "streamlit", "graphrag", "markitdown", "whisper", "voxcpm", "gpt-sovits"]);
-  assert.deepEqual(getRelatedGitHubProjects("docker").map((project) => project.id), ["dify", "n8n", "firecrawl", "tabby", "ragflow", "open-webui"]);
+  assert.deepEqual(getRelatedGitHubProjects("python").map((project) => project.id), ["n8n-workflows", "deepagents", "langflow", "stable-diffusion-webui", "comfyui", "real-esrgan", "graphify", "streamlit", "graphrag", "markitdown", "whisper", "voxcpm", "gpt-sovits"]);
+  assert.deepEqual(getRelatedGitHubProjects("docker").map((project) => project.id), ["dify", "n8n", "n8n-workflows", "langflow", "firecrawl", "tabby", "ragflow", "open-webui"]);
 });
 
 test("常见问题页面包含六类 30 个有效问答", () => {
@@ -734,6 +740,8 @@ test("进阶计划使用五种模板提供动态对话与隔离预览", () => {
   assert.match(practiceLabSource, /番茄钟计时器/);
   assert.match(practiceLabSource, /createTaskboardDocument/);
   assert.match(practiceLabSource, /createPomodoroDocument/);
+  assert.match(practiceLabSource, /<button type="button">浏览案例<\/button><button class="secondary" type="button">开始交流<\/button>/);
+  assert.doesNotMatch(practiceLabSource, /href="#(?:work|contact)"/);
   assert.match(practiceLabSource, /React、TypeScript、Tailwind CSS 和 Motion/);
   assert.match(practiceLabSource, /practice-conversation-window/);
   assert.match(practiceLabSource, /practice-inline-delivery/);

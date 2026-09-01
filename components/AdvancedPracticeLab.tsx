@@ -296,8 +296,8 @@ function createHeroDocument(stage: number) {
     .content h1{display:${showContent ? "block" : "none"};max-width:820px;margin:17px 0 16px;font-size:clamp(30px,4.7vw,36px);line-height:1.06;letter-spacing:-.055em;white-space:nowrap;animation:${stage >= 4 ? "rise .8s .08s both" : "none"}}
     .content p{display:${showContent ? "block" : "none"};max-width:500px;margin:0;color:#657071;font-size:13px;line-height:1.78;animation:${stage >= 4 ? "rise .8s .16s both" : "none"}}
     .actions{display:${showContent ? "flex" : "none"};margin-top:26px;gap:9px;animation:${stage >= 4 ? "rise .8s .24s both" : "none"}}
-    .actions a{padding:11px 15px;color:#243031;background:#e8eeee;border:1px solid #d5e0e0;border-radius:10px;font-size:10px;font-weight:800;text-decoration:none}
-    .actions a.secondary{color:#596465;background:#fff;border-color:#e0e5e5}
+    .actions button{padding:11px 15px;color:#243031;background:#e8eeee;border:1px solid #d5e0e0;border-radius:10px;font:inherit;font-size:10px;font-weight:800;cursor:pointer}
+    .actions button.secondary{color:#596465;background:#fff;border-color:#e0e5e5}
     .skeleton{display:${stage === 1 ? "grid" : "none"};width:min(560px,80%);padding:88px 0 0 54px;gap:13px}
     .skeleton i{height:14px;background:#edf0f0;border-radius:8px}
     .skeleton i:first-child{width:30%}.skeleton i:nth-child(2){width:92%;height:54px}.skeleton i:last-child{width:68%}
@@ -327,7 +327,7 @@ function createHeroDocument(stage: number) {
       <header class="top"><span class="brand"><i>O</i> ORBIT STUDIO</span><small>DIGITAL EXPERIENCES · 2026</small></header>
       <div class="placeholder">等待生成首屏结构</div>
       <div class="skeleton"><i></i><i></i><i></i></div>
-      <div class="content"><span class="eyebrow">独立数字体验工作室</span><h1>让有价值的想法，被更清楚地看见。</h1><p>从品牌表达、产品界面到动态体验，我们用简洁的系统帮助团队构建更有辨识度的数字产品。</p><div class="actions"><a href="#work">浏览案例</a><a class="secondary" href="#contact">开始交流</a></div></div>
+      <div class="content"><span class="eyebrow">独立数字体验工作室</span><h1>让有价值的想法，被更清楚地看见。</h1><p>从品牌表达、产品界面到动态体验，我们用简洁的系统帮助团队构建更有辨识度的数字产品。</p><div class="actions"><button type="button">浏览案例</button><button class="secondary" type="button">开始交流</button></div></div>
       <nav class="float-nav" aria-label="示例导航"><span>首页</span><span>案例</span><span>方法</span><span>联系</span></nav>
       <div class="marquee" aria-label="合作品牌"><div class="track"><span>NORTH</span><span>FORM</span><span>STILL</span><span>FIELD</span><span>ATLAS</span></div><div class="track" aria-hidden="true"><span>NORTH</span><span>FORM</span><span>STILL</span><span>FIELD</span><span>ATLAS</span></div></div>
     </section>
@@ -347,7 +347,7 @@ function createRevisionStyle(revisionId: string) {
     "pomodoro-presets": ".presets{display:flex}.timer{padding-top:35px}.time{margin-bottom:15px}",
     "pomodoro-focus": ".timer.running .label,.timer.running .tip,.timer.running #reset{opacity:.2}.timer.running .time{font-size:clamp(86px,17vw,132px)}.timer.running{background:#fafbfb}.timer.running .buttons button:first-child{min-width:125px}",
     "hero-motion": ".scene .mist,.track{animation:none}.scene{opacity:.42}.veil{background:rgba(255,255,255,.9)}.float-nav{box-shadow:none;border-color:#d9dfdf}",
-    "hero-cta": ".actions{width:min(690px,100%);padding:12px;align-items:center;background:rgba(255,255,255,.9);border:1px solid #dce2e2;border-radius:14px;box-shadow:0 12px 30px rgba(42,55,56,.08)}.actions:after{content:'预计两周完成首版';margin-left:auto;color:#687475;font-size:10px;font-weight:700}.actions a:first-child{padding:13px 20px;color:#fff;background:#3f494a;border-color:#3f494a;font-size:11px}.actions a.secondary{padding:13px 16px}@media(max-width:620px){.actions{align-items:stretch;flex-direction:column}.actions:after{margin:2px 0 0}.actions a{text-align:center}}",
+    "hero-cta": ".actions{width:min(690px,100%);padding:12px;align-items:center;background:rgba(255,255,255,.9);border:1px solid #dce2e2;border-radius:14px;box-shadow:0 12px 30px rgba(42,55,56,.08)}.actions:after{content:'预计两周完成首版';margin-left:auto;color:#687475;font-size:10px;font-weight:700}.actions button:first-child{padding:13px 20px;color:#fff;background:#3f494a;border-color:#3f494a;font-size:11px}.actions button.secondary{padding:13px 16px}@media(max-width:620px){.actions{align-items:stretch;flex-direction:column}.actions:after{margin:2px 0 0}.actions button{text-align:center}}",
   };
   return revisionStyles[revisionId] ? `<style>${revisionStyles[revisionId]}</style>` : "";
 }
