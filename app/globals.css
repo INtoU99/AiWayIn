@@ -1442,7 +1442,7 @@ h1 { margin: 24px 0 16px; max-width: 680px; font-size: clamp(37px, 3.65vw, 52px)
 .environment-tool-select select { min-width: 0; width: 100%; color: var(--ink); background: transparent; border: 0; outline: none; font: inherit; cursor: pointer; }
 .environment-device-picker { margin: 25px 0 0; padding: 0; border: 0; }
 .environment-device-picker legend { margin-bottom: 10px; color: #315149; font-size: 12px; font-weight: 750; }
-.environment-device-picker > div { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+.environment-device-picker > div { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
 .environment-device-picker label { min-height: 42px; display: grid; place-items: center; color: #536b64; background: rgba(255,255,255,.72); border: 1px solid rgba(173,204,195,.68); border-radius: 10px; font-size: 12px; cursor: pointer; }
 .environment-device-picker label.selected { color: var(--brand); background: #fff; border-color: rgba(82,151,135,.66); box-shadow: inset 0 0 0 1px rgba(29,114,95,.07); font-weight: 750; }
 .environment-device-picker input { position: absolute; opacity: 0; pointer-events: none; }

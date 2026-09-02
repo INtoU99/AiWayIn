@@ -195,7 +195,7 @@ export default function AdvancedPage() {
                   <div className="advanced-code-lesson-body"><div className="advanced-coding-scope-intro"><p>AI 可以参与选题、大纲、写作与编辑，也能协助封面构图、图片提示、视频脚本、分镜、旁白、字幕和多平台内容转换。这些能力需要组织成连续工作流，避免分别生成无法配合的素材。它们通常按照“选题与结构 → 文字与视觉 → 组合交付 → 发布复核”的顺序协作。</p></div><div className="advanced-content-capability-grid"><span>选题、大纲与长文编辑</span><span>标题、文案与品牌语气</span><span>封面、海报与图片说明</span><span>视频脚本、分镜与旁白</span><span>字幕、配音与素材组织</span><span>一份内容的多平台复用</span></div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
-                  <summary><span><small>创作流程</small><strong>从内容目标到可以发布的完整成果</strong></span><b aria-hidden="true">＋</b></summary>
+                  <summary><span><small>创作流程</small><strong>完成一份可以发布的内容</strong></span><b aria-hidden="true">＋</b></summary>
                   <div className="advanced-code-lesson-body"><ol className="advanced-content-workflow"><li><span>01</span><p><strong>明确目标与受众</strong>说明内容解决什么问题，以及希望产生什么行动。</p></li><li><span>02</span><p><strong>准备事实与素材</strong>整理可用资料、品牌信息和已经获得授权的素材。</p></li><li><span>03</span><p><strong>建立内容结构</strong>先确认大纲、叙事顺序或镜头结构，再生成完整内容。</p></li><li><span>04</span><p><strong>完成文字与视觉</strong>统一语气、构图、色彩、镜头和信息层级。</p></li><li><span>05</span><p><strong>组合媒介成果</strong>将文案、图片、旁白、字幕和视频素材对应起来。</p></li><li><span>06</span><p><strong>人工检查与导出</strong>核对事实、版权、平台规格和文件格式。</p></li><li><span>07</span><p><strong>按渠道重新组织</strong>从可靠母内容生成不同平台版本，不机械复制同一份文本。</p></li></ol><p className="advanced-content-prompt-formula">创作简报结构：目标 → 受众 → 核心信息 → 发布渠道 → 内容形式 → 风格语气 → 已有素材 → 交付要求 → 验收标准</p></div>
                 </details>
                 <details className="advanced-code-lesson-card">
@@ -208,7 +208,7 @@ export default function AdvancedPage() {
                   <div className="advanced-code-starter-horizontal"><div><strong>{direction.starter}</strong><p>先完成一次人工可检查的小流程，确认方法有效后，再考虑扩大项目范围、增加依赖或引入自动化。</p></div><div className="advanced-coding-entry-tags" aria-label="代码构建的常见起点"><span>从零构建原型</span><span>迭代现有项目</span><span>调试、测试与交付</span></div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
-                  <summary><span><small>基础框架</small><strong>让 AI 输出更规范，需要先说明哪些项目条件？</strong></span><b aria-hidden="true">＋</b></summary>
+                  <summary><span><small>基础框架</small><strong>先说明项目条件，AI 输出才更规范</strong></span><b aria-hidden="true">＋</b></summary>
                   <div className="advanced-code-lesson-body"><div className="advanced-foundation-grid">{direction.foundations.map(([title, description]) => <article key={title}><strong>{title}</strong><p>{description}</p></article>)}</div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
@@ -229,7 +229,7 @@ export default function AdvancedPage() {
                   <div className="advanced-code-starter-horizontal"><div><strong>{direction.starter}</strong><p>先明确手中已有的资料、仍然缺少的信息和最终交付格式，再让 AI 开始处理。</p></div><div className="advanced-coding-entry-tags" aria-label="办公与研究的常见起点"><span>整理已有资料</span><span>比较多个来源</span><span>转换文档或数据</span></div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
-                  <summary><span><small>基础框架</small><strong>让结果可信且可继续使用，需要先说明什么？</strong></span><b aria-hidden="true">＋</b></summary>
+                  <summary><span><small>基础框架</small><strong>资料与交付要求越清楚，结果越容易核对和继续使用</strong></span><b aria-hidden="true">＋</b></summary>
                   <div className="advanced-code-lesson-body"><div className="advanced-foundation-grid">{direction.foundations.map(([title, description]) => <article key={title}><strong>{title}</strong><p>{description}</p></article>)}</div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
@@ -237,7 +237,7 @@ export default function AdvancedPage() {
                   <div className="advanced-code-lesson-body"><div className="advanced-coding-scope-intro"><p>AI 可以协助长文摘要、多来源比较、研究问题拆解、引用整理、文档差异对照、表格清洗与统计、会议纪要、演示大纲和资料归档。它可以缩短资料整理过程，事实核验与专业判断仍需由人完成。</p></div><div className="advanced-office-capability-grid"><span>长文与多来源研究</span><span>文档比较与格式整理</span><span>表格清洗与数据分析</span><span>会议纪要与行动项</span><span>演示大纲与讲述逻辑</span><span>知识归档与资料转换</span></div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
-                  <summary><span><small>实战路径</small><strong>从原始资料到可复核的交付成果</strong></span><b aria-hidden="true">＋</b></summary>
+                  <summary><span><small>实战路径</small><strong>原始资料的处理、核对与交付</strong></span><b aria-hidden="true">＋</b></summary>
                   <div className="advanced-code-lesson-body"><ol className="advanced-office-workflow"><li><span>01</span><p><strong>保留原始资料</strong>建立副本或新版本，不让 AI 直接覆盖唯一原件。</p></li><li><span>02</span><p><strong>定义用途与受众</strong>说明结果给谁看、解决什么问题以及最终格式。</p></li><li><span>03</span><p><strong>整理输入边界</strong>区分事实、观点、待确认信息和不可修改内容。</p></li><li><span>04</span><p><strong>要求保留来源</strong>让 AI 标记引用依据和无法确认的内容。</p></li><li><span>05</span><p><strong>先看结构或小样</strong>确认方向正确后再处理全部资料。</p></li><li><span>06</span><p><strong>逐项人工复核</strong>检查数字、日期、引用、公式和关键结论。</p></li><li><span>07</span><p><strong>导出并记录版本</strong>保存为可继续编辑的文件，同时保留处理说明。</p></li></ol><p className="advanced-office-prompt-formula">通用任务结构：背景与用途 → 输入资料 → 处理任务 → 不可更改内容 → 输出结构 → 来源规则 → 验收标准</p></div>
                 </details>
                 <details className="advanced-code-lesson-card">
@@ -250,7 +250,7 @@ export default function AdvancedPage() {
                   <div className="advanced-code-starter-horizontal"><div><strong>{direction.starter}</strong><p>适合自动化的任务通常经常重复、步骤稳定、输入输出清楚，而且结果能够人工检查。不要从高风险或无法判断正确性的任务开始。</p></div><div className="advanced-coding-entry-tags" aria-label="Agent 自动化的常见起点"><span>定时资料摘要</span><span>公开来源监测</span><span>周期办公分析</span></div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
-                  <summary><span><small>基础框架</small><strong>让 Agent 稳定重复工作，需要先定义什么？</strong></span><b aria-hidden="true">＋</b></summary>
+                  <summary><span><small>基础框架</small><strong>Agent 稳定重复工作，需要明确任务、触发条件与运行边界</strong></span><b aria-hidden="true">＋</b></summary>
                   <div className="advanced-code-lesson-body"><div className="advanced-foundation-grid">{direction.foundations.map(([title, description]) => <article key={title}><strong>{title}</strong><p>{description}</p></article>)}</div><div className="advanced-agent-terms"><article><strong>Skill</strong><p>任务已有稳定做法时，用它告诉 Agent 应该怎样完成。</p></article><article><strong>MCP</strong><p>Agent 需要读取文件、浏览器、文档或其他服务时，用它建立连接。</p></article><article><strong>API</strong><p>程序需要按固定规则访问外部能力或数据时，通过它进行调用。</p></article><article><strong>定时任务</strong><p>流程需要在指定时间重复运行时，用它设置触发频率。</p></article></div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
@@ -258,7 +258,7 @@ export default function AdvancedPage() {
                   <div className="advanced-code-lesson-body"><div className="advanced-coding-scope-intro"><p>Agent 可以定时整理摘要、监测公开公告、批量处理文档与表格、生成周期报告、提取会议行动项、检查文件异常或转换固定格式。公开信息收集应优先使用官方 API、RSS 或允许访问的公开页面，并遵守访问频率、使用条款与版权要求。</p></div><div className="advanced-agent-capability-grid"><span>定时日报与周报</span><span>公开来源变化监测</span><span>批量文档与表格处理</span><span>会议行动项整理</span><span>文件异常与格式检查</span><span>固定内容格式转换</span></div></div>
                 </details>
                 <details className="advanced-code-lesson-card">
-                  <summary><span><small>实战路径</small><strong>从一次可靠执行，逐步升级到定时运行</strong></span><b aria-hidden="true">＋</b></summary>
+                  <summary><span><small>实战路径</small><strong>先验证单次执行，再配置定时运行</strong></span><b aria-hidden="true">＋</b></summary>
                   <div className="advanced-code-lesson-body"><ol className="advanced-agent-workflow"><li><span>01</span><p><strong>找到重复工作</strong>选择每周至少重复一次、结果可以检查的任务。</p></li><li><span>02</span><p><strong>记录人工步骤</strong>完整执行一次，写下输入、判断、工具和输出。</p></li><li><span>03</span><p><strong>删除不稳定步骤</strong>暂时保留需要主观判断或风险较高的人工环节。</p></li><li><span>04</span><p><strong>限定工具与权限</strong>只开放任务需要的资料、目录和服务。</p></li><li><span>05</span><p><strong>先手动触发运行</strong>观察日志、输出和异常，不急于设置定时。</p></li><li><span>06</span><p><strong>处理重复与失败</strong>加入去重、停止条件、错误说明和恢复位置。</p></li><li><span>07</span><p><strong>最后加入定时</strong>连续稳定后再设置频率，并定期检查费用与失效来源。</p></li></ol><p className="advanced-agent-prompt-formula">可靠路径：手动跑通 → 写成步骤 → 限定权限 → 单次执行 → 验证结果 → 处理失败 → 最后定时</p></div>
                 </details>
                 <details className="advanced-code-lesson-card">

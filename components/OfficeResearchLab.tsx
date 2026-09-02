@@ -135,7 +135,7 @@ export function OfficeResearchLab() {
 
   return (
     <section className="office-research-lab" aria-labelledby="office-lab-title">
-      <header className="office-lab-heading"><div><span>三种办公成果演示 · 非实时 AI</span><h3 id="office-lab-title">从资料输入，到可复核的办公成果</h3><p>三个模板分别演示文件交付、对话内纪要和表格前后对照，不读取真实文件。</p></div><b>{progress}%</b></header>
+      <header className="office-lab-heading"><div><span>三种办公成果演示 · 非实时 AI</span><h3 id="office-lab-title">整理输入资料，完成可复核的办公成果</h3><p>三个模板分别演示文件交付、对话内纪要和表格前后对照，不读取真实文件。</p></div><b>{progress}%</b></header>
 
       <div className="office-lab-window">
         <div className="office-lab-toolbar"><span><i aria-hidden="true">✣</i> 办公研究工作台</span><small>预设数据 · 无上传 · 无外部请求</small></div>

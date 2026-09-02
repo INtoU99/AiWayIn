@@ -117,7 +117,7 @@ export function ContentCreationLab() {
 
   return (
     <section className="content-creation-lab" aria-labelledby="content-lab-title">
-      <header className="content-lab-heading"><div><span>单次创作演示 · 非实时 AI</span><h3 id="content-lab-title">从创作简报，到一份完整内容成果</h3><p>三个模板分别演示文章、社交图文与短视频方案，只进行一次完整生成。</p></div><b>{progress}%</b></header>
+      <header className="content-lab-heading"><div><span>单次创作演示 · 非实时 AI</span><h3 id="content-lab-title">用创作简报完成内容成果</h3><p>三个模板分别演示文章、社交图文与短视频方案，只进行一次完整生成。</p></div><b>{progress}%</b></header>
 
       <div className="content-lab-window">
         <div className="content-lab-toolbar"><span><i aria-hidden="true">✦</i> 内容创作工作台</span><small>预设主题 · 无上传 · 无外部请求</small></div>

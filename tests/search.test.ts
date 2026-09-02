@@ -9,7 +9,7 @@ import { getGitHubProjectLogo, getGitHubProjectUrl, getRelatedGitHubProjects, gi
 import { getQuestionCategory, questionCategories, questions } from "../data/questions.ts";
 import { aiWebServices, apiPlatforms, featuredResources, getResourceCategory, networkCheckServices, platformClients, resourceCategories } from "../data/resources.ts";
 import { catalogTools, getTool } from "../data/tools.ts";
-import { detectEnvironmentDevice, getEnvironmentCommandHint, toolSupportsEnvironmentDevice } from "../lib/environmentChecker.ts";
+import { detectEnvironmentDevice, environmentDevices, getEnvironmentCommandHint, toolSupportsEnvironmentDevice } from "../lib/environmentChecker.ts";
 import { recommendTools } from "../lib/pathFinder.ts";
 import { matchesSearch, tokenizeQuery } from "../lib/search.ts";
 
@@ -195,7 +195,7 @@ test("进阶计划使用四个可折叠方向并提供跨形态应用框架", ()
   assert.equal((source.match(/className="advanced-code-lesson-card"/g) ?? []).length, 20);
   assert.match(source, /className="advanced-code-starter-horizontal"/);
   assert.match(source, /<strong>可以先从这里开始<\/strong>/);
-  assert.match(source, /<strong>让 AI 输出更规范，需要先说明哪些项目条件？<\/strong>/);
+  assert.match(source, /<strong>先说明项目条件，AI 输出才更规范<\/strong>/);
   assert.match(source, /<strong>应用构建并非以页面生成为终点<\/strong>/);
   assert.match(source, /<strong>建立可复用的协作路径<\/strong>/);
   assert.match(source, /保持良好的习惯，是提升效率的高级途径/);
@@ -535,6 +535,7 @@ test("图片能力的条件与实验状态不会被写成原生支持", () => {
 });
 
 test("环境自检可以识别常见设备类型", () => {
+  assert.deepEqual(environmentDevices.map((item) => item.id), ["windows", "macos", "linux"]);
   assert.equal(detectEnvironmentDevice("Mozilla/5.0 (Windows NT 10.0; Win64; x64)"), "windows");
   assert.equal(detectEnvironmentDevice("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) Mobile"), "mobile");
   assert.equal(detectEnvironmentDevice("Mozilla/5.0 (X11; Linux x86_64)"), "linux");

@@ -12,7 +12,6 @@ export const environmentDevices: Array<{ id: EnvironmentDeviceId; label: string 
   { id: "windows", label: "Windows" },
   { id: "macos", label: "macOS" },
   { id: "linux", label: "Linux" },
-  { id: "mobile", label: "手机或平板" },
 ];
 
 export function detectEnvironmentDevice(userAgent: string): EnvironmentDeviceId {
