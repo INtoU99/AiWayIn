@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title>ZCode</title>
+  <rect width="256" height="256" rx="48" fill="#0b0c0d"/>
+  <g transform="translate(0 19)" fill="#fff">
+    <path d="M134.4.13 116.48 25.602A15.2 15.2 0 0 1 104.064 32.002H6.4V0c0 .13 128 .13 128 .13Z"/>
+    <path d="M256 .13 102.401 217.732H0L153.599.13H256Z"/>
+    <path d="m121.601 217.732 18.049-25.598a15.2 15.2 0 0 1 12.417-6.4h97.537v32.002H121.601Z"/>
+  </g>
+</svg>

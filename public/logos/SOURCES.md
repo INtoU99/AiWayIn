@@ -6,7 +6,9 @@
 | --- | --- | --- | --- |
 | `claude.svg` | Claude | <https://claude.com/favicon.svg> | Claude 官方网站公开图标。 |
 | `chatgpt.svg` | ChatGPT | <https://openai.com/brand/> | OpenAI 官方 Blossom 素材；按照品牌规范仅作产品识别。 |
+| `doubao.png` | 豆包 | <https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/favicon/new-doubao/180x180.png> | 豆包官方网站公开应用图标；复用站内资源导航的同一官方素材。 |
 | `deepseek-harness.svg` | DeepSeek Harness | <https://deepseek.com/harness/favicon.svg> | DeepSeek Harness 官方网站公开图标。 |
+| `zcode.svg` | ZCode | <https://zcode.z.ai/cn> | ZCode 中文官网页眉公开的矢量产品标志。 |
 | `hermes-agent.png` | Hermes Agent | <https://github.com/NousResearch/hermes-agent> | NousResearch 官方仓库桌面端图标。 |
 | `workbuddy.svg` | Tencent WorkBuddy | <https://www.workbuddy.ai/> | Tencent WorkBuddy 官方网站公开应用图标。 |
 | `trae-work.png` | TraeWork | <https://www.trae.ai/work> | TraeWork 官方网站公开图标。 |

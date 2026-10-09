@@ -7,7 +7,7 @@ import { catalogTools, getToolsByCategory, toolCategories } from "@/data/tools";
 
 export const metadata: Metadata = {
   title: "AI 工具导航与安装入口 | 开启使用 AI 的第一步",
-  description: "按桌面应用、本地 Agent、开发环境、配置工具和本地模型分类查找可信的官方入口与中文说明。",
+  description: "按 AI 桌面助手与 Agent、开发环境、配置工具和本地模型分类查找可信的官方入口与中文说明。",
 };
 
 export default function ToolsPage() {
@@ -19,7 +19,7 @@ export default function ToolsPage() {
         <div className="tools-hero-copy">
           <span className="eyebrow">{catalogTools.length} 个已核验入口</span>
           <h1>按目标找到工具，<br />再决定需要哪些环境</h1>
-          <p>桌面应用可以直接开始，Agent 与开发工具按需求安装。详情页会说明适用场景、环境依赖与验收方法。</p>
+          <p>通用助手可以直接开始，Agent 与开发工具按目标和权限需求选择。详情页会说明适用场景、环境依赖与验收方法。</p>
           <nav className="category-jump tools-category-jump" aria-label="工具分类快速跳转">
             {toolCategories.map((category) => <a href={`#${category.id}`} key={category.id}>{category.title}</a>)}
           </nav>

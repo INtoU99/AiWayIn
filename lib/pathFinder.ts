@@ -182,7 +182,7 @@ const toolProfiles: ToolProfile[] = [
     strengths: ["组合模型、插件与 Agent 工作流", "文件、终端、工具和子 Agent 调用", "可追踪的开发与自动化实验"],
     coreSummary: "面向 Agent Harness 开发与运行，适合希望组合模型、插件、本地工具和工作流，并检查完整执行轨迹的用户。",
     extendedSummary: "可通过插件、Skills 或外部服务扩展研究、文档、界面构建和更多工具能力，但这些不是统一的开箱功能。",
-    boundary: "属于本地优先的开发者预览环境，不等于本地模型或通用办公助手；Node.js、模型、凭据、插件权限和外部数据流都需自行管理。",
+    boundary: "桌面预览版可直接安装，但不等于本地模型或通用办公助手；若改用源码或 Web UI，仍需自行管理 Node.js、模型、凭据、插件权限和外部数据流。",
   },
   {
     toolId: "hermes-agent",

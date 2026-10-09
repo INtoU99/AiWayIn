@@ -33,7 +33,7 @@ export function toolSupportsEnvironmentDevice(tool: ToolCatalogItem, device: Env
 export function getEnvironmentCommandHint(toolId: string, requirement: string, device: EnvironmentDeviceId): EnvironmentCommandHint | undefined {
   const normalized = requirement.toLowerCase();
 
-  if ((toolId === "deepseek-harness" || toolId === "nodejs") && /node|npm|npx/.test(normalized)) {
+  if (toolId === "nodejs" && /node|npm|npx/.test(normalized)) {
     return { commands: ["node --version", "npm --version"], helpHref: "/tools/nodejs", note: "两条命令都能返回版本号，才说明 Node.js 与 npm 已可用。" };
   }
 

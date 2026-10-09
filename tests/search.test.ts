@@ -8,7 +8,7 @@ import { directDownloads, getDirectDownload, networkNoticeToolIds } from "../dat
 import { getGitHubProjectLogo, getGitHubProjectUrl, getRelatedGitHubProjects, githubProjectCategories, githubProjects } from "../data/githubProjects.ts";
 import { getQuestionCategory, questionCategories, questions } from "../data/questions.ts";
 import { aiWebServices, apiPlatforms, featuredResources, getResourceCategory, networkCheckServices, platformClients, resourceCategories } from "../data/resources.ts";
-import { catalogTools, getTool } from "../data/tools.ts";
+import { catalogTools, getTool, toolCategories } from "../data/tools.ts";
 import { detectEnvironmentDevice, environmentDevices, getEnvironmentCommandHint, toolSupportsEnvironmentDevice } from "../lib/environmentChecker.ts";
 import { recommendTools } from "../lib/pathFinder.ts";
 import { matchesSearch, tokenizeQuery } from "../lib/search.ts";
@@ -41,8 +41,8 @@ test("无关查询不会产生错误匹配", () => {
   );
 });
 
-test("工具目录包含 17 个不重复的工具入口", () => {
-  assert.equal(catalogTools.length, 17);
+test("工具目录包含 19 个不重复的工具入口", () => {
+  assert.equal(catalogTools.length, 19);
   assert.equal(new Set(catalogTools.map((tool) => tool.id)).size, catalogTools.length);
 });
 
@@ -433,15 +433,32 @@ test("平台代理客户端的基本使用说明位于服务边界警示之前",
 test("OpenCode 有完整工具详情与官方入口", () => {
   const opencode = getTool("opencode");
   assert.ok(opencode);
-  assert.equal(opencode.categoryId, "agents");
+  assert.equal(opencode.categoryId, "desktop");
   assert.equal(opencode.href, "https://opencode.ai/download");
   assert.equal(opencode.docsHref, "https://opencode.ai/docs/");
+});
+
+test("桌面助手与 Agent 合并为同一分区并包含 Cursor", () => {
+  const mergedCategory = toolCategories.find((category) => category.id === "desktop");
+  assert.equal(mergedCategory?.title, "AI 桌面助手与 Agent");
+  assert.equal(toolCategories.some((category) => category.id === "agents"), false);
+  for (const id of ["chatgpt-desktop", "deepseek-harness", "zcode", "opencode", "cursor"]) {
+    assert.equal(getTool(id)?.categoryId, "desktop", `${id} 应位于合并后的桌面助手与 Agent 分区`);
+  }
 });
 
 test("新增的四个工具均有独立详情入口", () => {
   for (const id of ["cursor", "tencent-workbuddy", "trae-work", "kimi-work"]) {
     assert.equal(getTool(id)?.id, id);
   }
+});
+
+test("豆包与 ZCode 使用经过核对的官方入口", () => {
+  const doubao = getTool("doubao-desktop");
+  const zcode = getTool("zcode");
+  assert.equal(doubao?.href, "https://www.doubao.com/download/desktop");
+  assert.equal(zcode?.href, "https://zcode.z.ai/cn");
+  assert.equal(zcode?.docsHref, "https://zcode.z.ai/cn/docs/install");
 });
 
 test("每个工具都使用项目内的本地 Logo 文件", () => {
@@ -549,10 +566,18 @@ test("环境自检按官方平台范围排除不支持的设备", () => {
   assert.equal(toolSupportsEnvironmentDevice(trae, "mobile"), true);
 });
 
-test("DeepSeek Harness 的 Node.js 要求提供只读检测命令", () => {
-  const hint = getEnvironmentCommandHint("deepseek-harness", "Node.js LTS 与 npm/npx", "windows");
+test("Node.js 工具提供只读环境检测命令", () => {
+  const hint = getEnvironmentCommandHint("nodejs", "安装 Node.js LTS 与 npm/npx", "windows");
   assert.deepEqual(hint?.commands, ["node --version", "npm --version"]);
   assert.equal(hint?.helpHref, "/tools/nodejs");
+});
+
+test("DeepSeek Harness 桌面安装不再要求 Node.js 或启动命令", () => {
+  const harness = getTool("deepseek-harness");
+  assert.ok(harness);
+  assert.equal(harness.requirements.some((item) => /node|npm|npx/i.test(item)), false);
+  assert.equal(harness.installSteps.some((item) => /npx|@deepseek/i.test(item)), false);
+  assert.match(harness.installSteps.join(" "), /无需输入启动命令/);
 });
 
 test("Docker 提供 WSL 检测提示并保持在基础工具范围", () => {

@@ -63,7 +63,7 @@ export const comparisonProfiles: ToolComparisonProfile[] = [
   {
     toolId: "deepseek-harness",
     positioning: "本地优先、插件化、可组合且运行轨迹可检查的 Agent Harness。",
-    onboarding: { level: "experimental", title: "开发者预览", detail: "需要 Node.js、模型、凭据，并理解插件与工作目录。" },
+    onboarding: { level: "conditional", title: "桌面预览版可直接安装", detail: "桌面端无需输入启动命令；源码或 Web UI 路线仍需要 Node.js 与开发环境。" },
     bestFor: "研究或搭建 Agent 运行环境、插件、Skills、工具链和执行轨迹的开发者。",
     visual: { level: "conditional", title: "通过插件或代码扩展", detail: "可构建网页与界面；图片能力取决于自行接入的插件、模型或外部工具。" },
     files: { level: "direct", title: "受控工作目录", detail: "可读取和修改文件，并在本地保存会话、附件和运行记录。" },
@@ -152,7 +152,7 @@ export const comparisonProfiles: ToolComparisonProfile[] = [
     toolId: "nodejs",
     positioning: "JavaScript 运行环境，是许多 Agent、脚本和开发工具的基础依赖。",
     onboarding: { level: "direct", title: "安装 LTS 即可", detail: "安装后获得 node、npm 和 npx，但它不是面向任务的 AI 界面。" },
-    bestFor: "运行 npm 工具、JavaScript 项目和 DeepSeek Harness 等依赖。",
+    bestFor: "运行 npm 工具、JavaScript 项目，以及源码或 Web UI 方式的 Agent 工具。",
     visual: { level: "not-primary", title: "不是设计工具", detail: "可作为网页或图片处理项目的运行基础，但自身不提供设计能力。" },
     files: { level: "conditional", title: "由脚本决定", detail: "Node.js 脚本可以读写文件，权限和影响由具体项目决定。" },
     automation: { level: "conditional", title: "脚本运行基础", detail: "能够执行自动化脚本，但需要具体代码或上层工具。" },

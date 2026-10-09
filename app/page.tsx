@@ -13,7 +13,7 @@ type SearchItem = { title: string; description: string; keywords: string; href: 
 
 const searchItems: SearchItem[] = [
   ...catalogTools.map((tool) => ({ title: tool.name, description: tool.searchDescription, keywords: tool.keywords, href: `/tools/${tool.id}`, category: getToolCategory(tool.categoryId)?.title ?? "工具导航" })),
-  { title: "Node.js 环境准备", description: "安装 DeepSeek Harness 前，先确认 Node.js 与 npm 是否可用。", keywords: "node nodejs npm 环境 版本 检测 命令", href: "/tools/nodejs", category: "安装指南" },
+  { title: "Node.js 环境准备", description: "运行 JavaScript 工具或源码版 Agent 前，先确认 Node.js 与 npm 是否可用。", keywords: "node nodejs npm 环境 版本 检测 命令", href: "/tools/nodejs", category: "安装指南" },
 ];
 
 const starterPaths = [
