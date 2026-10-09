@@ -447,6 +447,16 @@ test("桌面助手与 Agent 合并为同一分区并包含 Cursor", () => {
   }
 });
 
+test("工具名称、标签与桌面分区顺序符合新手入口优先级", () => {
+  const desktopIds = catalogTools.filter((tool) => tool.categoryId === "desktop").map((tool) => tool.id);
+  assert.equal(getTool("chatgpt-desktop")?.name, "ChatGPT");
+  assert.equal(getTool("claude-desktop")?.name, "Claude");
+  assert.equal(getTool("chatgpt-desktop")?.badge, "新手首选");
+  assert.equal(getTool("claude-desktop")?.badge, "深度协作");
+  assert.equal(desktopIds[0], "chatgpt-desktop");
+  assert.equal(desktopIds.indexOf("doubao-desktop"), desktopIds.indexOf("trae-work") + 1);
+});
+
 test("新增的四个工具均有独立详情入口", () => {
   for (const id of ["cursor", "tencent-workbuddy", "trae-work", "kimi-work"]) {
     assert.equal(getTool(id)?.id, id);
@@ -522,7 +532,7 @@ test("Agent 运行环境与插件编排需求优先推荐 DeepSeek Harness", () 
 });
 
 test("每个可对比的 AI 助手或 Agent 都有完整且唯一的资料", () => {
-  assert.equal(comparisonToolIds.length, 9);
+  assert.equal(comparisonToolIds.length, 11);
   assert.equal(new Set(comparisonToolIds).size, comparisonToolIds.length);
 
   for (const toolId of comparisonToolIds) {
@@ -536,6 +546,17 @@ test("每个可对比的 AI 助手或 Agent 都有完整且唯一的资料", () 
     assert.ok(profile.boundary.length > 0, `${profile.toolId} 缺少能力边界`);
     assert.ok(profile.chooseWhen.length > 0, `${profile.toolId} 缺少选择建议`);
   }
+});
+
+test("豆包与 ZCode 的工具对比明确区分视觉、文件和自动化边界", () => {
+  const doubao = getComparisonProfile("doubao-desktop");
+  const zcode = getComparisonProfile("zcode");
+  assert.equal(doubao?.visual.level, "direct");
+  assert.equal(doubao?.files.level, "conditional");
+  assert.equal(doubao?.automation.level, "not-primary");
+  assert.equal(zcode?.visual.level, "conditional");
+  assert.equal(zcode?.files.level, "direct");
+  assert.equal(zcode?.automation.level, "direct");
 });
 
 test("基础开发工具与模型运行环境不会进入 Agent 对比选择", () => {

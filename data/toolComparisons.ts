@@ -28,7 +28,9 @@ export const supportLevelLabels: Record<SupportLevel, string> = {
 export const comparisonToolIds = [
   "chatgpt-desktop",
   "claude-desktop",
+  "doubao-desktop",
   "deepseek-harness",
+  "zcode",
   "hermes-agent",
   "tencent-workbuddy",
   "trae-work",
@@ -61,6 +63,17 @@ export const comparisonProfiles: ToolComparisonProfile[] = [
     chooseWhen: "你更看重长文、复杂代码、结构化表达和可交互原型。",
   },
   {
+    toolId: "doubao-desktop",
+    positioning: "面向中文学习、工作和创作场景的综合桌面 AI 助手。",
+    onboarding: { level: "direct", title: "中文桌面端直接开始", detail: "下载安装后即可进行中文问答、搜索、翻译和创作，不要求开发环境。" },
+    bestFor: "希望优先获得中文交互、桌面辅助、搜索翻译和图片创作能力的新手用户。",
+    visual: { level: "direct", title: "图片理解与生成", detail: "官方桌面页明确提供截图提问、图片理解和 AI 图片创作，具体模型与次数受当前产品能力影响。" },
+    files: { level: "conditional", title: "共享内容后辅助处理", detail: "可共享 Word、Excel、VS Code 或截图内容进行问答和分析；这不等于默认拥有完整文件系统读写权限。" },
+    automation: { level: "not-primary", title: "以桌面辅助为主", detail: "公开桌面能力侧重问答、搜索、翻译、创作和应用内容辅助，不应视为通用终端或定时自动化 Agent。" },
+    boundary: "豆包是联网的云端 AI 服务；共享软件内容、截图和文件会把相应数据交给服务处理，且公开能力不能等同于任意控制本机应用。",
+    chooseWhen: "你重视中文体验、图片生成、桌面翻译和较低的使用门槛。",
+  },
+  {
     toolId: "deepseek-harness",
     positioning: "本地优先、插件化、可组合且运行轨迹可检查的 Agent Harness。",
     onboarding: { level: "conditional", title: "桌面预览版可直接安装", detail: "桌面端无需输入启动命令；源码或 Web UI 路线仍需要 Node.js 与开发环境。" },
@@ -70,6 +83,17 @@ export const comparisonProfiles: ToolComparisonProfile[] = [
     automation: { level: "direct", title: "终端、工具与子 Agent", detail: "核心能力是组合插件、工具、沙箱、调度和多步工作流。" },
     boundary: "本地优先不等于本地模型；外部模型、MCP、插件与网络工具仍可能发送数据。",
     chooseWhen: "你要搭建或研究 Agent 系统，而不是寻找免配置办公助手。",
+  },
+  {
+    toolId: "zcode",
+    positioning: "围绕 GLM-5.3 长程任务打造的桌面 Agentic Development Environment。",
+    onboarding: { level: "conditional", title: "安装直接，使用需要工程基础", detail: "桌面应用可直接安装，但首次使用需要连接 Z.ai、BigModel 或 API Key，并理解项目、Git、终端和权限确认。" },
+    bestFor: "需要 Agent 持续完成规划、编码、调试、测试、项目预览和变更审查的开发用户。",
+    visual: { level: "conditional", title: "多模态理解与代码化界面", detail: "可结合截图和项目上下文实现、调试网页或应用界面；它不是通用图片生成或画布设计工具。" },
+    files: { level: "direct", title: "项目文件、Git 与任务上下文", detail: "可持续读取和修改项目文件，并结合终端结果、浏览器上下文与 Git 状态推进开发任务。" },
+    automation: { level: "direct", title: "长任务、浏览器与可扩展工具", detail: "支持目标模式、自动化、浏览器操作、子智能体、Skills、MCP、命令和 Hooks，并对关键操作提供确认流程。" },
+    boundary: "ZCode 聚焦软件开发而非通用办公；Agent 可修改文件、运行命令和调用外部服务，模型连接、Coding Plan 或 API 用量也会影响可用能力与费用。",
+    chooseWhen: "你主要处理代码仓库，并希望由 GLM 驱动的 Agent 连续完成实现、验证与 Review。",
   },
   {
     toolId: "hermes-agent",
@@ -217,9 +241,9 @@ export const comparisonProfiles: ToolComparisonProfile[] = [
 ];
 
 export const comparisonPresets = [
-  { label: "ChatGPT vs Claude", toolIds: ["chatgpt-desktop", "claude-desktop"] },
+  { label: "通用助手三选", toolIds: ["chatgpt-desktop", "claude-desktop", "doubao-desktop"] },
   { label: "办公 Agent 三选", toolIds: ["tencent-workbuddy", "kimi-work", "trae-work"] },
-  { label: "开发 Agent 三选", toolIds: ["cursor", "deepseek-harness", "hermes-agent"] },
+  { label: "开发 Agent 三选", toolIds: ["cursor", "zcode", "deepseek-harness"] },
 ];
 
 export function getComparisonProfile(toolId: string) {
